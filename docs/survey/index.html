@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Concept Survey — Help Us With Research!</title>
+<style>
+  :root { --bg: #fafafa; --card: #fff; --text: #1a1a1a; --muted: #666; --accent: #2563eb; --border: #e2e8f0; --hover: #1d4ed8; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 680px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-size: 1.6rem; margin-bottom: 8px; }
+  .subtitle { color: var(--muted); margin-bottom: 32px; font-size: 0.95rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .card h2 { font-size: 1.15rem; margin-bottom: 4px; }
+  .card .label { font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+  .concept-box { background: #f0f4ff; border: 1px solid #c7d7fe; border-radius: 8px; padding: 16px; margin: 16px 0; font-size: 0.95rem; }
+  .concept-box strong { display: block; margin-bottom: 4px; color: var(--accent); }
+  .question { margin-bottom: 20px; }
+  .question p { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+  .likert { display: flex; gap: 0; justify-content: space-between; }
+  .likert label { flex: 1; text-align: center; cursor: pointer; padding: 10px 4px; border: 1px solid var(--border); font-size: 0.8rem; transition: all 0.15s; }
+  .likert label:first-child { border-radius: 8px 0 0 8px; }
+  .likert label:last-child { border-radius: 0 8px 8px 0; }
+  .likert label:not(:first-child) { border-left: none; }
+  .likert input { display: none; }
+  .likert input:checked + span { background: var(--accent); color: #fff; }
+  .likert label:has(input:checked) { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .likert label:hover { background: #e8edfb; }
+  .likert label:has(input:checked):hover { background: var(--hover); }
+  textarea { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 0.9rem; font-family: inherit; resize: vertical; min-height: 70px; }
+  textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
+  select { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 0.9rem; font-family: inherit; background: #fff; }
+  select:focus { outline: none; border-color: var(--accent); }
+  .rank-section { margin: 16px 0; }
+  .rank-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; cursor: grab; background: #fff; }
+  .rank-item:active { cursor: grabbing; }
+  .rank-num { font-weight: 700; color: var(--accent); min-width: 24px; }
+  .btn { display: block; width: 100%; padding: 14px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+  .btn:hover { background: var(--hover); }
+  .btn:disabled { background: #94a3b8; cursor: not-allowed; }
+  .progress { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--accent); transition: width 0.3s; border-radius: 2px; }
+  .step { display: none; }
+  .step.active { display: block; }
+  .required { color: #ef4444; }
+  .time-est { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 8px; }
+  .error { color: #ef4444; font-size: 0.85rem; margin-top: 4px; display: none; }
+  .thanks { text-align: center; padding: 60px 20px; }
+  .thanks h1 { font-size: 2rem; margin-bottom: 16px; }
+  .thanks p { color: var(--muted); font-size: 1.1rem; }
+  .attention-trap { margin: 16px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="progress"><div class="progress-bar" id="progressBar" style="width: 0%"></div></div>
+
+  <!-- STEP 0: Intro -->
+  <div class="step active" data-step="0">
+    <h1>Product Concept Survey</h1>
+    <p class="subtitle">We're researching how people react to new product ideas. You'll evaluate 3 product concepts — takes about 10-12 minutes.</p>
+    <div class="card">
+      <p>You'll be shown 3 product concepts and asked to rate each on several dimensions, plus share your thoughts in your own words.</p>
+      <p style="margin-top: 12px; color: var(--muted); font-size: 0.9rem;">Your responses are anonymous. Data is used for research purposes only.</p>
+    </div>
+    <button class="btn" onclick="nextStep()">Start Survey →</button>
+    <p class="time-est">~10-12 minutes</p>
+  </div>
+
+  <!-- STEP 1: Demographics -->
+  <div class="step" data-step="1">
+    <div class="card">
+      <h2>About You</h2>
+      <p class="label">Quick demographics — helps us analyze results by group</p>
+
+      <div class="question">
+        <p>Age range <span class="required">*</span></p>
+        <select name="age" required>
+          <option value="">Select...</option>
+          <option value="18-24">18-24</option>
+          <option value="25-34">25-34</option>
+          <option value="35-44">35-44</option>
+          <option value="45-54">45-54</option>
+          <option value="55-64">55-64</option>
+          <option value="65+">65+</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <p>Gender <span class="required">*</span></p>
+        <select name="gender" required>
+          <option value="">Select...</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="non-binary">Non-binary</option>
+          <option value="prefer-not">Prefer not to say</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <p>Household income (USD/year)</p>
+        <select name="income">
+          <option value="">Select...</option>
+          <option value="<25k">Under $25,000</option>
+          <option value="25-50k">$25,000 - $49,999</option>
+          <option value="50-75k">$50,000 - $74,999</option>
+          <option value="75-100k">$75,000 - $99,999</option>
+          <option value="100-150k">$100,000 - $149,999</option>
+          <option value="150k+">$150,000+</option>
+          <option value="prefer-not">Prefer not to say</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <p>Country <span class="required">*</span></p>
+        <select name="country" required>
+          <option value="">Select...</option>
+          <option value="US">United States</option>
+          <option value="UK">United Kingdom</option>
+          <option value="CA">Canada</option>
+          <option value="AU">Australia</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep()">Continue →</button>
+  </div>
+
+  <!-- STEP 2: Concept A -->
+  <div class="step" data-step="2">
+    <div class="card">
+      <h2>Concept 1 of 3</h2>
+      <div class="concept-box">
+        <strong>Wearable AI Pin</strong>
+        A small, screenless wearable device that clips to your clothing and acts as your personal AI assistant. It replaces your smartphone — no screen, fully voice-controlled, always listening for your commands. It can make calls, send messages, answer questions, give directions, and take photos using a tiny projector for visual output. The idea: free yourself from screen addiction while staying connected.
+      </div>
+
+      <div class="question">
+        <p>How likely would you be to purchase or try this product? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="a_purchase" value="1" required><span>1<br>Definitely not</span></label>
+          <label><input type="radio" name="a_purchase" value="2"><span>2<br>Unlikely</span></label>
+          <label><input type="radio" name="a_purchase" value="3"><span>3<br>Maybe</span></label>
+          <label><input type="radio" name="a_purchase" value="4"><span>4<br>Likely</span></label>
+          <label><input type="radio" name="a_purchase" value="5"><span>5<br>Definitely</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How appealing is this concept? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="a_appeal" value="1" required><span>1<br>Not at all</span></label>
+          <label><input type="radio" name="a_appeal" value="2"><span>2</span></label>
+          <label><input type="radio" name="a_appeal" value="3"><span>3<br>Neutral</span></label>
+          <label><input type="radio" name="a_appeal" value="4"><span>4</span></label>
+          <label><input type="radio" name="a_appeal" value="5"><span>5<br>Very appealing</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How unique is this compared to what's available? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="a_unique" value="1" required><span>1<br>Not unique</span></label>
+          <label><input type="radio" name="a_unique" value="2"><span>2</span></label>
+          <label><input type="radio" name="a_unique" value="3"><span>3</span></label>
+          <label><input type="radio" name="a_unique" value="4"><span>4</span></label>
+          <label><input type="radio" name="a_unique" value="5"><span>5<br>Very unique</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How relevant is this to your life? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="a_relevant" value="1" required><span>1<br>Not relevant</span></label>
+          <label><input type="radio" name="a_relevant" value="2"><span>2</span></label>
+          <label><input type="radio" name="a_relevant" value="3"><span>3</span></label>
+          <label><input type="radio" name="a_relevant" value="4"><span>4</span></label>
+          <label><input type="radio" name="a_relevant" value="5"><span>5<br>Very relevant</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How believable are the claims? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="a_believe" value="1" required><span>1<br>Not believable</span></label>
+          <label><input type="radio" name="a_believe" value="2"><span>2</span></label>
+          <label><input type="radio" name="a_believe" value="3"><span>3</span></label>
+          <label><input type="radio" name="a_believe" value="4"><span>4</span></label>
+          <label><input type="radio" name="a_believe" value="5"><span>5<br>Very believable</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How good a value would this be? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="a_value" value="1" required><span>1<br>Poor value</span></label>
+          <label><input type="radio" name="a_value" value="2"><span>2</span></label>
+          <label><input type="radio" name="a_value" value="3"><span>3</span></label>
+          <label><input type="radio" name="a_value" value="4"><span>4</span></label>
+          <label><input type="radio" name="a_value" value="5"><span>5<br>Great value</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>What do you like about this concept? <span class="required">*</span></p>
+        <textarea name="a_likes" placeholder="2-3 sentences about what appeals to you..." required></textarea>
+      </div>
+
+      <div class="question">
+        <p>What concerns or objections do you have? <span class="required">*</span></p>
+        <textarea name="a_concerns" placeholder="2-3 sentences about any worries or dealbreakers..." required></textarea>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep()">Next Concept →</button>
+  </div>
+
+  <!-- STEP 3: Concept B -->
+  <div class="step" data-step="3">
+    <div class="card">
+      <h2>Concept 2 of 3</h2>
+      <div class="concept-box">
+        <strong>Premium Dog Meal Kit</strong>
+        A subscription meal service for dogs — fresh, human-grade ingredients, portioned and personalized to your dog's breed, age, weight, and health needs. Designed by veterinary nutritionists. Delivered weekly in eco-friendly packaging. No kibble, no preservatives. The idea: your dog eats as well as you do, with meals tailored to their specific needs.
+      </div>
+
+      <div class="question">
+        <p>How likely would you be to purchase or try this product? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="b_purchase" value="1" required><span>1<br>Definitely not</span></label>
+          <label><input type="radio" name="b_purchase" value="2"><span>2<br>Unlikely</span></label>
+          <label><input type="radio" name="b_purchase" value="3"><span>3<br>Maybe</span></label>
+          <label><input type="radio" name="b_purchase" value="4"><span>4<br>Likely</span></label>
+          <label><input type="radio" name="b_purchase" value="5"><span>5<br>Definitely</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How appealing is this concept? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="b_appeal" value="1" required><span>1<br>Not at all</span></label>
+          <label><input type="radio" name="b_appeal" value="2"><span>2</span></label>
+          <label><input type="radio" name="b_appeal" value="3"><span>3<br>Neutral</span></label>
+          <label><input type="radio" name="b_appeal" value="4"><span>4</span></label>
+          <label><input type="radio" name="b_appeal" value="5"><span>5<br>Very appealing</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How unique is this compared to what's available? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="b_unique" value="1" required><span>1<br>Not unique</span></label>
+          <label><input type="radio" name="b_unique" value="2"><span>2</span></label>
+          <label><input type="radio" name="b_unique" value="3"><span>3</span></label>
+          <label><input type="radio" name="b_unique" value="4"><span>4</span></label>
+          <label><input type="radio" name="b_unique" value="5"><span>5<br>Very unique</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How relevant is this to your life? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="b_relevant" value="1" required><span>1<br>Not relevant</span></label>
+          <label><input type="radio" name="b_relevant" value="2"><span>2</span></label>
+          <label><input type="radio" name="b_relevant" value="3"><span>3</span></label>
+          <label><input type="radio" name="b_relevant" value="4"><span>4</span></label>
+          <label><input type="radio" name="b_relevant" value="5"><span>5<br>Very relevant</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How believable are the claims? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="b_believe" value="1" required><span>1<br>Not believable</span></label>
+          <label><input type="radio" name="b_believe" value="2"><span>2</span></label>
+          <label><input type="radio" name="b_believe" value="3"><span>3</span></label>
+          <label><input type="radio" name="b_believe" value="4"><span>4</span></label>
+          <label><input type="radio" name="b_believe" value="5"><span>5<br>Very believable</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How good a value would this be? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="b_value" value="1" required><span>1<br>Poor value</span></label>
+          <label><input type="radio" name="b_value" value="2"><span>2</span></label>
+          <label><input type="radio" name="b_value" value="3"><span>3</span></label>
+          <label><input type="radio" name="b_value" value="4"><span>4</span></label>
+          <label><input type="radio" name="b_value" value="5"><span>5<br>Great value</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>What do you like about this concept? <span class="required">*</span></p>
+        <textarea name="b_likes" placeholder="2-3 sentences about what appeals to you..." required></textarea>
+      </div>
+
+      <div class="question">
+        <p>What concerns or objections do you have? <span class="required">*</span></p>
+        <textarea name="b_concerns" placeholder="2-3 sentences about any worries or dealbreakers..." required></textarea>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep()">Next Concept →</button>
+  </div>
+
+  <!-- STEP 4: Concept C -->
+  <div class="step" data-step="4">
+    <div class="card">
+      <h2>Concept 3 of 3</h2>
+      <div class="concept-box">
+        <strong>Walk-to-Earn Rewards App</strong>
+        A mobile app that pays you to walk. It tracks your verified steps using your phone's sensors and GPS, then converts them into reward points redeemable for gift cards (Amazon, Starbucks, Target, etc.). No crypto or tokens — just straightforward points for steps. Walk 10,000 steps/day, earn roughly $1-3/day in rewards. The idea: get paid to be healthy.
+      </div>
+
+      <div class="question">
+        <p>How likely would you be to purchase or try this product? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="c_purchase" value="1" required><span>1<br>Definitely not</span></label>
+          <label><input type="radio" name="c_purchase" value="2"><span>2<br>Unlikely</span></label>
+          <label><input type="radio" name="c_purchase" value="3"><span>3<br>Maybe</span></label>
+          <label><input type="radio" name="c_purchase" value="4"><span>4<br>Likely</span></label>
+          <label><input type="radio" name="c_purchase" value="5"><span>5<br>Definitely</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How appealing is this concept? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="c_appeal" value="1" required><span>1<br>Not at all</span></label>
+          <label><input type="radio" name="c_appeal" value="2"><span>2</span></label>
+          <label><input type="radio" name="c_appeal" value="3"><span>3<br>Neutral</span></label>
+          <label><input type="radio" name="c_appeal" value="4"><span>4</span></label>
+          <label><input type="radio" name="c_appeal" value="5"><span>5<br>Very appealing</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How unique is this compared to what's available? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="c_unique" value="1" required><span>1<br>Not unique</span></label>
+          <label><input type="radio" name="c_unique" value="2"><span>2</span></label>
+          <label><input type="radio" name="c_unique" value="3"><span>3</span></label>
+          <label><input type="radio" name="c_unique" value="4"><span>4</span></label>
+          <label><input type="radio" name="c_unique" value="5"><span>5<br>Very unique</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How relevant is this to your life? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="c_relevant" value="1" required><span>1<br>Not relevant</span></label>
+          <label><input type="radio" name="c_relevant" value="2"><span>2</span></label>
+          <label><input type="radio" name="c_relevant" value="3"><span>3</span></label>
+          <label><input type="radio" name="c_relevant" value="4"><span>4</span></label>
+          <label><input type="radio" name="c_relevant" value="5"><span>5<br>Very relevant</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How believable are the claims? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="c_believe" value="1" required><span>1<br>Not believable</span></label>
+          <label><input type="radio" name="c_believe" value="2"><span>2</span></label>
+          <label><input type="radio" name="c_believe" value="3"><span>3</span></label>
+          <label><input type="radio" name="c_believe" value="4"><span>4</span></label>
+          <label><input type="radio" name="c_believe" value="5"><span>5<br>Very believable</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>How good a value would this be? <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="c_value" value="1" required><span>1<br>Poor value</span></label>
+          <label><input type="radio" name="c_value" value="2"><span>2</span></label>
+          <label><input type="radio" name="c_value" value="3"><span>3</span></label>
+          <label><input type="radio" name="c_value" value="4"><span>4</span></label>
+          <label><input type="radio" name="c_value" value="5"><span>5<br>Great value</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>What do you like about this concept? <span class="required">*</span></p>
+        <textarea name="c_likes" placeholder="2-3 sentences about what appeals to you..." required></textarea>
+      </div>
+
+      <div class="question">
+        <p>What concerns or objections do you have? <span class="required">*</span></p>
+        <textarea name="c_concerns" placeholder="2-3 sentences about any worries or dealbreakers..." required></textarea>
+      </div>
+    </div>
+    <button class="btn" onclick="nextStep()">Almost Done →</button>
+  </div>
+
+  <!-- STEP 5: Ranking + Attention Check -->
+  <div class="step" data-step="5">
+    <div class="card">
+      <h2>Final Questions</h2>
+
+      <div class="question">
+        <p>Rank the 3 concepts from most to least appealing: <span class="required">*</span></p>
+        <div class="question">
+          <label style="display:block; margin-bottom:8px;">Most appealing:</label>
+          <select name="rank_1" required>
+            <option value="">Select...</option>
+            <option value="ai-pin">Wearable AI Pin</option>
+            <option value="dog-food">Premium Dog Meal Kit</option>
+            <option value="walk-earn">Walk-to-Earn App</option>
+          </select>
+        </div>
+        <div class="question">
+          <label style="display:block; margin-bottom:8px;">Second:</label>
+          <select name="rank_2" required>
+            <option value="">Select...</option>
+            <option value="ai-pin">Wearable AI Pin</option>
+            <option value="dog-food">Premium Dog Meal Kit</option>
+            <option value="walk-earn">Walk-to-Earn App</option>
+          </select>
+        </div>
+        <div class="question">
+          <label style="display:block; margin-bottom:8px;">Least appealing:</label>
+          <select name="rank_3" required>
+            <option value="">Select...</option>
+            <option value="ai-pin">Wearable AI Pin</option>
+            <option value="dog-food">Premium Dog Meal Kit</option>
+            <option value="walk-earn">Walk-to-Earn App</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>Which concept would you most likely recommend to a friend? <span class="required">*</span></p>
+        <select name="recommend" required>
+          <option value="">Select...</option>
+          <option value="ai-pin">Wearable AI Pin</option>
+          <option value="dog-food">Premium Dog Meal Kit</option>
+          <option value="walk-earn">Walk-to-Earn App</option>
+        </select>
+      </div>
+
+      <div class="question attention-trap">
+        <p>Quality check: Please select "Agree" for this question. <span class="required">*</span></p>
+        <div class="likert">
+          <label><input type="radio" name="attention" value="disagree" required><span>Disagree</span></label>
+          <label><input type="radio" name="attention" value="neutral"><span>Neutral</span></label>
+          <label><input type="radio" name="attention" value="agree"><span>Agree</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>Any other thoughts on these concepts? (optional)</p>
+        <textarea name="final_thoughts" placeholder="Anything else you'd like to share..."></textarea>
+      </div>
+    </div>
+    <button class="btn" id="submitBtn" onclick="submitSurvey()">Submit Survey ✓</button>
+  </div>
+
+  <!-- STEP 6: Thank You -->
+  <div class="step" data-step="6">
+    <div class="thanks">
+      <h1>Thank you! 🎉</h1>
+      <p>Your responses have been recorded. We really appreciate your time.</p>
+      <p style="margin-top: 24px; font-size: 0.9rem;">This survey is part of a research project comparing human and AI-generated consumer insights.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentStep = 0;
+const totalSteps = 6;
+
+function nextStep() {
+  // Validate current step
+  const step = document.querySelector(`.step[data-step="${currentStep}"]`);
+  const required = step.querySelectorAll('[required]');
+  let valid = true;
+
+  for (const el of required) {
+    if (el.type === 'radio') {
+      const name = el.name;
+      const checked = step.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) { valid = false; break; }
+    } else if (!el.value.trim()) {
+      valid = false; break;
+    }
+  }
+
+  if (!valid && currentStep > 0) {
+    alert('Please answer all required questions before continuing.');
+    return;
+  }
+
+  step.classList.remove('active');
+  currentStep++;
+  document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
+  document.getElementById('progressBar').style.width = `${(currentStep / (totalSteps - 1)) * 100}%`;
+  window.scrollTo(0, 0);
+}
+
+function gatherData() {
+  const data = {};
+  document.querySelectorAll('select, textarea').forEach(el => {
+    if (el.name) data[el.name] = el.value;
+  });
+  document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+    data[el.name] = el.value;
+  });
+  data.submitted_at = new Date().toISOString();
+  data.user_agent = navigator.userAgent;
+  return data;
+}
+
+async function submitSurvey() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const data = gatherData();
+
+  // CONFIGURE: Set this to your Google Apps Script web app URL
+  // Deploy apps_script.js as a Google Apps Script Web App, then paste URL here
+  const SUBMIT_URL = 'APPS_SCRIPT_URL_HERE';
+
+  try {
+    if (SUBMIT_URL.includes('APPS_SCRIPT_URL_HERE')) throw new Error('No backend configured');
+    const resp = await fetch(SUBMIT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      mode: 'no-cors',  // Apps Script doesn't support CORS preflight
+    });
+    // no-cors means opaque response — assume success if no exception
+  } catch (e) {
+    // Fallback: store locally
+    const existing = JSON.parse(localStorage.getItem('survey_responses') || '[]');
+    existing.push(data);
+    localStorage.setItem('survey_responses', JSON.stringify(existing));
+    console.warn('Stored locally as fallback:', e.message);
+  }
+
+  // Show thank you
+  document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+  currentStep = 6;
+  document.querySelector(`.step[data-step="6"]`).classList.add('active');
+  document.getElementById('progressBar').style.width = '100%';
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
