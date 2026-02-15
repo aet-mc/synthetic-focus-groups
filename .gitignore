@@ -35,3 +35,4 @@ reports/*.html
 # Environment
 .env
 .env.local
+private/
