@@ -3,7 +3,6 @@ from __future__ import annotations
 import math
 from html import escape
 
-
 PALETTE = {
     "blue": "#2563EB",
     "green": "#10B981",

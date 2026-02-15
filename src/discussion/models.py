@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
 
 
-class DiscussionPhase(str, Enum):
+class DiscussionPhase(StrEnum):
     WARMUP = "warmup"
     EXPLORATION = "exploration"
     DEEP_DIVE = "deep_dive"
@@ -13,7 +13,7 @@ class DiscussionPhase(str, Enum):
     SYNTHESIS = "synthesis"
 
 
-class MessageRole(str, Enum):
+class MessageRole(StrEnum):
     MODERATOR = "moderator"
     PARTICIPANT = "participant"
     SYSTEM = "system"

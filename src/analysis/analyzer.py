@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from collections import Counter
 
 from discussion.llm_client import MockLLMClient
 from discussion.models import DiscussionConfig, DiscussionTranscript, MessageRole

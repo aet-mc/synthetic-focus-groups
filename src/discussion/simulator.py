@@ -3,7 +3,13 @@ from __future__ import annotations
 from persona_engine.generator import PersonaGenerator
 
 from .llm_client import LLMClient, MockLLMClient
-from .models import DiscussionConfig, DiscussionMessage, DiscussionPhase, DiscussionTranscript, MessageRole
+from .models import (
+    DiscussionConfig,
+    DiscussionMessage,
+    DiscussionPhase,
+    DiscussionTranscript,
+    MessageRole,
+)
 from .moderator import Moderator
 from .participant import Participant
 

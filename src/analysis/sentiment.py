@@ -80,7 +80,7 @@ class SentimentAnalyzer:
         if base is None:
             base = self._heuristic_score(message.content)
 
-        digest = hashlib.sha256(f"{message.speaker_id}:{message.turn_number}".encode("utf-8")).hexdigest()
+        digest = hashlib.sha256(f"{message.speaker_id}:{message.turn_number}".encode()).hexdigest()
         noise_bucket = int(digest[:2], 16) / 255.0
         noise = (noise_bucket - 0.5) * 0.16
 

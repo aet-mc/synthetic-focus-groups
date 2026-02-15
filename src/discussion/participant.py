@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import random
 import re
-from typing import Iterable
+from collections.abc import Iterable
 
 from persona_engine.models import Persona
 

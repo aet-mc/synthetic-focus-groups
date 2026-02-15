@@ -56,7 +56,7 @@ async def main() -> None:
     # Build LLM client
     if args.mock:
         llm = MockLLMClient()
-        print(f"Using mock LLM (no API calls)")
+        print("Using mock LLM (no API calls)")
     else:
         llm = LLMClient(provider=args.provider, model=args.model)
         print(f"Using {args.provider} / {llm.model}")
@@ -97,7 +97,7 @@ async def main() -> None:
     )
 
     print(f"\n{'='*60}")
-    print(f"  ✅ COMPLETE")
+    print("  ✅ COMPLETE")
     print(f"  Recommendation: {report.recommendation}")
     print(f"  Purchase Intent: {report.concept_scores.purchase_intent:.0%}")
     print(f"  Excitement Score: {report.concept_scores.excitement_score:.0%}")

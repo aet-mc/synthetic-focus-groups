@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from analysis.models import AnalysisReport
 from discussion.models import DiscussionTranscript, MessageRole
 
-from .charts import ChartGenerator, PALETTE
+from .charts import PALETTE, ChartGenerator
 
 
 class ReportGenerator:

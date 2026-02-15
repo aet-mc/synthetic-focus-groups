@@ -1,16 +1,15 @@
 from __future__ import annotations
 
 import asyncio
-from collections import deque
-from datetime import timezone
 import hashlib
 import json
 import logging
 import os
 import re
 import time
+from collections import deque
+from datetime import UTC
 from email.utils import parsedate_to_datetime
-
 
 # ---------------------------------------------------------------------------
 # Provider registry — maps short names to (base_url, env_var, model_id)
@@ -454,7 +453,7 @@ class LLMClient:
             if dt is None:
                 return None
             if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
+                dt = dt.replace(tzinfo=UTC)
             return max(0.0, dt.timestamp() - time.time())
         except (TypeError, ValueError, OverflowError):
             return None
@@ -523,7 +522,7 @@ class MockLLMClient(LLMClient):
         max_tokens: int,
     ) -> str:
         del temperature, max_tokens
-        digest = hashlib.sha256(f"{system_prompt}||{user_prompt}".encode("utf-8")).hexdigest()
+        digest = hashlib.sha256(f"{system_prompt}||{user_prompt}".encode()).hexdigest()
         idx = int(digest[:8], 16)
 
         if "moderating a market research focus group" in user_prompt:

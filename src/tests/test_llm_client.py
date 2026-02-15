@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from email.utils import format_datetime
 
 from discussion.llm_client import LLMClient, MockLLMClient
@@ -63,7 +63,7 @@ def test_retry_after_parses_seconds_and_units() -> None:
 
 def test_retry_after_parses_http_date() -> None:
     future = time.time() + 4.0
-    retry_after = format_datetime(datetime.fromtimestamp(future, tz=timezone.utc), usegmt=True)
+    retry_after = format_datetime(datetime.fromtimestamp(future, tz=UTC), usegmt=True)
     response = _HeaderResponse(retry_after)
 
     delay = LLMClient._retry_after_seconds(response, attempt=0)
