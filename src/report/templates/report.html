@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: {{ product_concept }}</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: {{ product_concept }}</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>{{ study_date }}</div>
+        <div><strong>Category</strong><br>{{ study_type }}</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: {{ recommendation_color }};">{{ recommendation_label }}</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>{{ executive_summary }}</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>{{ recommendation }}</strong> (Confidence: {{ confidence_level }})</p>
+          <div class="stats">
+            {% for stat in key_stats %}
+            <div class="stat">
+              <div class="value">{{ stat.value }}</div>
+              <div class="label">{{ stat.label }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div>
+          {{ excitement_gauge | safe }}
+          {{ recommendation_chart | safe }}
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      {{ concept_chart | safe }}
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          {% for row in metric_rows %}
+          <tr>
+            <td><strong>{{ row.name }}</strong></td>
+            <td>{{ row.formatted }}</td>
+            <td><span class="status {{ row.status_class }}">{{ row.status }}</span></td>
+            <td>{{ row.interpretation }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      {{ theme_prevalence_chart | safe }}
+      <div class="card-grid">
+        {% for theme in theme_rows %}
+        <article class="theme-card">
+          <h3>{{ theme.name }} <span class="pill {{ theme.sentiment_class }}">{{ theme.sentiment }}</span></h3>
+          <div class="kicker">{{ theme.prevalence_text }}</div>
+          <p>{{ theme.description }}</p>
+          {% for quote in theme.quotes %}
+          <blockquote>"{{ quote.text }}"<br><small>- {{ quote.speaker }}</small></blockquote>
+          {% endfor %}
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      {{ sentiment_chart | safe }}
+      <p><strong>Trend:</strong> {{ sentiment_trend | title }}</p>
+      {% for row in sentiment_rows %}
+      <p><strong>{{ row.phase }}:</strong> {{ row.summary }}</p>
+      {% endfor %}
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      {{ participant_grid_chart | safe }}
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in participant_rows %}
+          <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.age }}</td>
+            <td>{{ p.gender }}</td>
+            <td>{{ p.income_range }}</td>
+            <td>{{ p.education }}</td>
+            <td>{{ p.vals_type }}</td>
+            <td>{{ p.initial_opinion }}</td>
+            <td>{{ p.final_opinion }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+        {% for segment in segment_rows %}
+        <article class="segment-card">
+          <h3>{{ segment.name }}</h3>
+          <p><strong>Purchase Intent:</strong> {{ segment.purchase_intent }}</p>
+          <p><strong>How it differs:</strong> {{ segment.difference }}</p>
+          <blockquote>"{{ segment.quote }}"</blockquote>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            {% for concern in concerns %}
+            <li class="concern">{{ concern }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            {% for item in opportunities %}
+            <li class="opportunity">{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          {% for item in improvements %}
+          <li class="improvement">{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      {% for q in quote_sections.most_impactful %}
+      <article class="pull-quote">
+        <div class="q">"{{ q.quote }}"</div>
+        <div class="by">{{ q.speaker_name }}{% if q.context %} - {{ q.context | replace('_', ' ') | title }}{% endif %}</div>
+      </article>
+      {% endfor %}
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul>{% for q in quote_sections.positive %}<li>{{ q.quote }}</li>{% endfor %}</ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+            {% for q in quote_sections.negative %}<li>{{ q.quote }}</li>{% endfor %}
+            {% for q in quote_sections.surprising %}<li>{{ q.quote }}</li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        {% for point in methodology_points %}
+        <li>{{ point }}</li>
+        {% endfor %}
+      </ul>
+      <p><strong>Participants:</strong> {{ participant_count }} | <strong>Phases:</strong> {{ phase_count }} | <strong>Total Messages:</strong> {{ message_count }}</p>
+    </section>
+
+    {% if include_transcript %}
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+        {% for row in transcript_rows %}
+          {% if row.is_phase %}
+          <div class="transcript-phase">{{ row.phase }}</div>
+          {% endif %}
+          <p class="transcript-line"><strong>{{ row.speaker }}:</strong> {{ row.content }}</p>
+        {% endfor %}
+      </details>
+    </section>
+    {% endif %}
+  </div>
+</body>
+</html>
