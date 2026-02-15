@@ -9,16 +9,69 @@ def _clamp(v: float, lo: float, hi: float) -> float:
     return max(lo, min(v, hi))
 
 
-def _opinion_text(valence: float, concept: str, category: str) -> str:
+def _opinion_text(valence: float, concept: str, category: str, persona=None) -> str:
+    """Generate a grounded initial opinion using persona traits for variation."""
+    # Base stance from valence
     if valence > 0.5:
-        return f"I like this {category} concept. {concept} feels genuinely useful and worth trying."
-    if valence > 0.15:
-        return f"I am cautiously positive about this {category} idea. {concept} has potential if priced right."
-    if valence < -0.5:
-        return f"I do not see strong value in this {category} concept. {concept} feels risky or unnecessary."
-    if valence < -0.15:
-        return f"I am skeptical about this {category} idea. I would need better proof before considering {concept}."
-    return f"I am neutral on this {category} concept. {concept} has pros and cons for me."
+        stance = "enthusiastic"
+        core = f"{concept} feels genuinely useful and worth trying"
+    elif valence > 0.15:
+        stance = "cautiously positive"
+        core = f"{concept} has potential if executed well"
+    elif valence < -0.5:
+        stance = "strongly skeptical"
+        core = f"{concept} feels risky or unnecessary"
+    elif valence < -0.15:
+        stance = "hesitant"
+        core = f"I would need better proof before considering {concept}"
+    else:
+        stance = "neutral"
+        core = f"{concept} has both pros and cons for me"
+
+    if persona is None:
+        return f"I am {stance} about this {category} concept. {core}."
+
+    # Build persona-specific reasoning
+    reasons = []
+    ocean = persona.psychographics.ocean
+
+    if ocean.openness >= 70:
+        reasons.append("I'm usually open to trying new things in this space")
+    elif ocean.openness <= 30:
+        reasons.append("I generally stick with what I know works")
+
+    if ocean.neuroticism >= 70:
+        reasons.append("I worry about what could go wrong")
+    elif ocean.neuroticism <= 30:
+        reasons.append("I don't stress much about trying something new")
+
+    if persona.consumer.price_sensitivity >= 0.7:
+        reasons.append("price is always top of mind for me")
+    elif persona.consumer.price_sensitivity <= 0.3:
+        reasons.append("I'm willing to pay more for the right solution")
+
+    if persona.consumer.research_tendency >= 0.7:
+        reasons.append("I'd research this thoroughly before committing")
+    elif persona.consumer.research_tendency <= 0.3:
+        reasons.append("I tend to go with my gut on purchases like this")
+
+    if persona.consumer.brand_loyalty >= 0.7:
+        reasons.append("I'm loyal to brands I already trust in this category")
+
+    # Pick 2-3 reasons for variety
+    selected = reasons[:3] if reasons else ["I have mixed feelings about it"]
+    reason_text = ", and ".join(selected[:2])
+    if len(selected) > 2:
+        reason_text += f". Also, {selected[2]}"
+
+    demo = persona.demographics
+    context = ""
+    if demo.age >= 60:
+        context = f" As someone in my {demo.age // 10 * 10}s, I've seen a lot of products come and go."
+    elif demo.age <= 30:
+        context = f" At {demo.age}, I'm always looking for what's next."
+
+    return f"I'm {stance} about this {category} concept. {core} — {reason_text}.{context}"
 
 
 class OpinionSeeder:
@@ -49,6 +102,6 @@ class OpinionSeeder:
 
             valence = _clamp((base - price_penalty) * engagement_multiplier + noise, -1.0, 1.0)
             persona.opinion_valence = float(valence)
-            persona.initial_opinion = _opinion_text(valence, product_concept, category)
+            persona.initial_opinion = _opinion_text(valence, product_concept, category, persona=persona)
 
         return personas

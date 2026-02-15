@@ -5,34 +5,12 @@ from uuid import uuid4
 import numpy as np
 
 from .consumer_behavior import derive_consumer_profile
-from .demographics import sample_demographics
+from .demographics import sample_demographics, sample_unique_names
 from .diversity import DiversityChecker
 from .models import DiversityTarget, Persona
 from .opinion_seeder import OpinionSeeder
 from .psychographics import generate_psychographics
 from .voice import derive_voice_profile
-
-MALE_NAMES = [
-    "James",
-    "Michael",
-    "David",
-    "Daniel",
-    "Matthew",
-    "Anthony",
-    "Joshua",
-    "Christopher",
-]
-FEMALE_NAMES = [
-    "Emma",
-    "Olivia",
-    "Sophia",
-    "Mia",
-    "Ava",
-    "Charlotte",
-    "Amelia",
-    "Isabella",
-]
-NEUTRAL_NAMES = ["Taylor", "Jordan", "Alex", "Casey", "Riley", "Morgan", "Quinn", "Avery"]
 
 
 class PersonaGenerator:
@@ -40,25 +18,19 @@ class PersonaGenerator:
         self.rng = np.random.default_rng(seed)
         self.opinion_seeder = OpinionSeeder(self.rng)
 
-    def _pick_name(self, gender: str) -> str:
-        if gender == "male":
-            return str(self.rng.choice(MALE_NAMES))
-        if gender == "female":
-            return str(self.rng.choice(FEMALE_NAMES))
-        return str(self.rng.choice(NEUTRAL_NAMES))
-
     def _build_once(self, n: int, constraints: dict | None = None) -> list[Persona]:
         demos = sample_demographics(n=n, constraints=constraints, rng=self.rng)
         psychos = generate_psychographics(demos, rng=self.rng)
+        names = sample_unique_names([d.gender for d in demos], self.rng)
 
         personas: list[Persona] = []
-        for demo, psycho in zip(demos, psychos):
+        for demo, psycho, name in zip(demos, psychos, names):
             consumer = derive_consumer_profile(demo, psycho, rng=self.rng)
             voice = derive_voice_profile(demo, psycho)
             personas.append(
                 Persona(
                     id=str(uuid4()),
-                    name=self._pick_name(demo.gender),
+                    name=name,
                     demographics=demo,
                     psychographics=psycho,
                     consumer=consumer,

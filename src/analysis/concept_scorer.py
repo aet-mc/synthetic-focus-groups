@@ -6,7 +6,7 @@ from discussion.llm_client import MockLLMClient
 from discussion.models import DiscussionTranscript, MessageRole
 
 from .models import ConceptScores
-from .prompts import CONCEPT_SCORE_PROMPT
+from .prompts import CONCEPT_SCORE_BATCH_PROMPT, CONCEPT_SCORE_PROMPT
 
 
 class ConceptScorer:
@@ -21,15 +21,20 @@ class ConceptScorer:
             participant_messages.setdefault(message.speaker_id, []).append(message.content)
 
         per_participant: dict[str, dict[str, float]] = {}
-        for persona in personas:
-            statements = participant_messages.get(persona.id, [])
-            if isinstance(self.llm, MockLLMClient):
-                scores = self._mock_scores_for_persona(persona)
-            else:
-                scores = await self._score_with_llm(persona, statements)
-                if not scores:
-                    scores = self._mock_scores_for_persona(persona)
-            per_participant[persona.id] = scores
+        if isinstance(self.llm, MockLLMClient):
+            for persona in personas:
+                per_participant[persona.id] = self._mock_scores_for_persona(persona)
+        else:
+            # Try batch scoring first (1 LLM call instead of N)
+            per_participant = await self._batch_score_with_llm(personas, participant_messages)
+            if not per_participant:
+                # Fallback to individual scoring
+                for persona in personas:
+                    statements = participant_messages.get(persona.id, [])
+                    scores = await self._score_with_llm(persona, statements)
+                    if not scores:
+                        scores = self._mock_scores_for_persona(persona)
+                    per_participant[persona.id] = scores
 
         aggregate = {
             metric: self._top2box(per_participant, metric)
@@ -61,12 +66,59 @@ class ConceptScorer:
             participant_scores=per_participant,
         )
 
+    async def _batch_score_with_llm(
+        self, personas: list, participant_messages: dict[str, list[str]]
+    ) -> dict[str, dict[str, float]]:
+        """Score all personas in a single LLM call using short keys for reliability."""
+        # Use short keys (p1, p2...) instead of UUIDs to avoid LLM truncation/reformatting
+        short_key_map: dict[str, str] = {}  # short_key -> persona.id
+        blocks: list[str] = []
+        for i, persona in enumerate(personas):
+            short_key = f"p{i+1}"
+            short_key_map[short_key] = persona.id
+            statements = participant_messages.get(persona.id, [])
+            stmt_text = "\n".join(f"  - {s}" for s in statements) if statements else "  - No statements"
+            blocks.append(
+                f"Participant {short_key} ({persona.name}, age {persona.demographics.age}, "
+                f"{persona.demographics.occupation}):\n{stmt_text}"
+            )
+        prompt = CONCEPT_SCORE_BATCH_PROMPT.format(participants_block="\n\n".join(blocks))
+        raw = await self.llm.complete_json(
+            system_prompt="You are a concept testing analyst. Return JSON only.",
+            user_prompt=prompt,
+            temperature=0.0,
+            max_tokens=3000,
+        )
+        try:
+            parsed = json.loads(raw)
+        except json.JSONDecodeError:
+            return {}
+        if not isinstance(parsed, dict):
+            return {}
+
+        metrics = [
+            "purchase_intent", "overall_appeal", "uniqueness",
+            "relevance", "believability", "value_perception",
+        ]
+        result: dict[str, dict[str, float]] = {}
+        for short_key, real_id in short_key_map.items():
+            scores = parsed.get(short_key)
+            if not isinstance(scores, dict):
+                return {}  # Batch failed, fallback to individual
+            normalized: dict[str, float] = {}
+            for metric in metrics:
+                if metric not in scores:
+                    return {}
+                normalized[metric] = round(self._clamp(float(scores[metric]), 1.0, 5.0), 2)
+            result[real_id] = normalized
+        return result
+
     async def _score_with_llm(self, persona, statements: list[str]) -> dict[str, float]:
         prompt = CONCEPT_SCORE_PROMPT.format(
             persona=persona.model_dump_json(indent=2),
             statements="\n".join(f"- {line}" for line in statements) if statements else "- No statements",
         )
-        raw = await self.llm.complete(
+        raw = await self.llm.complete_json(
             system_prompt="You are a concept testing analyst. Return JSON only.",
             user_prompt=prompt,
             temperature=0.0,

@@ -120,6 +120,86 @@ TECH_OCCUPATIONS = {
     "technician",
 }
 
+MALE_NAMES = (
+    "James",
+    "Michael",
+    "David",
+    "Daniel",
+    "Matthew",
+    "Anthony",
+    "Joshua",
+    "Christopher",
+)
+FEMALE_NAMES = (
+    "Emma",
+    "Olivia",
+    "Sophia",
+    "Mia",
+    "Ava",
+    "Charlotte",
+    "Amelia",
+    "Isabella",
+)
+NEUTRAL_NAMES = ("Taylor", "Jordan", "Alex", "Casey", "Riley", "Morgan", "Quinn", "Avery")
+
+NAME_POOLS = {
+    "male": MALE_NAMES,
+    "female": FEMALE_NAMES,
+    "non-binary": NEUTRAL_NAMES,
+}
+
+
+def sample_unique_names(genders: list[str], rng: np.random.Generator) -> list[str]:
+    """Sample names without reuse within a cohort.
+
+    If a gender-specific pool is exhausted, this falls back to any remaining unused
+    names; once all pools are exhausted, it appends numeric suffixes while keeping
+    base-name selection randomized.
+    """
+
+    # Shuffle each pool once so selection remains random but never repeats.
+    available = {
+        key: list(rng.permutation(np.array(values, dtype=object)))
+        for key, values in NAME_POOLS.items()
+    }
+    fallback = list(rng.permutation(np.array(MALE_NAMES + FEMALE_NAMES + NEUTRAL_NAMES, dtype=object)))
+    used: set[str] = set()
+    suffix_by_base: dict[str, int] = {}
+    names: list[str] = []
+
+    for gender in genders:
+        pool = available.get(gender, available["non-binary"])
+        candidate: str | None = None
+
+        while pool:
+            next_name = str(pool.pop())
+            if next_name not in used:
+                candidate = next_name
+                break
+
+        if candidate is None:
+            while fallback:
+                next_name = str(fallback.pop())
+                if next_name not in used:
+                    candidate = next_name
+                    break
+
+        if candidate is None:
+            base_pool = NAME_POOLS.get(gender, NAME_POOLS["non-binary"])
+            base = str(rng.choice(base_pool))
+            next_suffix = suffix_by_base.get(base, 2)
+            candidate = f"{base} {next_suffix}"
+            suffix_by_base[base] = next_suffix + 1
+            while candidate in used:
+                next_suffix = suffix_by_base[base]
+                candidate = f"{base} {next_suffix}"
+                suffix_by_base[base] = next_suffix + 1
+
+        used.add(candidate)
+        names.append(candidate)
+
+    return names
+
 
 def _clamp(value: float, lo: float, hi: float) -> float:
     return max(lo, min(value, hi))

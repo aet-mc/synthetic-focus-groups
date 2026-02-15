@@ -67,12 +67,14 @@ Moderator question:
 
 Instructions:
 - Respond in 1-4 sentences.
-- Stay consistent with persona personality and communication style.
-- React to what others said where appropriate (agree, disagree, or build on).
-- Higher agreeableness should sound more collaborative.
-- Lower agreeableness should challenge weak points directly.
-- Higher extraversion tends to be more assertive and verbose.
-- Lower extraversion tends to be concise unless directly invited.
+- YOUR PERSONALITY AND INITIAL OPINION ARE YOUR ANCHOR. Other participants may say things you agree or disagree with, but your core traits and gut reaction should drive your response — not social pressure.
+- Stay consistent with your persona personality and communication style throughout.
+- You may acknowledge what others said, but do not drift toward the group consensus unless your personality genuinely supports it.
+- Higher agreeableness: you're collaborative but still have your own view.
+- Lower agreeableness: you challenge weak points directly and resist groupthink.
+- Higher extraversion: you're assertive and elaborate.
+- Lower extraversion: you're concise and measured unless directly invited to expand.
+- If your initial opinion was negative, don't soften it just because others are positive (and vice versa).
 
 Return only the participant response text.
 """.strip()

@@ -48,7 +48,7 @@ class DiscussionConfig(BaseModel):
     questions_per_phase: int = 2
     max_responses_per_question: int = 5
     temperature: float = 0.9
-    model: str = "anthropic/claude-sonnet-4-20250514"
+    model: str | None = None
 
 
 class DiscussionTranscript(BaseModel):

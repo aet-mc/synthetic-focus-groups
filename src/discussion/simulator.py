@@ -23,7 +23,6 @@ class DiscussionSimulator:
 
         participants = [Participant(persona=persona, llm_client=self.llm_client) for persona in personas]
         moderator = Moderator(config=self.config, llm_client=self.llm_client)
-        await moderator.generate_discussion_guide()
 
         transcript = DiscussionTranscript(config=self.config, personas=personas)
 

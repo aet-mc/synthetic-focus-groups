@@ -41,6 +41,37 @@ class DiversityChecker:
     def __init__(self, resample_fn: Callable[[int], list[Persona]] | None = None):
         self._resample_fn = resample_fn
 
+    @staticmethod
+    def _normalize_gender(gender: str | None) -> str:
+        return (gender or "unknown").strip().lower()
+
+    def _rebalance_gender(self, personas: list[Persona]) -> None:
+        if len(personas) < 2:
+            return
+
+        counts = Counter(self._normalize_gender(p.demographics.gender) for p in personas)
+        if len(counts) < 2:
+            return
+        majority_gender, majority_count = counts.most_common(1)[0]
+        if majority_count <= len(personas) / 2:
+            return
+
+        target_max = len(personas) // 2
+        changes_needed = majority_count - target_max
+        alternatives = [g for g in counts if g != majority_gender]
+        if alternatives:
+            replacement_gender = min(alternatives, key=lambda g: counts[g])
+        else:
+            replacement_gender = "female" if majority_gender == "male" else "male"
+
+        changed = 0
+        for persona in reversed(personas):
+            if changed >= changes_needed:
+                break
+            if self._normalize_gender(persona.demographics.gender) == majority_gender:
+                persona.demographics.gender = replacement_gender
+                changed += 1
+
     def check(self, personas: list[Persona], target: DiversityTarget | None = None) -> DiversityReport:
         target = target or DiversityTarget()
         issues: list[str] = []
@@ -94,12 +125,25 @@ class DiversityChecker:
         if max(signs.get("positive", 0), signs.get("negative", 0)) > target.max_same_sign:
             issues.append("Too many personas share the same opinion sign")
 
+        gender_counts = Counter(self._normalize_gender(p.demographics.gender) for p in personas)
+        if len(personas) >= 2 and len(gender_counts) < 2:
+            issues.append("Gender diversity too low (need at least two genders)")
+        majority_gender, majority_count = gender_counts.most_common(1)[0]
+        if majority_count > len(personas) / 2:
+            issues.append(f"Gender imbalance too high ({majority_gender}: {majority_count}/{len(personas)})")
+
         return DiversityReport(
             opinion_entropy=opinion_entropy,
             personality_spread=personality_spread,
             passes=len(issues) == 0,
             issues=issues,
         )
+
+    def validate(self, personas: list[Persona], target: DiversityTarget | None = None) -> None:
+        report = self.check(personas, target)
+        if report.passes:
+            return
+        raise ValueError("; ".join(report.issues))
 
     def enforce(self, personas: list[Persona], target: DiversityTarget) -> list[Persona]:
         report = self.check(personas, target)
@@ -113,6 +157,7 @@ class DiversityChecker:
                 adjusted[0].psychographics.ocean.agreeableness = min(adjusted[0].psychographics.ocean.agreeableness, 25)
                 adjusted[0].psychographics.ocean.openness = max(adjusted[0].psychographics.ocean.openness, 82)
                 adjusted[0].psychographics.ocean.neuroticism = max(adjusted[0].psychographics.ocean.neuroticism, 72)
+                self._rebalance_gender(adjusted)
             return adjusted
 
         for _ in range(30):
@@ -139,5 +184,7 @@ class DiversityChecker:
         seeded_valences = [-0.9, -0.6, -0.3, -0.05, 0.2, 0.5, 0.75, 0.95]
         for i, p in enumerate(repaired):
             p.opinion_valence = seeded_valences[i % len(seeded_valences)]
+
+        self._rebalance_gender(repaired)
 
         return repaired

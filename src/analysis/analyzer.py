@@ -109,7 +109,7 @@ class AnalysisEngine:
             sentiment=sentiment.model_dump_json(indent=2),
             config=config.model_dump_json(indent=2),
         )
-        return await self.llm.complete(
+        return await self.llm.complete_json(
             system_prompt="You are an expert market research analyst.",
             user_prompt=prompt,
             temperature=0.3,
@@ -139,7 +139,7 @@ class AnalysisEngine:
                 themes=json.dumps([theme.model_dump() for theme in themes], indent=2),
                 concerns=json.dumps(concerns, indent=2),
             )
-            raw = await self.llm.complete(
+            raw = await self.llm.complete_json(
                 system_prompt="You are an objective product strategy advisor. Return JSON only.",
                 user_prompt=prompt,
                 temperature=0.0,

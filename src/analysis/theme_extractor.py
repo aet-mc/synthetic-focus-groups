@@ -53,7 +53,7 @@ class ThemeExtractor:
             for index, message in participant_records
         )
         prompt = THEME_CODING_PROMPT.format(transcript=transcript_text)
-        raw = await self.llm.complete(
+        raw = await self.llm.complete_json(
             system_prompt="You are a qualitative researcher. Return JSON only.",
             user_prompt=prompt,
             temperature=0.0,
@@ -90,7 +90,7 @@ class ThemeExtractor:
         codes_block = "\n".join(f"- {code}: {count}" for code, count in code_counts.most_common())
         prompt = THEME_CLUSTERING_PROMPT.format(max_themes=max_themes, codes=codes_block)
 
-        raw = await self.llm.complete(
+        raw = await self.llm.complete_json(
             system_prompt="You are a thematic analysis expert. Return JSON only.",
             user_prompt=prompt,
             temperature=0.0,

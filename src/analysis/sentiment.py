@@ -33,7 +33,7 @@ class SentimentAnalyzer:
 
         responses = [f"{idx}. {message.content}" for idx, message in enumerate(messages)]
         prompt = SENTIMENT_BATCH_PROMPT.format(responses="\n".join(responses))
-        raw = await self.llm.complete(
+        raw = await self.llm.complete_json(
             system_prompt="You are a sentiment analyst. Return JSON only.",
             user_prompt=prompt,
             temperature=0.0,

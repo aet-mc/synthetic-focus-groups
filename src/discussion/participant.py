@@ -86,7 +86,7 @@ class Participant:
         )
 
         sentiment = self._sentiment_from_text(response_text)
-        changed_mind = await self._detect_opinion_shift(response_text)
+        changed_mind = self._heuristic_shift(response_text)
 
         self.times_spoken += 1
 

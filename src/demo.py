@@ -10,7 +10,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from analysis.analyzer import AnalysisEngine
-from discussion.llm_client import MockLLMClient
+from discussion.llm_client import LLMClient, MockLLMClient
 from discussion.models import DiscussionConfig
 from discussion.simulator import DiscussionSimulator
 from report.generator import ReportGenerator
@@ -29,7 +29,31 @@ async def main() -> None:
         action="store_true",
         help="Exclude full transcript appendix",
     )
+    parser.add_argument(
+        "--mock",
+        action="store_true",
+        help="Use mock LLM (no API calls, deterministic output)",
+    )
+    parser.add_argument(
+        "--provider",
+        default="groq",
+        choices=["groq", "deepseek", "nvidia", "openrouter", "google", "moonshotai"],
+        help="LLM provider (default: groq)",
+    )
+    parser.add_argument(
+        "--model",
+        default=None,
+        help="Override model ID for the provider",
+    )
     args = parser.parse_args()
+
+    # Build LLM client
+    if args.mock:
+        llm = MockLLMClient()
+        print(f"Using mock LLM (no API calls)")
+    else:
+        llm = LLMClient(provider=args.provider, model=args.model)
+        print(f"Using {args.provider} / {llm.model}")
 
     config = DiscussionConfig(
         product_concept=args.product_concept,
@@ -37,12 +61,25 @@ async def main() -> None:
         num_personas=args.participants,
     )
 
-    simulator = DiscussionSimulator(config=config, llm_client=MockLLMClient())
+    print(f"\n{'='*60}")
+    print(f"  Synthetic Focus Group: {args.product_concept}")
+    print(f"  Category: {args.category} | Participants: {args.participants}")
+    print(f"{'='*60}\n")
+
+    # 1. Simulate discussion
+    print("Phase 1/3: Running focus group discussion...")
+    simulator = DiscussionSimulator(config=config, llm_client=llm)
     transcript = await simulator.run()
+    print(f"  ✓ {len(transcript.messages)} messages across {len(set(m.phase for m in transcript.messages))} phases")
 
-    analyzer = AnalysisEngine(llm_client=MockLLMClient())
+    # 2. Analyze
+    print("Phase 2/3: Analyzing transcript...")
+    analyzer = AnalysisEngine(llm_client=llm)
     report = await analyzer.analyze(transcript)
+    print(f"  ✓ {len(report.themes)} themes, excitement score: {report.concept_scores.excitement_score:.0%}")
 
+    # 3. Generate report
+    print("Phase 3/3: Generating report...")
     report_generator = ReportGenerator()
     output_path = report_generator.save_html(
         report=report,
@@ -52,13 +89,13 @@ async def main() -> None:
         include_transcript=not args.no_transcript,
     )
 
-    print("Synthetic focus group completed")
-    print(f"Product concept: {args.product_concept}")
-    print(f"Category: {args.category}")
-    print(f"Participants: {len(transcript.personas)}")
-    print(f"Messages: {len(transcript.messages)}")
-    print(f"Recommendation: {report.recommendation}")
-    print(f"Report saved: {Path(output_path).resolve()}")
+    print(f"\n{'='*60}")
+    print(f"  ✅ COMPLETE")
+    print(f"  Recommendation: {report.recommendation}")
+    print(f"  Purchase Intent: {report.concept_scores.purchase_intent:.0%}")
+    print(f"  Excitement Score: {report.concept_scores.excitement_score:.0%}")
+    print(f"  Report: {Path(output_path).resolve()}")
+    print(f"{'='*60}")
 
 
 if __name__ == "__main__":
