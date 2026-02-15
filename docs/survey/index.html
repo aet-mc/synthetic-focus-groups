@@ -516,26 +516,20 @@ async function submitSurvey() {
 
   const data = gatherData();
 
-  // CONFIGURE: Set this to your Google Apps Script web app URL
-  // Deploy apps_script.js as a Google Apps Script Web App, then paste URL here
-  const SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbwOymKOeSkfPxGlA2sv1plUKNJFPhEfpruGsMdU5zwr9r9aBYFCTFcUbAMsfpI_sFIc/exec';
+  const jsonStr = JSON.stringify(data);
 
+  // Submit to Google Forms (single text field receives full JSON)
   try {
-    if (SUBMIT_URL.includes('APPS_SCRIPT_URL_HERE')) throw new Error('No backend configured');
-    const resp = await fetch(SUBMIT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-      mode: 'no-cors',  // Apps Script doesn't support CORS preflight
-    });
-    // no-cors means opaque response — assume success if no exception
-  } catch (e) {
-    // Fallback: store locally
-    const existing = JSON.parse(localStorage.getItem('survey_responses') || '[]');
-    existing.push(data);
-    localStorage.setItem('survey_responses', JSON.stringify(existing));
-    console.warn('Stored locally as fallback:', e.message);
-  }
+    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfWSKlI4UGBJmA4Zfugd-fmoLcuS1R8U66C3VPXpKaL9JczLw/formResponse';
+    const formData = new FormData();
+    formData.append('entry.1986774635', jsonStr);
+    await fetch(formUrl, { method: 'POST', body: formData, mode: 'no-cors' });
+  } catch(e) { /* silent fail — data also stored locally */ }
+
+  // Backup: store locally
+  const existing = JSON.parse(localStorage.getItem('sfg_responses') || '[]');
+  existing.push(data);
+  localStorage.setItem('sfg_responses', JSON.stringify(existing));
 
   // Show thank you
   document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
