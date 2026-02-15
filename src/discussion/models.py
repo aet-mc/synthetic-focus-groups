@@ -49,6 +49,7 @@ class DiscussionConfig(BaseModel):
     max_responses_per_question: int = 5
     temperature: float = 0.9
     model: str | None = None
+    seed: int | None = 42
 
 
 class DiscussionTranscript(BaseModel):

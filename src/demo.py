@@ -45,6 +45,12 @@ async def main() -> None:
         default=None,
         help="Override model ID for the provider",
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Random seed for persona generation (for reproducibility)",
+    )
     args = parser.parse_args()
 
     # Build LLM client
@@ -59,6 +65,7 @@ async def main() -> None:
         product_concept=args.product_concept,
         category=args.category,
         num_personas=args.participants,
+        seed=args.seed if args.seed is not None else 42,
     )
 
     print(f"\n{'='*60}")

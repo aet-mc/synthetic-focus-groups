@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: A subscription meal service for dogs — fresh, human-grade ingredients, portioned and personalized to your dog&#39;s breed, age, weight, and health needs. Designed by veterinary nutritionists. Delivered weekly in eco-friendly packaging. No kibble, no preservatives. The idea: your dog eats as well as you do, with meals tailored to their specific needs.</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: A subscription meal service for dogs — fresh, human-grade ingredients, portioned and personalized to your dog&#39;s breed, age, weight, and health needs. Designed by veterinary nutritionists. Delivered weekly in eco-friendly packaging. No kibble, no preservatives. The idea: your dog eats as well as you do, with meals tailored to their specific needs.</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>February 15, 2026</div>
+        <div><strong>Category</strong><br>Synthetic Focus Group - AI-Powered Market Research</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: #EF4444;">NO-GO</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>{
+  &#34;executive_summary&#34;: &#34;Focus group participants expressed a general satisfaction with their current pet food choices, prioritizing convenience, price, and veterinarian approval over novel concepts. While the idea of fresh, personalized dog food resonated with some, skepticism remains regarding the necessity and value compared to traditional options. Participants emphasized the importance of brand trust and demonstrable health benefits to justify switching from established, affordable brands. Therefore, marketing should focus on building trust through veterinary endorsements and highlighting clear, proven health advantages while maintaining convenience and addressing price sensitivity.&#34;
+}</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>NO-GO</strong> (Confidence: High)</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">0%</div>
+              <div class="label">Purchase Intent</div>
+            </div>
+            <div class="stat">
+              <div class="value">7</div>
+              <div class="label">Key Themes</div>
+            </div>
+            <div class="stat">
+              <div class="value">8</div>
+              <div class="label">Participants</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><path d="M14.40,108.00 A75.60,75.60 0 0 1 78.17,33.33" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round"/><path d="M78.17,33.33 A75.60,75.60 0 0 1 124.32,40.64" fill="none" stroke="#F59E0B" stroke-width="11" stroke-linecap="round"/><path d="M124.32,40.64 A75.60,75.60 0 0 1 165.60,108.00" fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round"/><line x1="90.00" y1="108.00" x2="20.61" y2="102.54" stroke="#EF4444" stroke-width="3"/><circle cx="90.00" cy="108.00" r="4" fill="#EF4444"/><text x="90.0" y="90.0" text-anchor="middle" font-size="17" font-weight="700" fill="#EF4444">2%</text><text x="90.0" y="118" text-anchor="middle" font-size="11">Excitement Score</text></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="125.0" y="22" text-anchor="middle" font-size="14" font-weight="700">Recommendation Signal</text><path d="M125.00,52.30 A60.70,60.70 0 0 1 134.50,53.04" fill="none" stroke="#EF4444" stroke-width="32.27" stroke-linecap="butt"/><path d="M134.50,53.04 A60.70,60.70 0 1 1 125.00,52.30" fill="none" stroke="#E5E7EB" stroke-width="32.27" stroke-linecap="butt"/><text x="125.0" y="111.0" text-anchor="middle" font-size="16" font-weight="700">1</text><text x="125.0" y="127.0" text-anchor="middle" font-size="11" fill="#6B7280">Responses</text><rect x="10" y="206" width="9" height="9" rx="2" fill="#EF4444"/><text x="24" y="214" font-size="10">NO-GO (2%)</text><rect x="10" y="220" width="9" height="9" rx="2" fill="#E5E7EB"/><text x="24" y="228" font-size="10">Remaining (98%)</text></svg>
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="280" viewBox="0 0 600 280" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Top-2-Box Concept Scores</text><text x="14" y="55" font-size="12" font-weight="600">Purchase Intent</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="0.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">0%</text><text x="14" y="91" font-size="12" font-weight="600">Overall Appeal</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="0.00" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">0%</text><text x="14" y="127" font-size="12" font-weight="600">Uniqueness</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="0.00" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">0%</text><text x="14" y="163" font-size="12" font-weight="600">Relevance</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="41.25" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">12%</text><text x="14" y="199" font-size="12" font-weight="600">Believability</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="0.00" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">0%</text><text x="14" y="235" font-size="12" font-weight="600">Value Perception</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="0.00" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">0%</text></svg>
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purchase Intent</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Purchase Intent signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Overall Appeal</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Overall Appeal signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Uniqueness</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Uniqueness signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Relevance</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Relevance signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Believability</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Believability signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Value Perception</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Value Perception signals material risk and needs substantial improvement.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="316" viewBox="0 0 600 316" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Theme Prevalence</text><text x="14" y="55" font-size="12" font-weight="600">Consumer Preferences</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="330.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">100%</text><text x="14" y="91" font-size="12" font-weight="600">Health and Wellness</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="288.75" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">88%</text><text x="14" y="127" font-size="12" font-weight="600">Convenience and Practicality</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="288.75" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">88%</text><text x="14" y="163" font-size="12" font-weight="600">Brand Trust and Authority</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="288.75" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">88%</text><text x="14" y="199" font-size="12" font-weight="600">Price Sensitivity</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="247.50" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">75%</text><text x="14" y="235" font-size="12" font-weight="600">Product Variety and Specificity</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="82.50" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">25%</text><text x="14" y="271" font-size="12" font-weight="600">Sustainability and Waste Reduction</text><rect x="190" y="256" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="256" width="41.25" height="22" rx="4" fill="#93C5FD"/><text x="530" y="271" font-size="12" font-weight="700">12%</text></svg>
+      <div class="card-grid">
+        <article class="theme-card">
+          <h3>Consumer Preferences <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>General likes and dislikes related to pet food, encompassing a broad range of factors influencing choice.</p>
+          <blockquote>"I&#39;m also curious about alternatives, but I&#39;m not dissatisfied with Champ&#39;s current diet of kibble and wet food. The combination seems to work, and it&#39;s reasonably priced. I&#39;d need to see significant benefits to justify switching to something entirely different and potentially more expensive."<br><small>- Christopher</small></blockquote>
+          <blockquote>"Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it."<br><small>- Charlotte</small></blockquote>
+          <blockquote>"Well, he gets excited as soon as I open the bag, starts jumping around. It&#39;s probably not the healthiest thing for him, but he&#39;s a small dog, so one biscuit is a treat, not a whole meal. I try to make sure he gets good quality dog food, too, not just treats."<br><small>- Amelia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Health and Wellness <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">7 of 8 participants</div>
+          <p>Focus on the nutritional benefits and health impacts of pet food, including ingredients and overall well-being.</p>
+          <blockquote>"Right now, Winston is on a pretty standard dry food, Purina I think. I don&#39;t add anything to it regularly, but sometimes he gets a little bit of what we&#39;re having for dinner as a treat, you know? He seems to like it and the vet says he&#39;s healthy, so I haven&#39;t really looked into other options too much."<br><small>- Christopher</small></blockquote>
+          <blockquote>"Well, he gets excited as soon as I open the bag, starts jumping around. It&#39;s probably not the healthiest thing for him, but he&#39;s a small dog, so one biscuit is a treat, not a whole meal. I try to make sure he gets good quality dog food, too, not just treats."<br><small>- Amelia</small></blockquote>
+          <blockquote>"The biggest thing for me is knowing if Duke is really getting what he needs. I mean, the kibble bag says it&#39;s all there, but is it really? I don&#39;t want to be skimping on his health just to save a few bucks, but I also don&#39;t want to get ripped off."<br><small>- Daniel</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Convenience and Practicality <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">7 of 8 participants</div>
+          <p>Emphasis on ease of use, accessibility, and practicality related to purchasing and feeding pet food.</p>
+          <blockquote>"Right now, Winston is on a pretty standard dry food, Purina I think. I don&#39;t add anything to it regularly, but sometimes he gets a little bit of what we&#39;re having for dinner as a treat, you know? He seems to like it and the vet says he&#39;s healthy, so I haven&#39;t really looked into other options too much."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I must admit I am a bit skeptical. I&#39;m not entirely convinced that these newfangled dog food options are significantly better than what&#39;s been available for years. As long as the vet approves of the ingredients, I suspect the traditional options will remain the more practical choice."<br><small>- Anthony</small></blockquote>
+          <blockquote>"As I stated before, I am skeptical of any new option being better than the tried and true. I would also say that, in my experience, pets tend to thrive on simple, consistent diets. The challenge is resisting the allure of these trendy options that may not offer any real advantage."<br><small>- Anthony</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Brand Trust and Authority <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">7 of 8 participants</div>
+          <p>Reliance on expert opinions and brand reputation when selecting pet food.</p>
+          <blockquote>"For me, the service would need to be endorsed by a widely respected veterinary organization. I would also require extensive, longitudinal studies demonstrating a clear advantage over traditional feeding methods before considering such a novel approach. It&#39;s not something I would adopt without substantial reassurance."<br><small>- Anthony</small></blockquote>
+          <blockquote>"I must admit I am a bit skeptical. I&#39;m not entirely convinced that these newfangled dog food options are significantly better than what&#39;s been available for years. As long as the vet approves of the ingredients, I suspect the traditional options will remain the more practical choice."<br><small>- Anthony</small></blockquote>
+          <blockquote>"As I stated before, I am skeptical of any new option being better than the tried and true. I would also say that, in my experience, pets tend to thrive on simple, consistent diets. The challenge is resisting the allure of these trendy options that may not offer any real advantage."<br><small>- Anthony</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Price Sensitivity <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">6 of 8 participants</div>
+          <p>Concerns about the financial aspect of pet food, including overall cost, perceived value, and affordability.</p>
+          <blockquote>"I&#39;m also curious about alternatives, but I&#39;m not dissatisfied with Champ&#39;s current diet of kibble and wet food. The combination seems to work, and it&#39;s reasonably priced. I&#39;d need to see significant benefits to justify switching to something entirely different and potentially more expensive."<br><small>- Christopher</small></blockquote>
+          <blockquote>"Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it."<br><small>- Charlotte</small></blockquote>
+          <blockquote>"The biggest thing for me is knowing if Duke is really getting what he needs. I mean, the kibble bag says it&#39;s all there, but is it really? I don&#39;t want to be skimping on his health just to save a few bucks, but I also don&#39;t want to get ripped off."<br><small>- Daniel</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Product Variety and Specificity <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">2 of 8 participants</div>
+          <p>Desire for diverse options and specialized formulations tailored to specific pet needs.</p>
+          <blockquote>"I feed Champ a mix of kibble and wet food. The kibble is good for his teeth, but the wet food makes it more palatable. I&#39;ve found that he seems to enjoy the variety, and it&#39;s a good way to ensure he gets all the nutrients he needs."<br><small>- Christopher</small></blockquote>
+          <blockquote>"Sure, I think the combination works well for Champ. I like knowing he&#39;s getting a balance of textures and flavors, plus the wet food helps with hydration. It&#39;s not too much extra work, and he seems happier with his meals."<br><small>- Christopher</small></blockquote>
+          <blockquote>"Luna eats primarily kibble. I supplement with occasional cooked chicken and vegetables. Her breed is prone to joint issues, so I add glucosamine."<br><small>- David</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Sustainability and Waste Reduction <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">1 of 8 participants</div>
+          <p>Consideration of environmental impact and minimizing waste associated with pet food products.</p>
+          <blockquote>"Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it."<br><small>- Charlotte</small></blockquote>
+          <blockquote>"I&#39;d be worried about it being a pain if my dog didn&#39;t like the food or if it upset his stomach. I don&#39;t want to get stuck with a bunch of food he won&#39;t eat. It&#39;s easier to just stick with what I know works for him."<br><small>- Charlotte</small></blockquote>
+          <blockquote>"I already said what I use. I guess the hardest thing is hoping Buster likes what I buy, since I don&#39;t want to waste food."<br><small>- Charlotte</small></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Sentiment by Phase</text><line x1="52" y1="202.00" x2="580" y2="202.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="206.00" font-size="11" fill="#6B7280">-1.0</text><line x1="52" y1="161.00" x2="580" y2="161.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="165.00" font-size="11" fill="#6B7280">-0.5</text><line x1="52" y1="120.00" x2="580" y2="120.00" stroke="#F59E0B" stroke-width="2" opacity="0.8"/><text x="22" y="124.00" font-size="11" fill="#6B7280">0.0</text><line x1="52" y1="79.00" x2="580" y2="79.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="83.00" font-size="11" fill="#6B7280">0.5</text><line x1="52" y1="38.00" x2="580" y2="38.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="42.00" font-size="11" fill="#6B7280">1.0</text><line x1="52.00" y1="113.62" x2="184.00" y2="115.44" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="184.00" y1="115.44" x2="316.00" y2="126.56" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="316.00" y1="126.56" x2="448.00" y2="116.36" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="448.00" y1="116.36" x2="580.00" y2="122.73" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><circle cx="52.00" cy="113.62" r="4.5" fill="#10B981"/><text x="52.00" y="232" text-anchor="middle" font-size="11">Warmup</text><circle cx="184.00" cy="115.44" r="4.5" fill="#10B981"/><text x="184.00" y="232" text-anchor="middle" font-size="11">Exploration</text><circle cx="316.00" cy="126.56" r="4.5" fill="#EF4444"/><text x="316.00" y="232" text-anchor="middle" font-size="11">Deep Dive</text><circle cx="448.00" cy="116.36" r="4.5" fill="#10B981"/><text x="448.00" y="232" text-anchor="middle" font-size="11">Reaction</text><circle cx="580.00" cy="122.73" r="4.5" fill="#EF4444"/><text x="580.00" y="232" text-anchor="middle" font-size="11">Synthesis</text></svg>
+      <p><strong>Trend:</strong> Stable</p>
+      <p><strong>Warmup:</strong> In warmup, participants were mixed (sentiment +0.08).</p>
+      <p><strong>Exploration:</strong> In exploration, participants were mixed (sentiment +0.06).</p>
+      <p><strong>Deep Dive:</strong> In deep dive, participants were mixed (sentiment -0.08).</p>
+      <p><strong>Reaction:</strong> In reaction, participants were mixed (sentiment +0.04).</p>
+      <p><strong>Synthesis:</strong> In synthesis, participants were mixed (sentiment -0.03).</p>
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="700" height="256" viewBox="0 0 700 256" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><rect x="10" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="40" r="18" fill="#EF4444"/><text x="87.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="87.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Michael</text><text x="87.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 60</text><text x="87.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">administrative assistant</text><rect x="185" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="40" r="18" fill="#EF4444"/><text x="262.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="262.5" y="68" text-anchor="middle" font-size="12" font-weight="700">David</text><text x="262.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 53</text><text x="262.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">teacher</text><rect x="360" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="40" r="18" fill="#EF4444"/><text x="437.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">C</text><text x="437.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Charlotte</text><text x="437.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 27</text><text x="437.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">driver</text><rect x="535" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="40" r="18" fill="#6B7280"/><text x="612.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="612.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Anthony</text><text x="612.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 77</text><text x="612.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">nurse</text><rect x="10" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="160" r="18" fill="#6B7280"/><text x="87.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">J</text><text x="87.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Joshua</text><text x="87.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 47</text><text x="87.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">technician</text><rect x="185" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="160" r="18" fill="#10B981"/><text x="262.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">C</text><text x="262.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Christopher</text><text x="262.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 29</text><text x="262.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">customer success spec...</text><rect x="360" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="160" r="18" fill="#10B981"/><text x="437.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="437.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Amelia</text><text x="437.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 63</text><text x="437.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">warehouse worker</text><rect x="535" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="160" r="18" fill="#10B981"/><text x="612.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="612.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Daniel</text><text x="612.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 49</text><text x="612.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text></svg>
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Michael</td>
+            <td>60</td>
+            <td>Male</td>
+            <td>&lt;$25k</td>
+            <td>high_school</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>53</td>
+            <td>Male</td>
+            <td>$100k-$150k</td>
+            <td>bachelors</td>
+            <td>achiever</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Charlotte</td>
+            <td>27</td>
+            <td>Female</td>
+            <td>$25k-$50k</td>
+            <td>high_school</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Anthony</td>
+            <td>77</td>
+            <td>Male</td>
+            <td>$100k-$150k</td>
+            <td>bachelors</td>
+            <td>striver</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Joshua</td>
+            <td>47</td>
+            <td>Male</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>believer</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Christopher</td>
+            <td>29</td>
+            <td>Female</td>
+            <td>$50k-$75k</td>
+            <td>some_college</td>
+            <td>achiever</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Amelia</td>
+            <td>63</td>
+            <td>Female</td>
+            <td>$50k-$75k</td>
+            <td>high_school</td>
+            <td>maker</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Daniel</td>
+            <td>49</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>some_college</td>
+            <td>achiever</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            <li class="concern">Price Sensitivity</li>
+            <li class="concern">Sustainability and Waste Reduction</li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            <li class="opportunity">Consumer Preferences</li>
+            <li class="opportunity">Health and Wellness</li>
+            <li class="opportunity">Convenience and Practicality</li>
+            <li class="opportunity">Brand Trust and Authority</li>
+            <li class="opportunity">Product Variety and Specificity</li>
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          <li class="improvement">Address price sensitivity with clearer product execution.</li>
+          <li class="improvement">Address sustainability and waste reduction with clearer product execution.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      <article class="pull-quote">
+        <div class="q">"Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it."</div>
+        <div class="by">Charlotte - Deep Dive</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I&#39;d be worried about it being a pain if my dog didn&#39;t like the food or if it upset his stomach. I don&#39;t want to get stuck with a bunch of food he won&#39;t eat. It&#39;s easier to just stick with what I know works for him."</div>
+        <div class="by">Charlotte - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"Right now, Winston is on a pretty standard dry food, Purina I think. I don&#39;t add anything to it regularly, but sometimes he gets a little bit of what we&#39;re having for dinner as a treat, you know? He seems to like it and the vet says he&#39;s healthy, so I haven&#39;t really looked into other options too much."</div>
+        <div class="by">Christopher - Reaction</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"Yeah, like I said, I just grab whatever dry food is cheapest when I&#39;m at the store. It&#39;s worked fine so far, and I don&#39;t see a reason to switch it up. I&#39;m not sure paying more for fancy food would really make a difference."</div>
+        <div class="by">Charlotte - Reaction</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"Well, he gets excited as soon as I open the bag, starts jumping around. It&#39;s probably not the healthiest thing for him, but he&#39;s a small dog, so one biscuit is a treat, not a whole meal. I try to make sure he gets good quality dog food, too, not just treats."</div>
+        <div class="by">Amelia - Warmup</div>
+      </article>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul><li>Well, he gets excited as soon as I open the bag, starts jumping around. It&#39;s probably not the healthiest thing for him, but he&#39;s a small dog, so one biscuit is a treat, not a whole meal. I try to make sure he gets good quality dog food, too, not just treats.</li><li>Honestly, the biggest thing for me would be convenience combined with some kind of clear guarantee. If it was just as easy as grabbing a bag of kibble and I knew for sure that it was healthier for Winston, I&#39;d think about it. But there&#39;s gotta be some assurance there, you know?</li><li>For me, the service would need to be endorsed by a widely respected veterinary organization. I would also require extensive, longitudinal studies demonstrating a clear advantage over traditional feeding methods before considering such a novel approach. It&#39;s not something I would adopt without substantial reassurance.</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+<li>Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it.</li><li>I&#39;d be worried about it being a pain if my dog didn&#39;t like the food or if it upset his stomach. I don&#39;t want to get stuck with a bunch of food he won&#39;t eat. It&#39;s easier to just stick with what I know works for him.</li><li>I think my biggest hesitation would be the long-term commitment and flexibility. What if Winston&#39;s tastes change, or he develops a new health issue? I&#39;d want to be able to easily adjust or cancel without a lot of hassle.</li><li>Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it.</li><li>I&#39;d be worried about it being a pain if my dog didn&#39;t like the food or if it upset his stomach. I don&#39;t want to get stuck with a bunch of food he won&#39;t eat. It&#39;s easier to just stick with what I know works for him.</li><li>Right now, Winston is on a pretty standard dry food, Purina I think. I don&#39;t add anything to it regularly, but sometimes he gets a little bit of what we&#39;re having for dinner as a treat, you know? He seems to like it and the vet says he&#39;s healthy, so I haven&#39;t really looked into other options too much.</li>          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        <li>This study used AI-generated personas grounded in US Census demographic data.</li>
+        <li>Personality profiles were based on the Five-Factor (OCEAN) model with age and gender-adjusted distributions.</li>
+        <li>Discussion was facilitated by an AI moderator using a five-phase qualitative research methodology.</li>
+        <li>Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.</li>
+        <li>Synthetic research is designed to complement, not replace, traditional research methods.</li>
+      </ul>
+      <p><strong>Participants:</strong> 8 | <strong>Phases:</strong> 5 | <strong>Total Messages:</strong> 62</p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+          <div class="transcript-phase">Warmup</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Alright everyone, thanks again for being here. To kick things off and get us all comfortable, let&#39;s go around the table. Tell me your name and tell me a little bit about your dog - what kind of dog do you have and what&#39;s one of their favorite things to eat? Michael, let&#39;s start with you.</p>
+          <p class="transcript-line"><strong>Michael:</strong> I&#39;m Michael. I have a beagle named Lucky. He likes scraps from my plate.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I&#39;m Christopher. I have a golden retriever named Champ. His favorite thing to eat is peanut butter; I have to be careful to keep it out of his reach.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I&#39;m Daniel. I have a German Shepherd named Duke. His favorite thing to eat is those little milk bone treats, but honestly, he&#39;ll eat anything you put in front of him.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> My name is Anthony, and I have a sweet little poodle named Coco. She&#39;s quite fond of cooked chicken; I usually prepare it for her myself to ensure she gets a healthy meal.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Thanks, everyone. It&#39;s great to have you all here. To kick things off and get a sense of everyone&#39;s experience, let&#39;s go around and share: What&#39;s your dog&#39;s favorite food or treat, and why do you think they love it so much? David, let&#39;s start with you.</p>
+          <p class="transcript-line"><strong>David:</strong> I&#39;m David. My border collie mix, Luna, enjoys salmon. I suspect it is the high fat content and strong odor she finds appealing.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I&#39;m Charlotte. My dog Buster is a mutt, maybe some kind of shepherd mix. He loves those jerky treats, probably because they taste like real meat.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I&#39;m Joshua. I don&#39;t have a dog right now, haven&#39;t had one since I was a kid. Back then, our mutt would eat just about anything.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I&#39;m Amelia. My little terrier, Patches, goes crazy for those cheese-flavored biscuits. I guess it&#39;s the salty, cheesy taste that gets him going.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Amelia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, he gets excited as soon as I open the bag, starts jumping around. It&#39;s probably not the healthiest thing for him, but he&#39;s a small dog, so one biscuit is a treat, not a whole meal. I try to make sure he gets good quality dog food, too, not just treats.</p>
+          <div class="transcript-phase">Exploration</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone, thanks again for being here. To kick things off and get us all warmed up, let&#39;s go around and briefly share what you typically feed your dog on a daily basis? Michael, let&#39;s start with you.</p>
+          <p class="transcript-line"><strong>Michael:</strong> Kibble. It&#39;s cheap and Lucky eats it.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I also feed Duke kibble, just like Michael. It&#39;s the easiest thing, and the vet says it&#39;s fine as long as it&#39;s a decent brand. I don&#39;t have the time to be cooking special meals for him.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I feed Patches kibble, too. The vet recommended a brand for small dogs, so I use that one. It&#39;s simple and seems to keep him healthy.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I feed Champ a mix of kibble and wet food. The kibble is good for his teeth, but the wet food makes it more palatable. I&#39;ve found that he seems to enjoy the variety, and it&#39;s a good way to ensure he gets all the nutrients he needs.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Christopher, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Christopher:</strong> Sure, I think the combination works well for Champ. I like knowing he&#39;s getting a balance of textures and flavors, plus the wet food helps with hydration. It&#39;s not too much extra work, and he seems happier with his meals.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone, thanks for sharing so far. Let&#39;s shift gears a little.
+
+David and Charlotte, I&#39;d love to hear from you both. Could you tell me a little bit about what you currently feed your dogs and why you chose that particular food?</p>
+          <p class="transcript-line"><strong>David:</strong> Luna eats dry kibble. It&#39;s practical and formulated for her breed and activity level.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> Buster eats kibble too. I picked it because it&#39;s what the vet recommended, and it&#39;s easy to find at the store. Plus, it doesn&#39;t cost too much, which is important.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I must admit I am a bit skeptical. I&#39;m not entirely convinced that these newfangled dog food options are significantly better than what&#39;s been available for years. As long as the vet approves of the ingredients, I suspect the traditional options will remain the more practical choice.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I&#39;m also curious about alternatives, but I&#39;m not dissatisfied with Champ&#39;s current diet of kibble and wet food. The combination seems to work, and it&#39;s reasonably priced. I&#39;d need to see significant benefits to justify switching to something entirely different and potentially more expensive.</p>
+          <div class="transcript-phase">Deep Dive</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Michael and Joshua, we haven&#39;t heard from you both in a little while. Thinking about feeding your dog, what&#39;s the biggest challenge or frustration you face when it comes to their meals?</p>
+          <p class="transcript-line"><strong>Michael:</strong> Cost. Gotta find something Lucky will eat that doesn&#39;t break the bank.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I don&#39;t have a dog, so it&#39;s not a problem for me. But if I did, I&#39;d probably just go with whatever&#39;s cheapest that the dog will eat.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> The biggest thing for me is knowing if Duke is really getting what he needs. I mean, the kibble bag says it&#39;s all there, but is it really? I don&#39;t want to be skimping on his health just to save a few bucks, but I also don&#39;t want to get ripped off.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I already said what I use. I guess the hardest thing is hoping Buster likes what I buy, since I don&#39;t want to waste food.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Charlotte, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> Yeah, I just mean sometimes Buster is picky, and then I have to try a new kind of food, and it can be expensive. I don&#39;t wanna waste the old bag, so I end up mixing it in, but I&#39;m never sure if he&#39;s getting what he needs. It&#39;s just annoying when they don&#39;t like it.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> David and Anthony, we haven&#39;t heard from you in a little while. Thinking about your own dogs, what&#39;s the biggest challenge you face when it comes to making sure they&#39;re getting the right nutrition?</p>
+          <p class="transcript-line"><strong>David:</strong> Ensuring optimal nutrition is difficult. Kibble seems sufficient, but I do wonder if it truly meets Luna&#39;s specific physiological needs.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> As I stated before, I am skeptical of any new option being better than the tried and true. I would also say that, in my experience, pets tend to thrive on simple, consistent diets. The challenge is resisting the allure of these trendy options that may not offer any real advantage.</p>
+          <p class="transcript-line"><strong>Michael:</strong> Getting good food cheap is tough. Gotta read the labels, but who knows what it all means?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> Like I said, I don&#39;t have a dog. But if I did, I wouldn&#39;t overthink it. Just get something cheap that seems alright.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Joshua, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> Well, I guess I just mean I wouldn&#39;t go out of my way to get the fancy stuff. As long as the dog seems healthy and eats what I give it, that&#39;s good enough for me. No need to spend a ton of money or stress about the perfect diet.</p>
+          <div class="transcript-phase">Reaction</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone, thanks for sharing your thoughts so far. David and Anthony, we&#39;d love to hear from you. Before we dig deeper into this concept, could you each tell us a little about what you currently feed your dog, or what you *would* feed a dog if you had one? Just a quick overview is fine.</p>
+          <p class="transcript-line"><strong>David:</strong> Luna eats primarily kibble. I supplement with occasional cooked chicken and vegetables. Her breed is prone to joint issues, so I add glucosamine.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I do not currently have a dog. However, having grown up on a farm, I would likely opt for a high-quality, widely-available kibble from a reputable brand, perhaps supplemented with occasional table scraps.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> Right now, Winston is on a pretty standard dry food, Purina I think. I don&#39;t add anything to it regularly, but sometimes he gets a little bit of what we&#39;re having for dinner as a treat, you know? He seems to like it and the vet says he&#39;s healthy, so I haven&#39;t really looked into other options too much.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I feed Buddy dry food from the store, plus some canned food sometimes. He likes it well enough, and it&#39;s easy on my wallet. I don&#39;t think he needs anything fancy.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some initial thoughts, which is great. Daniel and Michael, I&#39;d love to hear from you both. In general, what kind of food do you currently feed your dog, or have you fed dogs in the past?</p>
+          <p class="transcript-line"><strong>Michael:</strong> I don&#39;t have a dog right now. I usually just get the cheapest dry food at the store. They ate it fine.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> Well, right now, I&#39;m feeding Buddy a mix of dry and wet food from Purina. He seems to like it okay, and his coat&#39;s shiny, so I guess it&#39;s doing the job. I&#39;m always a little worried about those fancy diets, you know?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> Like Mike said, I&#39;d probably just get something cheap from the store. No need to make it complicated. As long as the dog eats it and looks healthy, that&#39;s all that matters.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I&#39;ve got a beagle, and he gets dry food. I don&#39;t worry too much about the brand, just whatever&#39;s on sale. He seems happy and healthy, so I don&#39;t want to mess with it.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Charlotte, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> Yeah, like I said, I just grab whatever dry food is cheapest when I&#39;m at the store. It&#39;s worked fine so far, and I don&#39;t see a reason to switch it up. I&#39;m not sure paying more for fancy food would really make a difference.</p>
+          <div class="transcript-phase">Synthesis</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting perspectives so far. To wrap things up, I&#39;d like to hear from everyone, including David and Anthony.
+
+**Knowing what you know now about this type of service, what would be the single biggest factor that would make you actually consider trying it for your dog?**</p>
+          <p class="transcript-line"><strong>David:</strong> Demonstrable health benefits verified by a veterinarian. Something more substantive than just a shiny coat.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> For me, the service would need to be endorsed by a widely respected veterinary organization. I would also require extensive, longitudinal studies demonstrating a clear advantage over traditional feeding methods before considering such a novel approach. It&#39;s not something I would adopt without substantial reassurance.</p>
+          <p class="transcript-line"><strong>Michael:</strong> Price. It would have to be cheaper than what I&#39;m doing now. I don&#39;t know if I believe all the fancy claims.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> Honestly, the biggest thing for me would be convenience combined with some kind of clear guarantee. If it was just as easy as grabbing a bag of kibble and I knew for sure that it was healthier for Winston, I&#39;d think about it. But there&#39;s gotta be some assurance there, you know?</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some really interesting points so far. Now, thinking about everything we&#39;ve discussed, and considering your own dog and your current feeding routine, what would be the *single* most important reason you would choose *not* to try a service like this? Amelia, I want your take as well.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I&#39;m not sure I&#39;d want to deal with a subscription. It sounds like a hassle to change things if Buddy doesn&#39;t like it or if his needs change. I&#39;m happy with what I&#39;m doing now, and I don&#39;t see a need to make things more complicated.</p>
+          <p class="transcript-line"><strong>Michael:</strong> Too expensive. Like I said, I buy the cheap stuff. I don&#39;t know if I&#39;d spend more just because.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I think my biggest hesitation would be the long-term commitment and flexibility. What if Winston&#39;s tastes change, or he develops a new health issue? I&#39;d want to be able to easily adjust or cancel without a lot of hassle.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I&#39;d be worried about it being a pain if my dog didn&#39;t like the food or if it upset his stomach. I don&#39;t want to get stuck with a bunch of food he won&#39;t eat. It&#39;s easier to just stick with what I know works for him.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Charlotte, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> Yeah, I mean, my dog&#39;s got a sensitive stomach. If I switch his food, sometimes he gets sick. I don&#39;t want to pay for food that makes him feel bad, then have to deal with cleaning up the mess.</p>
+      </details>
+    </section>
+  </div>
+</body>
+</html>

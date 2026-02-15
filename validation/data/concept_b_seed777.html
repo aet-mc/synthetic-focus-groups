@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: A subscription meal service for dogs — fresh, human-grade ingredients, portioned and personalized to your dog&#39;s breed, age, weight, and health needs. Designed by veterinary nutritionists. Delivered weekly in eco-friendly packaging. No kibble, no preservatives. The idea: your dog eats as well as you do, with meals tailored to their specific needs.</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: A subscription meal service for dogs — fresh, human-grade ingredients, portioned and personalized to your dog&#39;s breed, age, weight, and health needs. Designed by veterinary nutritionists. Delivered weekly in eco-friendly packaging. No kibble, no preservatives. The idea: your dog eats as well as you do, with meals tailored to their specific needs.</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>February 15, 2026</div>
+        <div><strong>Category</strong><br>Synthetic Focus Group - AI-Powered Market Research</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: #F59E0B;">ITERATE</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>{
+  &#34;executive_summary&#34;: &#34;While the concept of personalized dog food resonates with pet owners, particularly regarding relevance and convenience, purchase intent is low due to concerns about value and the need for demonstrable health benefits to justify the cost. Participants prioritize nutritional content, safety, and transparency, seeking scientific validation and assurances of quality. Trust in the brand and clear communication of the product&#39;s value proposition are crucial for driving adoption. Focus on building trust through transparent sourcing and nutritional information.&#34;
+}</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>ITERATE</strong> (Confidence: Medium)</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">12%</div>
+              <div class="label">Purchase Intent</div>
+            </div>
+            <div class="stat">
+              <div class="value">7</div>
+              <div class="label">Key Themes</div>
+            </div>
+            <div class="stat">
+              <div class="value">8</div>
+              <div class="label">Participants</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><path d="M14.40,108.00 A75.60,75.60 0 0 1 78.17,33.33" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round"/><path d="M78.17,33.33 A75.60,75.60 0 0 1 124.32,40.64" fill="none" stroke="#F59E0B" stroke-width="11" stroke-linecap="round"/><path d="M124.32,40.64 A75.60,75.60 0 0 1 165.60,108.00" fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round"/><line x1="90.00" y1="108.00" x2="49.09" y2="51.69" stroke="#EF4444" stroke-width="3"/><circle cx="90.00" cy="108.00" r="4" fill="#EF4444"/><text x="90.0" y="90.0" text-anchor="middle" font-size="17" font-weight="700" fill="#EF4444">30%</text><text x="90.0" y="118" text-anchor="middle" font-size="11">Excitement Score</text></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="125.0" y="22" text-anchor="middle" font-size="14" font-weight="700">Recommendation Signal</text><path d="M125.00,52.30 A60.70,60.70 0 0 1 182.73,131.76" fill="none" stroke="#F59E0B" stroke-width="32.27" stroke-linecap="butt"/><path d="M182.73,131.76 A60.70,60.70 0 1 1 125.00,52.30" fill="none" stroke="#E5E7EB" stroke-width="32.27" stroke-linecap="butt"/><text x="125.0" y="111.0" text-anchor="middle" font-size="16" font-weight="700">1</text><text x="125.0" y="127.0" text-anchor="middle" font-size="11" fill="#6B7280">Responses</text><rect x="10" y="206" width="9" height="9" rx="2" fill="#F59E0B"/><text x="24" y="214" font-size="10">ITERATE (30%)</text><rect x="10" y="220" width="9" height="9" rx="2" fill="#E5E7EB"/><text x="24" y="228" font-size="10">Remaining (70%)</text></svg>
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="280" viewBox="0 0 600 280" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Top-2-Box Concept Scores</text><text x="14" y="55" font-size="12" font-weight="600">Purchase Intent</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="41.25" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">12%</text><text x="14" y="91" font-size="12" font-weight="600">Overall Appeal</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="123.75" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">38%</text><text x="14" y="127" font-size="12" font-weight="600">Uniqueness</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="41.25" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">12%</text><text x="14" y="163" font-size="12" font-weight="600">Relevance</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="206.25" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">62%</text><text x="14" y="199" font-size="12" font-weight="600">Believability</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="123.75" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">38%</text><text x="14" y="235" font-size="12" font-weight="600">Value Perception</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="0.00" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">0%</text></svg>
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purchase Intent</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Purchase Intent signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Overall Appeal</strong></td>
+            <td>38%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Overall Appeal signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Uniqueness</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Uniqueness signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Relevance</strong></td>
+            <td>62%</td>
+            <td><span class="status status-mid">Moderate</span></td>
+            <td>Relevance is promising but requires refinement before scaling.</td>
+          </tr>
+          <tr>
+            <td><strong>Believability</strong></td>
+            <td>38%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Believability signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Value Perception</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Value Perception signals material risk and needs substantial improvement.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="316" viewBox="0 0 600 316" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Theme Prevalence</text><text x="14" y="55" font-size="12" font-weight="600">Convenience and Time</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="330.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">100%</text><text x="14" y="91" font-size="12" font-weight="600">Price and Value</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="247.50" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">75%</text><text x="14" y="127" font-size="12" font-weight="600">Nutritional Content</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="247.50" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">75%</text><text x="14" y="163" font-size="12" font-weight="600">Trust and Transparency</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="206.25" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">62%</text><text x="14" y="199" font-size="12" font-weight="600">Safety and Quality</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="165.00" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">50%</text><text x="14" y="235" font-size="12" font-weight="600">Palatability and Taste</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="123.75" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">38%</text><text x="14" y="271" font-size="12" font-weight="600">Information Processing</text><rect x="190" y="256" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="256" width="123.75" height="22" rx="4" fill="#93C5FD"/><text x="530" y="271" font-size="12" font-weight="700">38%</text></svg>
+      <div class="card-grid">
+        <article class="theme-card">
+          <h3>Convenience and Time <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>This theme captures the ease of use and time-saving aspects associated with pet food choices.</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."<br><small>- Mia</small></blockquote>
+          <blockquote>"I currently feed my dog a premium dry kibble, supplemented with occasional cooked chicken or vegetables. I chose this option primarily for its balance of convenience and perceived nutritional value, though I admit I could probably do more research into optimal canine nutrition."<br><small>- Daniel</small></blockquote>
+          <blockquote>"The biggest challenge is definitely the time and effort required to research and prepare truly optimal meals. Ensuring a fully balanced diet with whole foods demands a level of nutritional understanding and commitment that isn&#39;t always feasible with my work schedule."<br><small>- Anthony</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Price and Value <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">6 of 8 participants</div>
+          <p>This theme encompasses consumer considerations related to the monetary cost of pet food and its perceived value.</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."<br><small>- Mia</small></blockquote>
+          <blockquote>"The cost is a major hurdle, so the health benefits need to be clear and convincing. I would need to see quantifiable improvements, such as better coat quality, increased energy, or improved digestion, to justify the additional expense. Otherwise, it&#39;s hard to justify the switch from a more affordable option."<br><small>- Isabella</small></blockquote>
+          <blockquote>"For me, the most critical factor would be demonstrable improvements in my dog&#39;s health and well-being. I would need assurance that the benefits justify the additional cost and potential adjustments to our routine."<br><small>- Sophia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Nutritional Content <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">6 of 8 participants</div>
+          <p>This theme focuses on the nutritional aspects of pet food, including its ingredients and overall health benefits.</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."<br><small>- Mia</small></blockquote>
+          <blockquote>"The cost is a major hurdle, so the health benefits need to be clear and convincing. I would need to see quantifiable improvements, such as better coat quality, increased energy, or improved digestion, to justify the additional expense. Otherwise, it&#39;s hard to justify the switch from a more affordable option."<br><small>- Isabella</small></blockquote>
+          <blockquote>"For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety."<br><small>- Anthony</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Trust and Transparency <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">5 of 8 participants</div>
+          <p>This theme reflects the importance of brand trust, transparency in labeling, and overall confidence in the pet food product.</p>
+          <blockquote>"For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety."<br><small>- Anthony</small></blockquote>
+          <blockquote>"For me, the biggest hurdle would be verifying the scientific validity of the nutritional claims and the quality control processes. &#34;Designed by veterinary nutritionists&#34; is a good start, but I&#39;d need to examine the research and data supporting the personalization and health benefit claims."<br><small>- Anthony</small></blockquote>
+          <blockquote>"I&#39;m Sophia. I suppose I&#39;d like to be more confident that my dog&#39;s getting precisely what she needs without my having to spend excessive time researching and preparing meals myself. The information available can be overwhelming, and trusting a reliable source would be beneficial."<br><small>- Sophia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Safety and Quality <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">4 of 8 participants</div>
+          <p>This theme highlights concerns about the safety and quality of pet food products, including potential hazards.</p>
+          <blockquote>"For me, the biggest hurdle would be verifying the scientific validity of the nutritional claims and the quality control processes. &#34;Designed by veterinary nutritionists&#34; is a good start, but I&#39;d need to examine the research and data supporting the personalization and health benefit claims."<br><small>- Anthony</small></blockquote>
+          <blockquote>"Echoing Anthony, the necessity of rigorous verification of the nutritional claims is paramount. I&#39;d also need assurances regarding the sourcing of ingredients and the overall safety of the product before committing to a subscription."<br><small>- Sophia</small></blockquote>
+          <blockquote>"I seek assurance that the food I provide is both nutritious and safe. The presence of unfamiliar chemical compounds on the ingredients list raises concerns about potential long-term effects on my dog&#39;s health."<br><small>- Daniel</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Palatability and Taste <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">3 of 8 participants</div>
+          <p>This theme centers on the taste and texture of the pet food, and how appealing it is to the animal.</p>
+          <blockquote>"I currently feed my dog a combination of dry and wet food. My choice is primarily driven by a balance of affordability, convenience, and the perceived palatability for my dog."<br><small>- Mia</small></blockquote>
+          <blockquote>"I&#39;m Mia. I usually give my dog a mix of dry kibble and wet food; I find it&#39;s a good balance of cost-effectiveness and palatability for her."<br><small>- Mia</small></blockquote>
+          <blockquote>"I also buy kibble, the cheap stuff. It&#39;s easy, and the dog eats it. I don&#39;t really think about it too much, to be honest."<br><small>- Matthew</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Information Processing <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">3 of 8 participants</div>
+          <p>This theme relates to how consumers process information about pet food and their tendency to stick with what they know.</p>
+          <blockquote>"I&#39;m Sophia. I suppose I&#39;d like to be more confident that my dog&#39;s getting precisely what she needs without my having to spend excessive time researching and preparing meals myself. The information available can be overwhelming, and trusting a reliable source would be beneficial."<br><small>- Sophia</small></blockquote>
+          <blockquote>"I find that balancing time and information is the biggest challenge. It requires significant effort to stay informed about the latest nutritional research and to source high-quality ingredients, but this is a priority for me."<br><small>- Mia</small></blockquote>
+          <blockquote>"It&#39;s cheap and easy. I don&#39;t have to think about it. I don&#39;t see why I should pay more for something different when what I use now works just fine."<br><small>- James</small></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Sentiment by Phase</text><line x1="52" y1="202.00" x2="580" y2="202.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="206.00" font-size="11" fill="#6B7280">-1.0</text><line x1="52" y1="161.00" x2="580" y2="161.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="165.00" font-size="11" fill="#6B7280">-0.5</text><line x1="52" y1="120.00" x2="580" y2="120.00" stroke="#F59E0B" stroke-width="2" opacity="0.8"/><text x="22" y="124.00" font-size="11" fill="#6B7280">0.0</text><line x1="52" y1="79.00" x2="580" y2="79.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="83.00" font-size="11" fill="#6B7280">0.5</text><line x1="52" y1="38.00" x2="580" y2="38.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="42.00" font-size="11" fill="#6B7280">1.0</text><line x1="52.00" y1="116.36" x2="184.00" y2="119.18" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="184.00" y1="119.18" x2="316.00" y2="124.10" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="316.00" y1="124.10" x2="448.00" y2="115.90" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="448.00" y1="115.90" x2="580.00" y2="89.93" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><circle cx="52.00" cy="116.36" r="4.5" fill="#10B981"/><text x="52.00" y="232" text-anchor="middle" font-size="11">Warmup</text><circle cx="184.00" cy="119.18" r="4.5" fill="#10B981"/><text x="184.00" y="232" text-anchor="middle" font-size="11">Exploration</text><circle cx="316.00" cy="124.10" r="4.5" fill="#EF4444"/><text x="316.00" y="232" text-anchor="middle" font-size="11">Deep Dive</text><circle cx="448.00" cy="115.90" r="4.5" fill="#10B981"/><text x="448.00" y="232" text-anchor="middle" font-size="11">Reaction</text><circle cx="580.00" cy="89.93" r="4.5" fill="#10B981"/><text x="580.00" y="232" text-anchor="middle" font-size="11">Synthesis</text></svg>
+      <p><strong>Trend:</strong> Improving</p>
+      <p><strong>Warmup:</strong> In warmup, participants were mixed (sentiment +0.04).</p>
+      <p><strong>Exploration:</strong> In exploration, participants were mixed (sentiment +0.01).</p>
+      <p><strong>Deep Dive:</strong> In deep dive, participants were mixed (sentiment -0.05).</p>
+      <p><strong>Reaction:</strong> In reaction, participants were mixed (sentiment +0.05).</p>
+      <p><strong>Synthesis:</strong> In synthesis, participants responded positively (sentiment +0.37).</p>
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="700" height="256" viewBox="0 0 700 256" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><rect x="10" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="40" r="18" fill="#EF4444"/><text x="87.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">O</text><text x="87.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Olivia</text><text x="87.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 48</text><text x="87.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">driver</text><rect x="185" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="40" r="18" fill="#EF4444"/><text x="262.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">I</text><text x="262.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Isabella</text><text x="262.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 22</text><text x="262.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">software engineer</text><rect x="360" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="40" r="18" fill="#EF4444"/><text x="437.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">J</text><text x="437.5" y="68" text-anchor="middle" font-size="12" font-weight="700">James</text><text x="437.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 53</text><text x="437.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">administrative assistant</text><rect x="535" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="40" r="18" fill="#6B7280"/><text x="612.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="612.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Matthew</text><text x="612.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 24</text><text x="612.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">warehouse worker</text><rect x="10" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="160" r="18" fill="#6B7280"/><text x="87.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="87.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Daniel</text><text x="87.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 56</text><text x="87.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">nurse</text><rect x="185" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="160" r="18" fill="#10B981"/><text x="262.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">S</text><text x="262.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Sophia</text><text x="262.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 58</text><text x="262.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text><rect x="360" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="160" r="18" fill="#10B981"/><text x="437.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="437.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Anthony</text><text x="437.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 43</text><text x="437.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">research scientist</text><rect x="535" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="160" r="18" fill="#10B981"/><text x="612.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="612.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Mia</text><text x="612.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 31</text><text x="612.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">software engineer</text></svg>
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Olivia</td>
+            <td>48</td>
+            <td>Female</td>
+            <td>$150k+</td>
+            <td>high_school</td>
+            <td>innovator</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Isabella</td>
+            <td>22</td>
+            <td>Female</td>
+            <td>$25k-$50k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>James</td>
+            <td>53</td>
+            <td>Male</td>
+            <td>$75k-$100k</td>
+            <td>high_school</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Matthew</td>
+            <td>24</td>
+            <td>Male</td>
+            <td>&lt;$25k</td>
+            <td>high_school</td>
+            <td>striver</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Daniel</td>
+            <td>56</td>
+            <td>Male</td>
+            <td>$75k-$100k</td>
+            <td>bachelors</td>
+            <td>achiever</td>
+            <td>Neutral</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Sophia</td>
+            <td>58</td>
+            <td>Female</td>
+            <td>$150k+</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Anthony</td>
+            <td>43</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>doctorate</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Mia</td>
+            <td>31</td>
+            <td>Female</td>
+            <td>&lt;$25k</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+        <article class="segment-card">
+          <h3>Age: 35-55</h3>
+          <p><strong>Purchase Intent:</strong> 33%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 21%</p>
+          <blockquote>"For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: $50K-$100K</h3>
+          <p><strong>Purchase Intent:</strong> 33%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 21%</p>
+          <blockquote>"For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Age: Under 35</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Age: Over 55</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"I&#39;m Sophia. I suppose I&#39;d like to be more confident that my dog&#39;s getting precisely what she needs without my having to spend excessive time researching and preparing meals myself. The information available can be overwhelming, and trusting a reliable source would be beneficial."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: Under $50K</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: Over $100K</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"I&#39;m Sophia. I suppose I&#39;d like to be more confident that my dog&#39;s getting precisely what she needs without my having to spend excessive time researching and preparing meals myself. The information available can be overwhelming, and trusting a reliable source would be beneficial."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: High Agreeableness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more positive by 0.11</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: Low Agreeableness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.10</p>
+          <blockquote>"Well, I just figure if I can&#39;t read it, maybe my dog shouldn&#39;t eat it. It&#39;s probably not natural if it needs a science degree to understand. I&#39;m not saying it&#39;s bad, just makes me wonder."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Female</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Male</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 12%</p>
+          <blockquote>"For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: innovator</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 12%; sentiment is more positive by 0.12</p>
+          <blockquote>"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: survivor</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.12</p>
+          <blockquote>"The cost is a major hurdle, so the health benefits need to be clear and convincing. I would need to see quantifiable improvements, such as better coat quality, increased energy, or improved digestion, to justify the additional expense. Otherwise, it&#39;s hard to justify the switch from a more affordable option."</blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            <li class="concern">Limited evidence of strong objections</li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            <li class="opportunity">Convenience and Time</li>
+            <li class="opportunity">Price and Value</li>
+            <li class="opportunity">Nutritional Content</li>
+            <li class="opportunity">Trust and Transparency</li>
+            <li class="opportunity">Safety and Quality</li>
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          <li class="improvement">Address limited evidence of strong objections with clearer product execution.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      <article class="pull-quote">
+        <div class="q">"I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect."</div>
+        <div class="by">Mia - Exploration</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety."</div>
+        <div class="by">Anthony - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"The cost is a major hurdle, so the health benefits need to be clear and convincing. I would need to see quantifiable improvements, such as better coat quality, increased energy, or improved digestion, to justify the additional expense. Otherwise, it&#39;s hard to justify the switch from a more affordable option."</div>
+        <div class="by">Isabella - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I&#39;m Anthony. I feed my dog a mix of premium dry food and homemade meals, formulated with guidance from a veterinary nutritionist. I do this to ensure a balanced diet tailored to his specific health needs."</div>
+        <div class="by">Anthony - Warmup</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I currently feed my dog a premium dry kibble, supplemented with occasional cooked chicken or vegetables. I chose this option primarily for its balance of convenience and perceived nutritional value, though I admit I could probably do more research into optimal canine nutrition."</div>
+        <div class="by">Daniel - Reaction</div>
+      </article>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul><li>I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect.</li><li>For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety.</li><li>The cost is a major hurdle, so the health benefits need to be clear and convincing. I would need to see quantifiable improvements, such as better coat quality, increased energy, or improved digestion, to justify the additional expense. Otherwise, it&#39;s hard to justify the switch from a more affordable option.</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+<li>The biggest challenge is definitely the time and effort required to research and prepare truly optimal meals. Ensuring a fully balanced diet with whole foods demands a level of nutritional understanding and commitment that isn&#39;t always feasible with my work schedule.</li><li>It&#39;s gotta be the price. If it costs more than the big bag of kibble I get now, it&#39;s a no-go for me. I don&#39;t have a lot of money to spend on dog food.</li><li>I seek assurance that the food I provide is both nutritious and safe. The presence of unfamiliar chemical compounds on the ingredients list raises concerns about potential long-term effects on my dog&#39;s health.</li><li>I currently feed my dog a premium dry kibble, supplemented with occasional cooked chicken or vegetables. I chose this option primarily for its balance of convenience and perceived nutritional value, though I admit I could probably do more research into optimal canine nutrition.</li><li>I typically purchase one of the more reputable dry food brands from a pet supply store. The quality of ingredients is paramount, though I also appreciate the convenience of a widely available brand with a strong reputation.</li><li>For me, the biggest hurdle would be verifying the scientific validity of the nutritional claims and the quality control processes. &#34;Designed by veterinary nutritionists&#34; is a good start, but I&#39;d need to examine the research and data supporting the personalization and health benefit claims.</li>          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        <li>This study used AI-generated personas grounded in US Census demographic data.</li>
+        <li>Personality profiles were based on the Five-Factor (OCEAN) model with age and gender-adjusted distributions.</li>
+        <li>Discussion was facilitated by an AI moderator using a five-phase qualitative research methodology.</li>
+        <li>Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.</li>
+        <li>Synthetic research is designed to complement, not replace, traditional research methods.</li>
+      </ul>
+      <p><strong>Participants:</strong> 8 | <strong>Phases:</strong> 5 | <strong>Total Messages:</strong> 62</p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+          <div class="transcript-phase">Warmup</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Alright everyone, thanks again for being here. To get us started and comfortable, let&#39;s go around the table. Tell me your name and then, in a sentence or two, describe what you typically feed your dog and why you chose that. Olivia, would you like to start?</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I&#39;m Olivia. I usually buy dry kibble from the grocery store because it&#39;s easy.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I&#39;m Mia. I usually give my dog a mix of dry kibble and wet food; I find it&#39;s a good balance of cost-effectiveness and palatability for her.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I&#39;m Daniel. I typically feed my dog high-quality dry food recommended by our veterinarian, supplemented with occasional cooked chicken or rice. It&#39;s a balance of nutrition and simplicity.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I&#39;m Anthony. I feed my dog a mix of premium dry food and homemade meals, formulated with guidance from a veterinary nutritionist. I do this to ensure a balanced diet tailored to his specific health needs.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, great. Thanks for the introductions, everyone. To get us started, let&#39;s go around and share a little bit more about your dogs. What&#39;s one thing you wish you could change or improve about your dog&#39;s current diet? Isabella, let&#39;s start with you.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I&#39;m Isabella. I wish I could find a more affordable option that still ensures my dog gets all the necessary nutrients. It&#39;s challenging to balance cost with quality.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I&#39;m Sophia. I suppose I&#39;d like to be more confident that my dog&#39;s getting precisely what she needs without my having to spend excessive time researching and preparing meals myself. The information available can be overwhelming, and trusting a reliable source would be beneficial.</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I&#39;m Matthew. I just get the regular dry food from Walmart. I guess I wish it was cheaper, so I could save some money.</p>
+          <p class="transcript-line"><strong>James:</strong> I&#39;m James. I give my dog Purina from Kroger. It&#39;s what I&#39;ve always done. I wish it didn&#39;t have so many ingredients I can&#39;t pronounce.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> James, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>James:</strong> Well, I just figure if I can&#39;t read it, maybe my dog shouldn&#39;t eat it. It&#39;s probably not natural if it needs a science degree to understand. I&#39;m not saying it&#39;s bad, just makes me wonder.</p>
+          <div class="transcript-phase">Exploration</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone. Thanks for sharing so far. Let&#39;s try to get everyone involved.
+
+Olivia and Isabella, I&#39;m curious, what kind of food do you currently feed your dogs, and what&#39;s one thing you really like or dislike about it?</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I get dry kibble from the grocery store. It&#39;s cheap.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I also buy dry kibble, because it&#39;s convenient. I dislike that the ingredients aren&#39;t always the highest quality, but I can&#39;t afford the premium brands.</p>
+          <p class="transcript-line"><strong>James:</strong> I already said what I use. It&#39;s easy to find at the store. I don&#39;t like all the stuff I can&#39;t pronounce.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I concur with the concern about unidentifiable ingredients. While convenience is a factor, a lack of transparency is unsettling.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Daniel, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I seek assurance that the food I provide is both nutritious and safe. The presence of unfamiliar chemical compounds on the ingredients list raises concerns about potential long-term effects on my dog&#39;s health.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s hear from a couple of folks we haven&#39;t heard from as much yet. Matthew and Sophia, what kind of food do you typically feed your dog, and what&#39;s important to you when choosing it?</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I get the cheapest dry food at Walmart. Price is the most important thing for me.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I typically purchase one of the more reputable dry food brands from a pet supply store. The quality of ingredients is paramount, though I also appreciate the convenience of a widely available brand with a strong reputation.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I use dry kibble from the store. I don&#39;t care about the ingredients that much. If the dog eats it, I buy it.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I also focus on ingredients, like Sophia. While convenience and price are factors, I&#39;m primarily concerned with the nutritional value and safety of the food. I try to balance those priorities.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Mia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Mia:</strong> I aim to provide a balanced diet for my dog, ensuring it meets his nutritional needs without exceeding my budget or requiring excessive effort. I carefully review the ingredient lists and nutritional information on pet food labels, seeking recognizable, whole-food ingredients and avoiding excessive fillers or artificial additives where possible. It&#39;s about finding the sweet spot where quality, cost, and convenience intersect.</p>
+          <div class="transcript-phase">Deep Dive</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Anthony and Isabella, we&#39;ve heard some great perspectives on balancing convenience, price, and ingredient quality when it comes to feeding our dogs. From your experience, what&#39;s the biggest challenge you face in ensuring your dog gets the best possible nutrition?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> The biggest challenge is affordability. I want to provide nutritious food, but the cost of high-quality ingredients can be prohibitive on my budget.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> The biggest challenge is definitely the time and effort required to research and prepare truly optimal meals. Ensuring a fully balanced diet with whole foods demands a level of nutritional understanding and commitment that isn&#39;t always feasible with my work schedule.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I find that balancing time and information is the biggest challenge. It requires significant effort to stay informed about the latest nutritional research and to source high-quality ingredients, but this is a priority for me.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I concur with Anthony that time is a salient challenge. The demands of a career make it difficult to dedicate the hours required for meticulous meal preparation.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great insights about the challenges of finding the right food for your dogs. Let&#39;s dive a bit deeper. Matthew and Anthony, we haven&#39;t heard from you in a little while. Considering this concept of fresh, personalized meals delivered weekly, what would be the biggest hurdle for you to overcome before you&#39;d consider subscribing to a service like this?</p>
+          <p class="transcript-line"><strong>Matthew:</strong> It&#39;s gotta be the price. If it costs more than the big bag of kibble I get now, it&#39;s a no-go for me. I don&#39;t have a lot of money to spend on dog food.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> For me, the biggest hurdle would be verifying the scientific validity of the nutritional claims and the quality control processes. &#34;Designed by veterinary nutritionists&#34; is a good start, but I&#39;d need to examine the research and data supporting the personalization and health benefit claims.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I&#39;d want to know if my dog will eat it. I&#39;m not gonna waste money on fancy food he won&#39;t touch.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> Echoing Anthony, the necessity of rigorous verification of the nutritional claims is paramount. I&#39;d also need assurances regarding the sourcing of ingredients and the overall safety of the product before committing to a subscription.</p>
+          <div class="transcript-phase">Reaction</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great initial thoughts. Isabella and James, I&#39;d love to hear from you both. To start, what kind of food do you currently feed your dogs, and why did you choose that option?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I currently use dry kibble because it&#39;s affordable and accessible. I chose it primarily due to budget constraints, which outweigh the potential benefits of pricier alternatives.</p>
+          <p class="transcript-line"><strong>James:</strong> I use dry kibble too. It&#39;s what I&#39;ve always used, and my dog seems fine. I don&#39;t see a need to change.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I feed my dog a mix of high-quality dry kibble and occasional wet food. I aim for a balance of convenience and nutritional value, but the convenience aspect often wins out given my schedule.</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I also buy kibble, the cheap stuff. It&#39;s easy, and the dog eats it. I don&#39;t really think about it too much, to be honest.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Matthew, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Matthew:</strong> Like I said, I just grab whatever&#39;s cheapest at the store. It fills him up, and he seems happy. I don&#39;t have time to be a dog food expert or anything.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting perspectives on feeding our dogs. Daniel and Olivia, I&#39;d love to hear from you both. What are you currently feeding your dogs, and what factors influenced that decision?</p>
+          <p class="transcript-line"><strong>Olivia:</strong> My dog eats wet food. He&#39;s old, and it&#39;s easier for him to eat.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I currently feed my dog a premium dry kibble, supplemented with occasional cooked chicken or vegetables. I chose this option primarily for its balance of convenience and perceived nutritional value, though I admit I could probably do more research into optimal canine nutrition.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I feed my dog dry kibble, as well. Price and convenience are my primary considerations.</p>
+          <p class="transcript-line"><strong>James:</strong> Like everyone else, I buy kibble. I don&#39;t have time to cook for a dog. Price and ease are why I buy it.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> James, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>James:</strong> It&#39;s cheap and easy. I don&#39;t have to think about it. I don&#39;t see why I should pay more for something different when what I use now works just fine.</p>
+          <div class="transcript-phase">Synthesis</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great perspectives so far. Before we wrap up, I&#39;d like to get a final thought from everyone.
+
+Daniel and Sophia, we haven&#39;t heard as much from you two yet. Considering everything we&#39;ve discussed about this fresh, personalized dog food subscription, what&#39;s the one biggest factor that would influence your decision to try a service like this for your dog?</p>
+          <p class="transcript-line"><strong>Daniel:</strong> The most salient factor for me would be demonstrable evidence of improved health outcomes for dogs fed this diet versus a scientifically formulated kibble. Anecdotal reports are insufficient; I&#39;d require rigorous clinical trial data.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> For me, the most critical factor would be demonstrable improvements in my dog&#39;s health and well-being. I would need assurance that the benefits justify the additional cost and potential adjustments to our routine.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> For me, it comes down to the science. I&#39;d want to see detailed nutritional information and research backing up the health claims, especially compared to established premium kibble brands. I&#39;d also need to evaluate the actual ingredients and processing methods used to ensure quality and safety.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I echo the concern about scientific evidence. Data demonstrating tangible health benefits is crucial to sway me, as the price point would need to be justified.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Isabella, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> The cost is a major hurdle, so the health benefits need to be clear and convincing. I would need to see quantifiable improvements, such as better coat quality, increased energy, or improved digestion, to justify the additional expense. Otherwise, it&#39;s hard to justify the switch from a more affordable option.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great points about the science and cost. Mia and Olivia, we haven&#39;t heard from you in a little bit. To bring you back in, could you each share a quick thought on what currently feeds your dog and why you chose that option? Just a brief overview is perfect.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I said, my dog eats wet food. It&#39;s just what I buy.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I currently feed my dog a combination of dry and wet food. My choice is primarily driven by a balance of affordability, convenience, and the perceived palatability for my dog.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I agree with Daniel and Sophia. Scientific validation is essential — this service would need to demonstrate a clear advantage over existing premium options, and I&#39;m most interested in hard data from controlled studies.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I concur with the emphasis on scientific validation. While convenience is appreciated, the service&#39;s value proposition hinges on its ability to deliver demonstrably superior health outcomes compared to established premium brands.</p>
+      </details>
+    </section>
+  </div>
+</body>
+</html>

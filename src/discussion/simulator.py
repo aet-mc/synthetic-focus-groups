@@ -14,7 +14,7 @@ class DiscussionSimulator:
         self.llm_client = llm_client or MockLLMClient(model=config.model)
 
     async def run(self) -> DiscussionTranscript:
-        generator = PersonaGenerator(seed=42)
+        generator = PersonaGenerator(seed=self.config.seed)
         personas = generator.generate(
             n=self.config.num_personas,
             product_concept=self.config.product_concept,
