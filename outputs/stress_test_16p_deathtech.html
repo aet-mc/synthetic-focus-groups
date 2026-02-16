@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: AI-powered funeral planning service: Upload photos and voice recordings of a deceased loved one, and our AI creates a personalized memorial video with the deceased narrating their own life story, sharing final messages to family members, and even telling jokes they were known for. Includes a digital twin that family can chat with for 1 year. Price: $499 basic (video only), $1,999 premium (video + digital twin). Launch: direct-to-consumer via funeral homes.</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: AI-powered funeral planning service: Upload photos and voice recordings of a deceased loved one, and our AI creates a personalized memorial video with the deceased narrating their own life story, sharing final messages to family members, and even telling jokes they were known for. Includes a digital twin that family can chat with for 1 year. Price: $499 basic (video only), $1,999 premium (video + digital twin). Launch: direct-to-consumer via funeral homes.</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>February 16, 2026</div>
+        <div><strong>Category</strong><br>Synthetic Focus Group - AI-Powered Market Research</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: #F59E0B;">ITERATE</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>The AI-powered funeral planning service concept generated mixed reactions, primarily driven by concerns around trust, risk, and value.  While some participants appreciated the uniqueness and potential for positive remembrance, a significant portion expressed hesitation about the believability and appropriateness of interacting with a digital representation of the deceased.  The high price point, particularly for the premium package with the digital twin, further fueled concerns about value perception.  To improve concept viability, focus should be placed on building trust, clearly demonstrating value, and addressing ethical considerations related to AI-driven memorialization.</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>ITERATE</strong> (Confidence: Medium)</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">6%</div>
+              <div class="label">Purchase Intent</div>
+            </div>
+            <div class="stat">
+              <div class="value">5</div>
+              <div class="label">Key Themes</div>
+            </div>
+            <div class="stat">
+              <div class="value">16</div>
+              <div class="label">Participants</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><path d="M14.40,108.00 A75.60,75.60 0 0 1 78.17,33.33" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round"/><path d="M78.17,33.33 A75.60,75.60 0 0 1 124.32,40.64" fill="none" stroke="#F59E0B" stroke-width="11" stroke-linecap="round"/><path d="M124.32,40.64 A75.60,75.60 0 0 1 165.60,108.00" fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round"/><line x1="90.00" y1="108.00" x2="21.74" y2="94.42" stroke="#EF4444" stroke-width="3"/><circle cx="90.00" cy="108.00" r="4" fill="#EF4444"/><text x="90.0" y="90.0" text-anchor="middle" font-size="17" font-weight="700" fill="#EF4444">6%</text><text x="90.0" y="118" text-anchor="middle" font-size="11">Excitement Score</text></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="125.0" y="22" text-anchor="middle" font-size="14" font-weight="700">Recommendation Signal</text><path d="M125.00,52.30 A60.70,60.70 0 0 1 148.23,56.92" fill="none" stroke="#F59E0B" stroke-width="32.27" stroke-linecap="butt"/><path d="M148.23,56.92 A60.70,60.70 0 1 1 125.00,52.30" fill="none" stroke="#E5E7EB" stroke-width="32.27" stroke-linecap="butt"/><text x="125.0" y="111.0" text-anchor="middle" font-size="16" font-weight="700">1</text><text x="125.0" y="127.0" text-anchor="middle" font-size="11" fill="#6B7280">Responses</text><rect x="10" y="206" width="9" height="9" rx="2" fill="#F59E0B"/><text x="24" y="214" font-size="10">ITERATE (6%)</text><rect x="10" y="220" width="9" height="9" rx="2" fill="#E5E7EB"/><text x="24" y="228" font-size="10">Remaining (94%)</text></svg>
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="280" viewBox="0 0 600 280" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Top-2-Box Concept Scores</text><text x="14" y="55" font-size="12" font-weight="600">Purchase Intent</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="20.62" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">6%</text><text x="14" y="91" font-size="12" font-weight="600">Overall Appeal</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="20.62" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">6%</text><text x="14" y="127" font-size="12" font-weight="600">Uniqueness</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="20.62" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">6%</text><text x="14" y="163" font-size="12" font-weight="600">Relevance</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="20.62" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">6%</text><text x="14" y="199" font-size="12" font-weight="600">Believability</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="20.62" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">6%</text><text x="14" y="235" font-size="12" font-weight="600">Value Perception</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="20.62" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">6%</text></svg>
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purchase Intent</strong></td>
+            <td>6%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Purchase Intent signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Overall Appeal</strong></td>
+            <td>6%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Overall Appeal signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Uniqueness</strong></td>
+            <td>6%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Uniqueness signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Relevance</strong></td>
+            <td>6%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Relevance signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Believability</strong></td>
+            <td>6%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Believability signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Value Perception</strong></td>
+            <td>6%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Value Perception signals material risk and needs substantial improvement.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="244" viewBox="0 0 600 244" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Theme Prevalence</text><text x="14" y="55" font-size="12" font-weight="600">Trust and Risk</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="268.12" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">81%</text><text x="14" y="91" font-size="12" font-weight="600">Positive Momentum</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="247.50" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">75%</text><text x="14" y="127" font-size="12" font-weight="600">Value and Pricing</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="206.25" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">62%</text><text x="14" y="163" font-size="12" font-weight="600">Differentiation</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="144.38" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">44%</text><text x="14" y="199" font-size="12" font-weight="600">Usability and Fit</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="61.88" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">19%</text></svg>
+      <div class="card-grid">
+        <article class="theme-card">
+          <h3>Trust and Risk <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">13 of 16 participants</div>
+          <p>Participants discussed credibility, reliability, and downside risks.</p>
+          <blockquote>"I&#39;m not sure I&#39;d use it. I think talking to a fake version of someone would be too weird."<br><small>- Amelia</small></blockquote>
+          <blockquote>"It was hard deciding what to do. My sister and I didn&#39;t always agree, but we got through it."<br><small>- Amelia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Positive Momentum <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">12 of 16 participants</div>
+          <p>Statements reflected enthusiasm and optimism about trying the concept.</p>
+          <blockquote>"I liked seeing everyone come together. It meant a lot that people cared."<br><small>- Michael</small></blockquote>
+          <blockquote>"It&#39;s true, funerals cost a lot. I don&#39;t want to spend a ton on this AI thing."<br><small>- Michael</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Value and Pricing <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">10 of 16 participants</div>
+          <p>Participants assessed cost, value, and willingness to pay.</p>
+          <blockquote>"Funerals are just sad. You&#39;re saying goodbye, and it&#39;s hard. The cost does seem high, like Matthew said."<br><small>- Mia</small></blockquote>
+          <blockquote>"I went to my grandma&#39;s funeral a few years back. It was nice seeing family, but the cost of everything seemed really high."<br><small>- Matthew</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Differentiation <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">7 of 16 participants</div>
+          <p>Comments compared the concept against alternatives and novelty expectations.</p>
+          <blockquote>"I agree with Christopher about the risk. What if the AI messes up and says something bad? I&#39;d feel terrible."<br><small>- Daniel</small></blockquote>
+          <blockquote>"I remember this one funeral for my neighbor. His kids played his favorite rock songs. It was a nice way to remember him, not just be sad."<br><small>- Emma</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Usability and Fit <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">3 of 16 participants</div>
+          <p>Feedback focused on ease of use and practical day-to-day fit.</p>
+          <blockquote>"Well, the most meaningful one for me was my brother&#39;s. It was simple, not too fancy, but everyone who mattered was there. That&#39;s what made it stand out, just family being together."<br><small>- Daniel</small></blockquote>
+          <blockquote>"The presence of family is paramount, but I&#39;m reminded of a service where old letters were read aloud. Hearing my uncle&#39;s own words was more impactful than any eulogy. That would be a feature to consider."<br><small>- Anthony</small></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Sentiment by Phase</text><line x1="52" y1="202.00" x2="580" y2="202.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="206.00" font-size="11" fill="#6B7280">-1.0</text><line x1="52" y1="161.00" x2="580" y2="161.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="165.00" font-size="11" fill="#6B7280">-0.5</text><line x1="52" y1="120.00" x2="580" y2="120.00" stroke="#F59E0B" stroke-width="2" opacity="0.8"/><text x="22" y="124.00" font-size="11" fill="#6B7280">0.0</text><line x1="52" y1="79.00" x2="580" y2="79.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="83.00" font-size="11" fill="#6B7280">0.5</text><line x1="52" y1="38.00" x2="580" y2="38.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="42.00" font-size="11" fill="#6B7280">1.0</text><line x1="52.00" y1="91.06" x2="184.00" y2="94.38" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="184.00" y1="94.38" x2="316.00" y2="104.62" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="316.00" y1="104.62" x2="448.00" y2="99.50" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="448.00" y1="99.50" x2="580.00" y2="134.47" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><circle cx="52.00" cy="91.06" r="4.5" fill="#10B981"/><text x="52.00" y="232" text-anchor="middle" font-size="11">Warmup</text><circle cx="184.00" cy="94.38" r="4.5" fill="#10B981"/><text x="184.00" y="232" text-anchor="middle" font-size="11">Exploration</text><circle cx="316.00" cy="104.62" r="4.5" fill="#10B981"/><text x="316.00" y="232" text-anchor="middle" font-size="11">Deep Dive</text><circle cx="448.00" cy="99.50" r="4.5" fill="#10B981"/><text x="448.00" y="232" text-anchor="middle" font-size="11">Reaction</text><circle cx="580.00" cy="134.47" r="4.5" fill="#EF4444"/><text x="580.00" y="232" text-anchor="middle" font-size="11">Synthesis</text></svg>
+      <p><strong>Trend:</strong> Declining</p>
+      <p><strong>Warmup:</strong> In warmup, participants responded positively (sentiment +0.35).</p>
+      <p><strong>Exploration:</strong> In exploration, participants responded positively (sentiment +0.31).</p>
+      <p><strong>Deep Dive:</strong> In deep dive, participants were mixed (sentiment +0.19).</p>
+      <p><strong>Reaction:</strong> In reaction, participants responded positively (sentiment +0.25).</p>
+      <p><strong>Synthesis:</strong> In synthesis, participants were mixed (sentiment -0.18).</p>
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="700" height="496" viewBox="0 0 700 496" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><rect x="10" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="40" r="18" fill="#EF4444"/><text x="87.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="87.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Amelia</text><text x="87.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 61</text><text x="87.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">administrative assistant</text><rect x="185" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="40" r="18" fill="#EF4444"/><text x="262.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">I</text><text x="262.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Isabella</text><text x="262.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 36</text><text x="262.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text><rect x="360" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="40" r="18" fill="#EF4444"/><text x="437.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">C</text><text x="437.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Charlotte</text><text x="437.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 62</text><text x="437.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">software engineer</text><rect x="535" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="40" r="18" fill="#6B7280"/><text x="612.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="612.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Daniel</text><text x="612.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 73</text><text x="612.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">retail associate</text><rect x="10" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="160" r="18" fill="#6B7280"/><text x="87.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="87.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Anthony</text><text x="87.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 78</text><text x="87.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text><rect x="185" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="160" r="18" fill="#10B981"/><text x="262.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">O</text><text x="262.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Olivia</text><text x="262.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 62</text><text x="262.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text><rect x="360" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="160" r="18" fill="#10B981"/><text x="437.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="437.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Ava</text><text x="437.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 45</text><text x="437.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">marketing manager</text><rect x="535" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="160" r="18" fill="#10B981"/><text x="612.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="612.5" y="188" text-anchor="middle" font-size="12" font-weight="700">David</text><text x="612.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 33</text><text x="612.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text><rect x="10" y="250" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="280" r="18" fill="#EF4444"/><text x="87.5" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">S</text><text x="87.5" y="308" text-anchor="middle" font-size="12" font-weight="700">Sophia</text><text x="87.5" y="324" text-anchor="middle" font-size="11" fill="#6B7280">Age 18</text><text x="87.5" y="340" text-anchor="middle" font-size="10" fill="#6B7280">driver</text><rect x="185" y="250" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="280" r="18" fill="#EF4444"/><text x="262.5" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="262.5" y="308" text-anchor="middle" font-size="12" font-weight="700">Matthew</text><text x="262.5" y="324" text-anchor="middle" font-size="11" fill="#6B7280">Age 41</text><text x="262.5" y="340" text-anchor="middle" font-size="10" fill="#6B7280">warehouse worker</text><rect x="360" y="250" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="280" r="18" fill="#EF4444"/><text x="437.5" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="437.5" y="308" text-anchor="middle" font-size="12" font-weight="700">Mia</text><text x="437.5" y="324" text-anchor="middle" font-size="11" fill="#6B7280">Age 57</text><text x="437.5" y="340" text-anchor="middle" font-size="10" fill="#6B7280">driver</text><rect x="535" y="250" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="280" r="18" fill="#6B7280"/><text x="612.5" y="284" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">E</text><text x="612.5" y="308" text-anchor="middle" font-size="12" font-weight="700">Emma</text><text x="612.5" y="324" text-anchor="middle" font-size="11" fill="#6B7280">Age 28</text><text x="612.5" y="340" text-anchor="middle" font-size="10" fill="#6B7280">technician</text><rect x="10" y="370" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="400" r="18" fill="#6B7280"/><text x="87.5" y="404" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="87.5" y="428" text-anchor="middle" font-size="12" font-weight="700">Michael</text><text x="87.5" y="444" text-anchor="middle" font-size="11" fill="#6B7280">Age 18</text><text x="87.5" y="460" text-anchor="middle" font-size="10" fill="#6B7280">administrative assistant</text><rect x="185" y="370" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="400" r="18" fill="#10B981"/><text x="262.5" y="404" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">J</text><text x="262.5" y="428" text-anchor="middle" font-size="12" font-weight="700">Joshua</text><text x="262.5" y="444" text-anchor="middle" font-size="11" fill="#6B7280">Age 50</text><text x="262.5" y="460" text-anchor="middle" font-size="10" fill="#6B7280">marketing manager</text><rect x="360" y="370" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="400" r="18" fill="#10B981"/><text x="437.5" y="404" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">C</text><text x="437.5" y="428" text-anchor="middle" font-size="12" font-weight="700">Christopher</text><text x="437.5" y="444" text-anchor="middle" font-size="11" fill="#6B7280">Age 34</text><text x="437.5" y="460" text-anchor="middle" font-size="10" fill="#6B7280">warehouse worker</text><rect x="535" y="370" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="400" r="18" fill="#10B981"/><text x="612.5" y="404" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">J</text><text x="612.5" y="428" text-anchor="middle" font-size="12" font-weight="700">James</text><text x="612.5" y="444" text-anchor="middle" font-size="11" fill="#6B7280">Age 22</text><text x="612.5" y="460" text-anchor="middle" font-size="10" fill="#6B7280">software engineer</text></svg>
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Amelia</td>
+            <td>61</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>high_school</td>
+            <td>striver</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Isabella</td>
+            <td>36</td>
+            <td>Female</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>believer</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Charlotte</td>
+            <td>62</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>bachelors</td>
+            <td>achiever</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Daniel</td>
+            <td>73</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>high_school</td>
+            <td>innovator</td>
+            <td>Neutral</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>Anthony</td>
+            <td>78</td>
+            <td>Male</td>
+            <td>$100k-$150k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Neutral</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>Olivia</td>
+            <td>62</td>
+            <td>Female</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>maker</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Ava</td>
+            <td>45</td>
+            <td>Female</td>
+            <td>$50k-$75k</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>33</td>
+            <td>Male</td>
+            <td>&lt;$25k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Positive</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>Sophia</td>
+            <td>18</td>
+            <td>Female</td>
+            <td>$25k-$50k</td>
+            <td>high_school</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Matthew</td>
+            <td>41</td>
+            <td>Male</td>
+            <td>$25k-$50k</td>
+            <td>high_school</td>
+            <td>maker</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Mia</td>
+            <td>57</td>
+            <td>Female</td>
+            <td>$50k-$75k</td>
+            <td>high_school</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Emma</td>
+            <td>28</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>some_college</td>
+            <td>survivor</td>
+            <td>Neutral</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>Michael</td>
+            <td>18</td>
+            <td>Male</td>
+            <td>$25k-$50k</td>
+            <td>high_school</td>
+            <td>survivor</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Joshua</td>
+            <td>50</td>
+            <td>Male</td>
+            <td>$150k+</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Christopher</td>
+            <td>34</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>high_school</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>James</td>
+            <td>22</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>bachelors</td>
+            <td>achiever</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+        <article class="segment-card">
+          <h3>VALS: achiever</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more negative by 0.41</p>
+          <blockquote>"I think Christopher and Matthew bring up a salient point regarding the risk of unedited personal content. While the concept of hearing a deceased person&#39;s own words, as Anthony mentioned, carries emotional weight, it also introduces a considerable element of uncertainty. One might want a measure to curate or, at the very least, preview such content to mitigate potential discomfort or offense."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: maker</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more positive by 0.37</p>
+          <blockquote>"I agree with Christopher. Hearing someone&#39;s own words is good, but it could also be a problem if they said something they shouldn&#39;t have. You&#39;d have to be careful about that."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: Under $50K</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more positive by 0.26</p>
+          <blockquote>"I appreciate Joshua mentioning the logistical challenges, as I can see how those would be significant. However, as Charlotte alluded to, I&#39;m still unconvinced that a new AI service would truly simplify things, or whether it&#39;s a solution in search of a problem. The potential for added complexity and emotional distress seems nontrivial."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Female</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more positive by 0.22</p>
+          <blockquote>"I have never been directly involved in planning a service, but I empathize with Joshua regarding logistical challenges. My concern, however, is that introducing nascent AI technology into such a sensitive process could engender more complexity than it alleviates. The emotional stakes are too high for unproven solutions."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Male</h3>
+          <p><strong>Purchase Intent:</strong> 12%</p>
+          <p><strong>How it differs:</strong> sentiment is more negative by 0.21</p>
+          <blockquote>"Well, I agree with Isabella about remembering the good times. For me, looking at old photos and sharing stories helps keep their memory alive. It&#39;s important to focus on the positive things they brought to our lives."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Age: 35-55</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 19%</p>
+          <blockquote>"I believe some are viewing this as a frivolous add-on rather than a potentially valuable service. The premium package, while more expensive, offers a comprehensive solution that addresses both memorialization and continued connection, which could provide considerable comfort to grieving families. The cost should be weighed against the service&#39;s potential benefits in personalization and emotional support."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: Over $100K</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 19%</p>
+          <blockquote>"I helped my sister arrange my mother&#39;s funeral a few years ago. It was overwhelming trying to make all those decisions while grieving. I&#39;m not sure how AI could have helped, but I can see how planning the memorial service could be difficult for some people."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: innovator</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 19%; sentiment is more negative by 0.14</p>
+          <blockquote>"I believe some are viewing this as a frivolous add-on rather than a potentially valuable service. The premium package, while more expensive, offers a comprehensive solution that addresses both memorialization and continued connection, which could provide considerable comfort to grieving families. The cost should be weighed against the service&#39;s potential benefits in personalization and emotional support."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: survivor</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more positive by 0.14</p>
+          <blockquote>"I agree with Matthew that the video part sounds nice, but the digital twin is weird. Also, 2 grand is a lot for something that might not even be good. I think I&#39;d rather just spend that money on something else to remember them by."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: High Openness</h3>
+          <p><strong>Purchase Intent:</strong> 20%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 14%; sentiment is more negative by 0.11</p>
+          <blockquote>"I think the idea of reading letters like Anthony mentioned sounds interesting. It could be really special to hear someone&#39;s actual voice. But at the same time, I would also worry about whether the letters would be appropriate for everyone to hear."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: Low Agreeableness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more negative by 0.14</p>
+          <blockquote>"I think Christopher and Matthew bring up a salient point regarding the risk of unedited personal content. While the concept of hearing a deceased person&#39;s own words, as Anthony mentioned, carries emotional weight, it also introduces a considerable element of uncertainty. One might want a measure to curate or, at the very least, preview such content to mitigate potential discomfort or offense."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: High Agreeableness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> sentiment is more negative by 0.10</p>
+          <blockquote>"I agree with the others who&#39;ve mentioned authenticity, and I also appreciate Anthony&#39;s point about the importance of family being there. For me, the most meaningful memorial services strike a balance between honoring the deceased&#39;s unique personality and providing comfort and support for the grieving family."</blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            <li class="concern">Limited evidence of strong objections</li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            <li class="opportunity">Trust and Risk</li>
+            <li class="opportunity">Positive Momentum</li>
+            <li class="opportunity">Value and Pricing</li>
+            <li class="opportunity">Differentiation</li>
+            <li class="opportunity">Usability and Fit</li>
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          <li class="improvement">Address limited evidence of strong objections with clearer product execution.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      <article class="pull-quote">
+        <div class="q">"Certainly. While celebrating a person&#39;s life is paramount, the AI element introduces a layer of artificiality that may detract from the genuine emotions and memories shared. The concern lies in whether AI can truly capture the essence of a person, or if it merely produces a simulacrum."</div>
+        <div class="by">James - Deep Dive</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I think Christopher and Matthew bring up a salient point regarding the risk of unedited personal content. While the concept of hearing a deceased person&#39;s own words, as Anthony mentioned, carries emotional weight, it also introduces a considerable element of uncertainty. One might want a measure to curate or, at the very least, preview such content to mitigate potential discomfort or offense."</div>
+        <div class="by">James - Exploration</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I agree with Matthew that the video part sounds nice, but the digital twin is weird. Also, 2 grand is a lot for something that might not even be good. I think I&#39;d rather just spend that money on something else to remember them by."</div>
+        <div class="by">Sophia - Deep Dive</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"Certainly. The core of my concern lies in the unpredictable nature of personal communications; letters, for example, may contain sentiments or anecdotes that, while meaningful to some, could be misconstrued or upsetting to others, particularly in a public setting such as a memorial service. Implementing a mechanism for content review could help preemptively address these potential pitfalls."</div>
+        <div class="by">James - Exploration</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"Having seen my share of funerals, I agree with Isabella. The most impactful moments are always the personal anecdotes. It&#39;s hard to imagine an AI truly capturing that essence, and I worry about the cost not justifying the limited benefit."</div>
+        <div class="by">David - Synthesis</div>
+      </article>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul><li>I agree with Matthew that the video part sounds nice, but the digital twin is weird. Also, 2 grand is a lot for something that might not even be good. I think I&#39;d rather just spend that money on something else to remember them by.</li><li>Planning my father&#39;s memorial was indeed a challenge, primarily coordinating the logistics across several states. The most rewarding aspect, however, was crafting a eulogy that truly captured his spirit and impact. I believe the AI concept could streamline some of the logistical burdens, which could be helpful.</li><li>I have not personally planned one, but I observed my sister planning my mother&#39;s service. It seemed like an emotionally taxing experience with numerous logistical considerations, and certainly not something I&#39;d want to repeat. The stress was considerable, even though we tried to keep it simple.</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+<li>Certainly. While celebrating a person&#39;s life is paramount, the AI element introduces a layer of artificiality that may detract from the genuine emotions and memories shared. The concern lies in whether AI can truly capture the essence of a person, or if it merely produces a simulacrum.</li><li>I think Christopher and Matthew bring up a salient point regarding the risk of unedited personal content. While the concept of hearing a deceased person&#39;s own words, as Anthony mentioned, carries emotional weight, it also introduces a considerable element of uncertainty. One might want a measure to curate or, at the very least, preview such content to mitigate potential discomfort or offense.</li><li>Certainly. The core of my concern lies in the unpredictable nature of personal communications; letters, for example, may contain sentiments or anecdotes that, while meaningful to some, could be misconstrued or upsetting to others, particularly in a public setting such as a memorial service. Implementing a mechanism for content review could help preemptively address these potential pitfalls.</li><li>Certainly. While celebrating a person&#39;s life is paramount, the AI element introduces a layer of artificiality that may detract from the genuine emotions and memories shared. The concern lies in whether AI can truly capture the essence of a person, or if it merely produces a simulacrum.</li><li>I agree with Matthew that the video part sounds nice, but the digital twin is weird. Also, 2 grand is a lot for something that might not even be good. I think I&#39;d rather just spend that money on something else to remember them by.</li><li>Having seen my share of funerals, I agree with Isabella. The most impactful moments are always the personal anecdotes. It&#39;s hard to imagine an AI truly capturing that essence, and I worry about the cost not justifying the limited benefit.</li>          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        <li>This study used AI-generated personas grounded in US Census demographic data.</li>
+        <li>Personality profiles were based on the Five-Factor (OCEAN) model with age and gender-adjusted distributions.</li>
+        <li>Discussion was facilitated by an AI moderator using a five-phase qualitative research methodology.</li>
+        <li>Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.</li>
+        <li>Synthetic research is designed to complement, not replace, traditional research methods.</li>
+      </ul>
+      <p><strong>Participants:</strong> 16 Participants | <strong>Phases:</strong> 5 | <strong>Total Messages:</strong> 104</p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+          <div class="transcript-phase">Warmup</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s get started. To kick things off and get us all comfortable talking about this area, could everyone briefly share, maybe in a sentence or two, what comes to mind when you think about memorial services or how people are remembered after they pass away? Amelia, would you mind starting us off?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I think about celebrating their life, not just mourning. It&#39;s about remembering the good times and what they meant to you.</p>
+          <p class="transcript-line"><strong>James:</strong> I think of memorial services as a vital opportunity for collective catharsis, allowing friends and family to support each other during a difficult transition. It&#39;s a moment to acknowledge the life lived and the impact that person had on our lives, so memorializing them becomes something that&#39;s really sacred.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I think of it as a way to preserve someone&#39;s legacy. It&#39;s important to remember the individual, but also the impact they had on family and friends for future generations.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> When I think about memorial services, I think about being respectful and giving people a chance to say goodbye. It&#39;s a tough time, so it should be comforting for everyone involved.</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I think about how the family gets together. It&#39;s important for everyone to be there for each other when someone dies.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone, thanks again for being here. To get us started and comfortable talking about this general area, let&#39;s go around and share: What&#39;s the most memorable funeral or memorial service you&#39;ve ever attended, and what made it stand out for you? Isabella, would you like to start us off?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> The most memorable one was for my aunt. Instead of being sad, everyone shared funny stories about her, which really captured her spirit.</p>
+          <p class="transcript-line"><strong>Mia:</strong> The one for my grandpa was nice. We all went to his favorite fishing spot and told stories about him. It felt more personal than just sitting in a church.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I remember this one funeral for my neighbor. His kids played his favorite rock songs. It was a nice way to remember him, not just be sad.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> The most memorable one I went to was for my friend&#39;s dad. He was a big biker, so everyone rode their motorcycles to the service. It was cool seeing all those bikes.</p>
+          <p class="transcript-line"><strong>Ava:</strong> For me, it was my grandfather&#39;s service. Instead of a somber eulogy, his best friend shared anecdotes that painted a vivid picture of his humor and character, which really resonated with everyone and felt like a true celebration of his life.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Ava, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Ava:</strong> It was memorable because it felt authentic. Too often, these events feel like obligatory mourning, but his friend&#39;s stories highlighted the unique aspects of his personality. It made the service feel like a true reflection of the person he was.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone, thanks for sharing those memorable experiences. Now, thinking more broadly, what&#39;s the most meaningful or impactful memorial service you&#39;ve ever attended, and what made it stand out to you? Charlotte, I&#39;d especially love to hear your thoughts on this.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> The service for my former colleague stands out. His children spoke about his passion for engineering and how he always encouraged them to pursue their interests, even when it differed from his own. It was a testament to his character and lasting impact.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> Well, the most meaningful one for me was my brother&#39;s. It was simple, not too fancy, but everyone who mattered was there. That&#39;s what made it stand out, just family being together.</p>
+          <p class="transcript-line"><strong>David:</strong> I recall one for a close family friend. What stood out was the emphasis on his professional achievements and contributions to the local community. It was meaningful to see his life&#39;s work acknowledged alongside personal memories.</p>
+          <p class="transcript-line"><strong>Michael:</strong> I haven&#39;t been to many, but my grandma&#39;s was good. It was at her house, so it felt right.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I remember my mother&#39;s service. What made it stand out was the minister, who knew her well and spoke personally about her kindness. It wasn&#39;t just a generic sermon, which made it more meaningful.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Olivia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Olivia:</strong> It meant a lot that he knew the details of her life, not just generalities. It felt like a real tribute to her as a person, rather than just going through the motions. That personal connection made all the difference.</p>
+          <div class="transcript-phase">Exploration</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, thanks for that summary. Let&#39;s bring in a couple of voices we haven&#39;t heard from as much yet.
+
+Anthony and Amelia, I&#39;d love to hear from you both. Thinking about funerals or memorial services you&#39;ve attended, or even just your general thoughts on the topic, what&#39;s one thing that really stands out to you as being important or meaningful in a memorial service?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I think it&#39;s nice when they feel real. My cousin&#39;s funeral felt like they were talking about someone else, not him.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> It sounds as if people value authenticity and personal touches in these services. For me, the presence of close family is what matters most.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I agree with Amelia that it should feel real. The ones that are just going through the motions don&#39;t really do anything for the family.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I would echo Amelia&#39;s sentiment. A genuine reflection of the deceased&#39;s life is paramount. Generic platitudes are unlikely to bring solace.</p>
+          <p class="transcript-line"><strong>Ava:</strong> I agree with the others who&#39;ve mentioned authenticity, and I also appreciate Anthony&#39;s point about the importance of family being there. For me, the most meaningful memorial services strike a balance between honoring the deceased&#39;s unique personality and providing comfort and support for the grieving family.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some really insightful comments so far. Now, shifting gears slightly, I&#39;d like to hear from Daniel and Anthony. Thinking about your own experiences with memorial services or remembering loved ones who have passed, what&#39;s one thing that made a particular memorial or remembrance feel truly special and meaningful to you?</p>
+          <p class="transcript-line"><strong>Daniel:</strong> Like I said earlier, being together with family is what matters most. It&#39;s nice when things are genuine, like Amelia said, but just having the people who care is enough for me. You don&#39;t need a fancy show.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> The presence of family is paramount, but I&#39;m reminded of a service where old letters were read aloud. Hearing my uncle&#39;s own words was more impactful than any eulogy. That would be a feature to consider.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I think the idea of reading letters like Anthony mentioned sounds interesting. It could be really special to hear someone&#39;s actual voice. But at the same time, I would also worry about whether the letters would be appropriate for everyone to hear.</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I agree with Christopher. Hearing someone&#39;s own words is good, but it could also be a problem if they said something they shouldn&#39;t have. You&#39;d have to be careful about that.</p>
+          <p class="transcript-line"><strong>James:</strong> I think Christopher and Matthew bring up a salient point regarding the risk of unedited personal content. While the concept of hearing a deceased person&#39;s own words, as Anthony mentioned, carries emotional weight, it also introduces a considerable element of uncertainty. One might want a measure to curate or, at the very least, preview such content to mitigate potential discomfort or offense.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> James, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>James:</strong> Certainly. The core of my concern lies in the unpredictable nature of personal communications; letters, for example, may contain sentiments or anecdotes that, while meaningful to some, could be misconstrued or upsetting to others, particularly in a public setting such as a memorial service. Implementing a mechanism for content review could help preemptively address these potential pitfalls.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s hear from some other folks. David and Sophia, I&#39;d love to hear from you both. To get us started, have you ever been involved in planning a funeral or memorial service for a loved one? What was that experience like for you?</p>
+          <p class="transcript-line"><strong>David:</strong> I have not personally planned one, but I observed my sister planning my mother&#39;s service. It seemed like an emotionally taxing experience with numerous logistical considerations, and certainly not something I&#39;d want to repeat. The stress was considerable, even though we tried to keep it simple.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I&#39;ve never planned a funeral. But I did help my aunt pick out flowers once, and she was super stressed about getting it right. It seemed like a lot of pressure to make everything perfect when she was already sad.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I helped my sister arrange my mother&#39;s funeral a few years ago. It was overwhelming trying to make all those decisions while grieving. I&#39;m not sure how AI could have helped, but I can see how planning the memorial service could be difficult for some people.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I haven&#39;t had to plan one, thank goodness. I saw my cousin do it, and she was worn out for weeks. It looked like a real headache.</p>
+          <p class="transcript-line"><strong>Michael:</strong> I haven&#39;t planned one before. My grandma handled my grandpa&#39;s funeral, and she seemed pretty stressed. I guess it&#39;s a lot to deal with when you&#39;re already sad.</p>
+          <div class="transcript-phase">Deep Dive</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some initial thoughts, which is great. Let&#39;s dig a little deeper.
+
+Emma and Joshua, I&#39;d love to hear from you both. Thinking about planning a funeral, even hypothetically, what aspects of it do you think would be the most emotionally challenging or difficult to manage?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I think dealing with all the different opinions in the family would be tough. Everyone grieves differently and has their own ideas about what&#39;s right. Trying to balance that while you&#39;re sad would be hard.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> The emotional aspect would be the most challenging for me; specifically, crafting a eulogy that genuinely honors the deceased while also providing solace to the mourners. It&#39;s a delicate balance to strike, particularly when navigating personal grief.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I guess dealing with the money would be hard. You don&#39;t want to be cheap, but you don&#39;t want to waste money either.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I think dealing with family would be the hardest part. Like, everyone is gonna be sad and probably not thinking straight, so making decisions together could be a mess.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> Echoing Emma&#39;s sentiment, navigating familial expectations during such a sensitive time sounds fraught with potential for conflict, especially with raw emotions in play. I suspect that it would be quite difficult to create something meaningful when there are so many conflicting opinions involved.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Isabella and Daniel, we&#39;ve heard some interesting perspectives on the emotional and logistical challenges of planning a funeral or memorial. I&#39;m curious, from your experiences, what aspects of planning a memorial service or remembering a loved one felt most meaningful or important to you personally?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> For me, it&#39;s about celebrating their life and remembering the good times. Sharing stories and looking at photos helps me feel connected.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> Well, I agree with Isabella about remembering the good times. For me, looking at old photos and sharing stories helps keep their memory alive. It&#39;s important to focus on the positive things they brought to our lives.</p>
+          <p class="transcript-line"><strong>Ava:</strong> Personally, what resonates most is crafting a narrative that truly reflects the essence of the person. Ensuring that the memorial captures their unique spirit and the impact they had on those around them, that&#39;s what makes it meaningful.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I agree with Isabella and Daniel about remembering the good times. Looking back at old photos and videos is nice. But I think doing it with AI is kind of weird.</p>
+          <p class="transcript-line"><strong>James:</strong> I concur with Isabella and Daniel regarding the importance of focusing on the positive aspects and celebrating the individual&#39;s life. Remembering and sharing stories certainly helps perpetuate their memory. However, I find that the integration of AI for such sensitive moments raises a question of authenticity versus manufactured sentimentality.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> James, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>James:</strong> Certainly. While celebrating a person&#39;s life is paramount, the AI element introduces a layer of artificiality that may detract from the genuine emotions and memories shared. The concern lies in whether AI can truly capture the essence of a person, or if it merely produces a simulacrum.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve touched on some really interesting points about celebrating life and the potential of AI. Anthony and David, we haven&#39;t heard from you both as much. I&#39;m curious, what are your initial thoughts on the idea of using AI to create a memorial video and digital twin, and what aspects, if any, stand out to you most?</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I&#39;m still not sure about the AI aspect. I would need assurances of its accuracy and appropriateness. The risk of misrepresentation or unintended offense is significant.</p>
+          <p class="transcript-line"><strong>David:</strong> I find the concept intriguing yet somewhat unsettling. While a memorial video could be a poignant tribute, the digital twin aspect seems a bit extraneous, and potentially morbid. I am also wary of the premium pricing for what seems to be an unproven concept.</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I see some positives and negatives. The video part could be nice, but the digital twin sounds weird. And the price seems high for something new like this.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I agree with Matthew that the video part sounds nice, but the digital twin is weird. Also, 2 grand is a lot for something that might not even be good. I think I&#39;d rather just spend that money on something else to remember them by.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I concur with David&#39;s sentiment that the digital twin feels somewhat extraneous. The risk of morbidity is salient. As a software engineer, I also question whether the technology is mature enough to deliver on its promises, especially at that price point.</p>
+          <div class="transcript-phase">Reaction</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting thoughts on the video and the digital twin. Mia and Michael, I&#39;d love to hear from you both. Thinking about memorial services you&#39;ve attended or helped plan, what&#39;s one thing that really stood out to you as meaningful or helpful during that process?</p>
+          <p class="transcript-line"><strong>Mia:</strong> Well, at my mother&#39;s funeral, the preacher said some nice things. It made me feel better to hear good stories about her, even though I already knew them.</p>
+          <p class="transcript-line"><strong>Michael:</strong> I liked seeing everyone come together. It meant a lot that people cared.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I think what Michael said about people coming together is important. When my grandpa passed, it was nice seeing family I hadn&#39;t seen in a while. It reminded me we&#39;re all there for each other, even when things are tough.</p>
+          <p class="transcript-line"><strong>James:</strong> To echo Christopher&#39;s sentiment, the communal aspect of memorial services is indispensable. The collective mourning and shared remembrance cultivate a sense of solidarity during a challenging time. While technology offers novel ways to commemorate the deceased, it should not supplant the irreplaceable value of human connection and empathy.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I agree with Michael that it&#39;s meaningful when people come together. It makes a big difference to have that support.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve been talking about the importance of community and shared experiences in memorial services. Now, shifting gears slightly, I&#39;m curious about your own experiences.
+
+Joshua and Amelia, I&#39;d especially like to hear from you on this: Have you ever been involved in planning a funeral or memorial service, and if so, what was the most challenging or rewarding aspect of that experience for you?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> It was hard deciding what to do. My sister and I didn&#39;t always agree, but we got through it.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> Planning my father&#39;s memorial was indeed a challenge, primarily coordinating the logistics across several states. The most rewarding aspect, however, was crafting a eulogy that truly captured his spirit and impact. I believe the AI concept could streamline some of the logistical burdens, which could be helpful.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I&#39;ve never planned a funeral, thank goodness. But I agree with Joshua that anything that makes it easier would be welcome. I&#39;m just not sure about using AI for something so personal.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> I have never been directly involved in planning a service, but I empathize with Joshua regarding logistical challenges. My concern, however, is that introducing nascent AI technology into such a sensitive process could engender more complexity than it alleviates. The emotional stakes are too high for unproven solutions.</p>
+          <p class="transcript-line"><strong>David:</strong> I appreciate Joshua mentioning the logistical challenges, as I can see how those would be significant. However, as Charlotte alluded to, I&#39;m still unconvinced that a new AI service would truly simplify things, or whether it&#39;s a solution in search of a problem. The potential for added complexity and emotional distress seems nontrivial.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, everyone, thanks for sharing your thoughts so far. It sounds like we&#39;re starting to get a good sense of how you all feel about this concept.
+
+Daniel and Anthony, I&#39;d love to hear from you both. Have you ever been involved in planning or organizing a memorial service or funeral, or supported someone who has? What was that experience like?</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I helped my sister plan my brother&#39;s service last year. It was mostly picking the music and readings. I&#39;m not sure this AI thing would have helped much with that.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I assisted my wife with her mother&#39;s funeral a few years ago. It was difficult to make so many decisions while grieving. I am not convinced this AI approach is mature enough to be helpful, as Charlotte mentioned.</p>
+          <p class="transcript-line"><strong>Ava:</strong> I can see how making decisions while grieving would be difficult, as Anthony mentioned. The video aspect of the AI concept could be beneficial, but I&#39;m not sure about the digital twin component. It seems a bit much, and potentially insensitive.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I&#39;ve never had to plan one, thankfully. But I agree with Ava that the digital twin part seems like it could be too much for some people. A video could be nice, but talking to a fake version of someone seems weird.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> While I understand the reservations around AI&#39;s role in sensitive matters, the logistical simplification I mentioned previously could be invaluable. Perhaps starting with a focus on the memorial video, and then thoughtfully integrating the digital twin aspect based on feedback, would assuage some concerns.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Joshua, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> Certainly. My initial thought is that the memorial video offers immediate, tangible value in capturing memories. By focusing on that aspect first, we can demonstrate the AI&#39;s capabilities in a less emotionally charged way, building trust before introducing the more novel digital twin.</p>
+          <div class="transcript-phase">Synthesis</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some really interesting perspectives so far. Before we wrap up, I&#39;d like to hear from everyone, including Matthew and Mia who haven&#39;t spoken as much.
+
+To get us started, Matthew and Mia, could you each share a brief thought about your own experience with planning or attending a funeral or memorial service? What stood out to you, either positively or negatively?</p>
+          <p class="transcript-line"><strong>Matthew:</strong> I went to my grandma&#39;s funeral a few years back. It was nice seeing family, but the cost of everything seemed really high.</p>
+          <p class="transcript-line"><strong>Mia:</strong> Funerals are just sad. You&#39;re saying goodbye, and it&#39;s hard. The cost does seem high, like Matthew said.</p>
+          <p class="transcript-line"><strong>Olivia:</strong> I agree with Matthew and Mia. Funerals are expensive. This AI thing sounds like it would add to the cost without really helping.</p>
+          <p class="transcript-line"><strong>Michael:</strong> It&#39;s true, funerals cost a lot. I don&#39;t want to spend a ton on this AI thing.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> The pricing Matthew mentioned is a valid concern, but focusing solely on cost overlooks the potential value. If this AI service genuinely streamlines the process and personalizes the memorial, the expense may be justified, especially for the premium package.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Joshua, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I believe some are viewing this as a frivolous add-on rather than a potentially valuable service. The premium package, while more expensive, offers a comprehensive solution that addresses both memorialization and continued connection, which could provide considerable comfort to grieving families. The cost should be weighed against the service&#39;s potential benefits in personalization and emotional support.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some really interesting perspectives on the potential value and cost considerations of this service.
+
+To shift towards a final synthesis, I&#39;d like to hear from everyone, including Christopher and Amelia. Thinking about everything we&#39;ve discussed today, if you were to describe the *single biggest reason* why you *would* or *would not* consider using a service like this for a loved one, what would that reason be?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I&#39;m not sure I&#39;d use it. I think talking to a fake version of someone would be too weird.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I think the biggest reason I wouldn&#39;t use it is the risk of something going wrong with the AI. I&#39;d be worried about it saying something that the person would never say, and that would make things worse.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I wouldn&#39;t use it because of the cost. Paying for a funeral is already a lot, and I don&#39;t want to spend even more on something like this AI.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I think the biggest reason I wouldn&#39;t use it is that the digital twin part is just too new and untested for something this important. I&#39;d rather stick with something more traditional for a memorial. It&#39;s just too risky otherwise.</p>
+          <p class="transcript-line"><strong>Daniel:</strong> I agree with Christopher about the risk. What if the AI messes up and says something bad? I&#39;d feel terrible.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Daniel, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Daniel:</strong> Well, I just don&#39;t trust new technology all that much. What if it says something that embarrasses everyone? Or what if it gets hacked? Too many things could go wrong at a time when you&#39;re already feeling bad.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some really interesting points of view so far. Isabella and Anthony, I&#39;d love to hear from you both. To get us started, can you each share a little bit about your past experiences planning or attending funerals or memorial services? What aspects did you find most meaningful or memorable?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> The most memorable thing to me is when people share personal stories about the person who died. It makes it feel more real.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> The most meaningful thing is when the service reflects the person&#39;s values. I do share Christopher and Daniel&#39;s concerns about something going awry. It would be hard to forgive a mistake at such a sensitive time.</p>
+          <p class="transcript-line"><strong>David:</strong> Having seen my share of funerals, I agree with Isabella. The most impactful moments are always the personal anecdotes. It&#39;s hard to imagine an AI truly capturing that essence, and I worry about the cost not justifying the limited benefit.</p>
+          <p class="transcript-line"><strong>James:</strong> I concur with Isabella and David. Personally, I&#39;ve always found that the most significant aspects of memorial services are the eulogies and anecdotes shared by those who knew the deceased best. The human connection is irreplaceable, and I struggle to see how an AI could genuinely replicate that level of intimacy and authenticity.</p>
+          <p class="transcript-line"><strong>Charlotte:</strong> Having attended many funerals, the most meaningful thing is when the service truly captures the essence of the individual. The personal stories and tributes that emerge organically from loved ones are often irreplaceable, and I question whether an AI could genuinely replicate that level of authenticity.</p>
+      </details>
+    </section>
+  </div>
+</body>
+</html>

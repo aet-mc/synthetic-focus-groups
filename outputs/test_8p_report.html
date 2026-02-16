@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: Coffee subscription: freshly roasted specialty beans from a different small-batch roaster each month. 16 dollars per month, free shipping, skip anytime.</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: Coffee subscription: freshly roasted specialty beans from a different small-batch roaster each month. 16 dollars per month, free shipping, skip anytime.</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>February 16, 2026</div>
+        <div><strong>Category</strong><br>Synthetic Focus Group - AI-Powered Market Research</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: #F59E0B;">ITERATE</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>The coffee subscription concept resonated with participants as relevant, but purchase intent and overall appeal scores were low. Participants expressed a strong preference for established coffee habits and brands, indicating a reluctance to switch. Perceived risk associated with the subscription, particularly concerns about taste preferences and potential waste, further dampened enthusiasm. To improve appeal, offering greater control over roast and origin selection, along with a satisfaction guarantee, may mitigate risk and increase purchase likelihood.</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>ITERATE</strong> (Confidence: Medium)</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">12%</div>
+              <div class="label">Purchase Intent</div>
+            </div>
+            <div class="stat">
+              <div class="value">7</div>
+              <div class="label">Key Themes</div>
+            </div>
+            <div class="stat">
+              <div class="value">8</div>
+              <div class="label">Participants</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><path d="M14.40,108.00 A75.60,75.60 0 0 1 78.17,33.33" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round"/><path d="M78.17,33.33 A75.60,75.60 0 0 1 124.32,40.64" fill="none" stroke="#F59E0B" stroke-width="11" stroke-linecap="round"/><path d="M124.32,40.64 A75.60,75.60 0 0 1 165.60,108.00" fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round"/><line x1="90.00" y1="108.00" x2="30.66" y2="71.63" stroke="#EF4444" stroke-width="3"/><circle cx="90.00" cy="108.00" r="4" fill="#EF4444"/><text x="90.0" y="90.0" text-anchor="middle" font-size="17" font-weight="700" fill="#EF4444">18%</text><text x="90.0" y="118" text-anchor="middle" font-size="11">Excitement Score</text></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="125.0" y="22" text-anchor="middle" font-size="14" font-weight="700">Recommendation Signal</text><path d="M125.00,52.30 A60.70,60.70 0 0 1 179.09,85.44" fill="none" stroke="#F59E0B" stroke-width="32.27" stroke-linecap="butt"/><path d="M179.09,85.44 A60.70,60.70 0 1 1 125.00,52.30" fill="none" stroke="#E5E7EB" stroke-width="32.27" stroke-linecap="butt"/><text x="125.0" y="111.0" text-anchor="middle" font-size="16" font-weight="700">1</text><text x="125.0" y="127.0" text-anchor="middle" font-size="11" fill="#6B7280">Responses</text><rect x="10" y="206" width="9" height="9" rx="2" fill="#F59E0B"/><text x="24" y="214" font-size="10">ITERATE (18%)</text><rect x="10" y="220" width="9" height="9" rx="2" fill="#E5E7EB"/><text x="24" y="228" font-size="10">Remaining (82%)</text></svg>
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="280" viewBox="0 0 600 280" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Top-2-Box Concept Scores</text><text x="14" y="55" font-size="12" font-weight="600">Purchase Intent</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="41.25" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">12%</text><text x="14" y="91" font-size="12" font-weight="600">Overall Appeal</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="41.25" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">12%</text><text x="14" y="127" font-size="12" font-weight="600">Uniqueness</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="41.25" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">12%</text><text x="14" y="163" font-size="12" font-weight="600">Relevance</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="123.75" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">38%</text><text x="14" y="199" font-size="12" font-weight="600">Believability</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="82.50" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">25%</text><text x="14" y="235" font-size="12" font-weight="600">Value Perception</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="41.25" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">12%</text></svg>
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purchase Intent</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Purchase Intent signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Overall Appeal</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Overall Appeal signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Uniqueness</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Uniqueness signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Relevance</strong></td>
+            <td>38%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Relevance signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Believability</strong></td>
+            <td>25%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Believability signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Value Perception</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Value Perception signals material risk and needs substantial improvement.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="316" viewBox="0 0 600 316" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Theme Prevalence</text><text x="14" y="55" font-size="12" font-weight="600">Established Habits</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="330.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">100%</text><text x="14" y="91" font-size="12" font-weight="600">Consumer Preference</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="330.00" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">100%</text><text x="14" y="127" font-size="12" font-weight="600">Perceived Risk</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="288.75" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">88%</text><text x="14" y="163" font-size="12" font-weight="600">Novelty Seeking</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="247.50" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">75%</text><text x="14" y="199" font-size="12" font-weight="600">Brand Perception</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="206.25" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">62%</text><text x="14" y="235" font-size="12" font-weight="600">Price Sensitivity</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="206.25" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">62%</text><text x="14" y="271" font-size="12" font-weight="600">Control and Autonomy</text><rect x="190" y="256" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="256" width="165.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="271" font-size="12" font-weight="700">50%</text></svg>
+      <div class="card-grid">
+        <article class="theme-card">
+          <h3>Established Habits <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>This theme captures the role of ingrained behaviors and patterns in consumer choices, reflecting a tendency to stick with familiar options.</p>
+          <blockquote>"It is a reliable part of my morning. I&#39;d say moderately important."<br><small>- Sophia</small></blockquote>
+          <blockquote>"I also have a cup in the morning. Gets me going. Like I said, I&#39;m not picky about brands, though."<br><small>- Amelia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Consumer Preference <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>This theme represents the overall inclination or favorability towards certain products, services, or brands based on individual tastes and needs.</p>
+          <blockquote>"The taste is reliable. And it is not tea."<br><small>- Sophia</small></blockquote>
+          <blockquote>"I like using my French press most of the time. I&#39;m always up for trying new brewing methods, though."<br><small>- Emma</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Perceived Risk <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">7 of 8 participants</div>
+          <p>This theme addresses the potential for negative outcomes or uncertainties associated with a purchase or consumption experience.</p>
+          <blockquote>"I concur with Isabella. Providing a means to express roast and origin preferences would ameliorate the risk."<br><small>- Sophia</small></blockquote>
+          <blockquote>"I would need a money-back guarantee if I don&#39;t like it. Otherwise, I&#39;m just throwing money away. At my age, I can&#39;t afford to be too risky."<br><small>- Joshua</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Novelty Seeking <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">6 of 8 participants</div>
+          <p>This theme captures the desire for new and exciting experiences, reflecting a willingness to try different products or services for the sake of stimulation.</p>
+          <blockquote>"Just black, first thing in the morning. I use a regular coffee maker. Nothing fancy."<br><small>- Ava</small></blockquote>
+          <blockquote>"I brew a pot every morning. Usually have a cup with breakfast and another mid-morning. Nothing fancy."<br><small>- Ava</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Brand Perception <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">5 of 8 participants</div>
+          <p>This theme encompasses consumer attitudes and beliefs about specific brands, including their perceived value and trustworthiness.</p>
+          <blockquote>"I usually get it at the store. Whatever&#39;s on sale, really. Don&#39;t buy it online."<br><small>- Ava</small></blockquote>
+          <blockquote>"I agree with Amelia. I don&#39;t see what this offers that I can&#39;t get at the store. I need to know it will taste good."<br><small>- Joshua</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Price Sensitivity <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">5 of 8 participants</div>
+          <p>This theme reflects the degree to which consumers&#39; purchasing decisions are influenced by the price of a product or service.</p>
+          <blockquote>"Like I said, I have a cup with breakfast. Then one later in the morning. It&#39;s just part of how I start my day."<br><small>- Ava</small></blockquote>
+          <blockquote>"I just buy whatever&#39;s on sale at the supermarket. I don&#39;t need anything fancy. And I certainly wouldn&#39;t buy it online."<br><small>- Amelia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Control and Autonomy <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">4 of 8 participants</div>
+          <p>This theme highlights the importance of feeling in charge and having the ability to make independent decisions in the consumption process.</p>
+          <blockquote>"I&#39;m not sure I want new surprises all the time. It&#39;s nice to have some control. If I don&#39;t like one, I want to be able to skip it like Emma said."<br><small>- Ava</small></blockquote>
+          <blockquote>"I agree with Ava. I think it&#39;s cool to discover new roasters, but I also don&#39;t want to get stuck with coffee I don&#39;t like. So being able to skip is key for me."<br><small>- Emma</small></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Sentiment by Phase</text><line x1="52" y1="202.00" x2="580" y2="202.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="206.00" font-size="11" fill="#6B7280">-1.0</text><line x1="52" y1="161.00" x2="580" y2="161.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="165.00" font-size="11" fill="#6B7280">-0.5</text><line x1="52" y1="120.00" x2="580" y2="120.00" stroke="#F59E0B" stroke-width="2" opacity="0.8"/><text x="22" y="124.00" font-size="11" fill="#6B7280">0.0</text><line x1="52" y1="79.00" x2="580" y2="79.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="83.00" font-size="11" fill="#6B7280">0.5</text><line x1="52" y1="38.00" x2="580" y2="38.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="42.00" font-size="11" fill="#6B7280">1.0</text><line x1="52.00" y1="93.76" x2="184.00" y2="83.92" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="184.00" y1="83.92" x2="316.00" y2="99.04" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="316.00" y1="99.04" x2="448.00" y2="119.09" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="448.00" y1="119.09" x2="580.00" y2="91.30" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><circle cx="52.00" cy="93.76" r="4.5" fill="#10B981"/><text x="52.00" y="232" text-anchor="middle" font-size="11">Warmup</text><circle cx="184.00" cy="83.92" r="4.5" fill="#10B981"/><text x="184.00" y="232" text-anchor="middle" font-size="11">Exploration</text><circle cx="316.00" cy="99.04" r="4.5" fill="#10B981"/><text x="316.00" y="232" text-anchor="middle" font-size="11">Deep Dive</text><circle cx="448.00" cy="119.09" r="4.5" fill="#10B981"/><text x="448.00" y="232" text-anchor="middle" font-size="11">Reaction</text><circle cx="580.00" cy="91.30" r="4.5" fill="#10B981"/><text x="580.00" y="232" text-anchor="middle" font-size="11">Synthesis</text></svg>
+      <p><strong>Trend:</strong> Stable</p>
+      <p><strong>Warmup:</strong> In warmup, participants responded positively (sentiment +0.32).</p>
+      <p><strong>Exploration:</strong> In exploration, participants responded positively (sentiment +0.44).</p>
+      <p><strong>Deep Dive:</strong> In deep dive, participants responded positively (sentiment +0.26).</p>
+      <p><strong>Reaction:</strong> In reaction, participants were mixed (sentiment +0.01).</p>
+      <p><strong>Synthesis:</strong> In synthesis, participants responded positively (sentiment +0.35).</p>
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="700" height="256" viewBox="0 0 700 256" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><rect x="10" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="40" r="18" fill="#EF4444"/><text x="87.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="87.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Ava</text><text x="87.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 61</text><text x="87.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">administrative assistant</text><rect x="185" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="40" r="18" fill="#EF4444"/><text x="262.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">E</text><text x="262.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Emma</text><text x="262.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 36</text><text x="262.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text><rect x="360" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="40" r="18" fill="#EF4444"/><text x="437.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">S</text><text x="437.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Sophia</text><text x="437.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 62</text><text x="437.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">software engineer</text><rect x="535" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="40" r="18" fill="#6B7280"/><text x="612.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">J</text><text x="612.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Joshua</text><text x="612.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 73</text><text x="612.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">retail associate</text><rect x="10" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="160" r="18" fill="#6B7280"/><text x="87.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="87.5" y="188" text-anchor="middle" font-size="12" font-weight="700">David</text><text x="87.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 78</text><text x="87.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text><rect x="185" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="160" r="18" fill="#10B981"/><text x="262.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="262.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Amelia</text><text x="262.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 62</text><text x="262.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text><rect x="360" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="160" r="18" fill="#10B981"/><text x="437.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">I</text><text x="437.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Isabella</text><text x="437.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 45</text><text x="437.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">marketing manager</text><rect x="535" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="160" r="18" fill="#10B981"/><text x="612.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">C</text><text x="612.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Christopher</text><text x="612.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 33</text><text x="612.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text></svg>
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ava</td>
+            <td>61</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>high_school</td>
+            <td>believer</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Emma</td>
+            <td>36</td>
+            <td>Female</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>innovator</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Sophia</td>
+            <td>62</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Joshua</td>
+            <td>73</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>high_school</td>
+            <td>believer</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>78</td>
+            <td>Male</td>
+            <td>$100k-$150k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Neutral</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Amelia</td>
+            <td>62</td>
+            <td>Female</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>striver</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Isabella</td>
+            <td>45</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Christopher</td>
+            <td>33</td>
+            <td>Male</td>
+            <td>&lt;$25k</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+        <article class="segment-card">
+          <h3>Age: 35-55</h3>
+          <p><strong>Purchase Intent:</strong> 50%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 38%; sentiment is more positive by 0.23</p>
+          <blockquote>"Certainly. I find that consuming coffee in the morning provides a predictable, measured increase in alertness, which is beneficial for the demands of my role. While not strictly indispensable, its absence is certainly noticeable in my overall productivity."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: Over $100K</h3>
+          <p><strong>Purchase Intent:</strong> 33%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 21%</p>
+          <blockquote>"I just mean that I like the idea of a surprise, but I also want some control. If the roaster of the month is something I&#39;m not into, I&#39;d like to be able to skip it. I&#39;m not a huge fan of dark roasts, so I&#39;d hate to get stuck with one."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: High Openness</h3>
+          <p><strong>Purchase Intent:</strong> 33%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 21%; sentiment is more positive by 0.20</p>
+          <blockquote>"As I mentioned earlier, I brew a pot via a programmable coffeemaker each morning to consume before and during my commute, ensuring a consistent caffeine level. It&#39;s an integral component of my morning preparation, guaranteeing I&#39;m appropriately stimulated before commencing my workday. While I acknowledge Emma&#39;s enjoyment of lattes, I find my approach more economically sound and efficient for my daily needs."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: innovator</h3>
+          <p><strong>Purchase Intent:</strong> 33%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 21%; sentiment is more positive by 0.20</p>
+          <blockquote>"As I mentioned earlier, I brew a pot via a programmable coffeemaker each morning to consume before and during my commute, ensuring a consistent caffeine level. It&#39;s an integral component of my morning preparation, guaranteeing I&#39;m appropriately stimulated before commencing my workday. While I acknowledge Emma&#39;s enjoyment of lattes, I find my approach more economically sound and efficient for my daily needs."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Age: Over 55</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.11</p>
+          <blockquote>"The value proposition is unclear without the ability to state preferences. A coffee subscription absent that feature introduces excessive risk, and I generally avoid unnecessary gambles. Being able to express roast and origin preferences is an essential feature."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: $50K-$100K</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"I&#39;m with Amelia and David on this one. I&#39;m not sure about these small-batch roasters either. I worry about the coffee being too different each month. I like having a coffee that I know is good."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: Low Openness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.11</p>
+          <blockquote>"Well, I&#39;m not sure about these small-batch roasters. I find there&#39;s something to be said for sticking with what one knows. I&#39;ve had my share of novelties over the years, and they&#39;re not always improvements."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: Low Agreeableness</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 12%</p>
+          <blockquote>"I&#39;m not sure I want new surprises all the time. It&#39;s nice to have some control. If I don&#39;t like one, I want to be able to skip it like Emma said."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Female</h3>
+          <p><strong>Purchase Intent:</strong> 25%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 12%</p>
+          <blockquote>"Well, I&#39;m not sure about all these fancy roasts people are talking about. I just like the taste of regular coffee. It&#39;s what I&#39;m used to, and I don&#39;t need anything special to get me going in the morning."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Male</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"As I mentioned earlier, I brew a pot via a programmable coffeemaker each morning to consume before and during my commute, ensuring a consistent caffeine level. It&#39;s an integral component of my morning preparation, guaranteeing I&#39;m appropriately stimulated before commencing my workday. While I acknowledge Emma&#39;s enjoyment of lattes, I find my approach more economically sound and efficient for my daily needs."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: believer</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.11</p>
+          <blockquote>"I&#39;m with Amelia and David on this one. I&#39;m not sure about these small-batch roasters either. I worry about the coffee being too different each month. I like having a coffee that I know is good."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: survivor</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"The value proposition is unclear without the ability to state preferences. A coffee subscription absent that feature introduces excessive risk, and I generally avoid unnecessary gambles. Being able to express roast and origin preferences is an essential feature."</blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            <li class="concern">Limited evidence of strong objections</li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            <li class="opportunity">Established Habits</li>
+            <li class="opportunity">Consumer Preference</li>
+            <li class="opportunity">Perceived Risk</li>
+            <li class="opportunity">Novelty Seeking</li>
+            <li class="opportunity">Brand Perception</li>
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          <li class="improvement">Address limited evidence of strong objections with clearer product execution.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      <article class="pull-quote">
+        <div class="q">"I just mean that I like the idea of a surprise, but I also want some control. If the roaster of the month is something I&#39;m not into, I&#39;d like to be able to skip it. I&#39;m not a huge fan of dark roasts, so I&#39;d hate to get stuck with one."</div>
+        <div class="by">Emma - Deep Dive</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"As I mentioned earlier, I brew a pot via a programmable coffeemaker each morning to consume before and during my commute, ensuring a consistent caffeine level. It&#39;s an integral component of my morning preparation, guaranteeing I&#39;m appropriately stimulated before commencing my workday. While I acknowledge Emma&#39;s enjoyment of lattes, I find my approach more economically sound and efficient for my daily needs."</div>
+        <div class="by">Christopher - Exploration</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I appreciate the consistent stimulation provided by coffee, facilitating heightened cognitive function. Additionally, I find the nuanced flavor profiles of various roasts to be quite compelling, though I am uncertain if a subscription service would adequately cater to my preferences without a preliminary tasting. The reliability of the caffeine is definitely a high priority."</div>
+        <div class="by">Christopher - Exploration</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I like that it lets me discover new roasters. If I get one I don&#39;t like, I can just skip the next month. It&#39;s not a huge risk, and it&#39;s worth it to find some good coffee."</div>
+        <div class="by">Emma - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I can see where they&#39;re coming from, but I&#39;m willing to try something new. I think the variety could be fun. As long as I can skip a month if I don&#39;t like the sound of one."</div>
+        <div class="by">Emma - Deep Dive</div>
+      </article>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul><li>I just mean that I like the idea of a surprise, but I also want some control. If the roaster of the month is something I&#39;m not into, I&#39;d like to be able to skip it. I&#39;m not a huge fan of dark roasts, so I&#39;d hate to get stuck with one.</li><li>As I mentioned earlier, I brew a pot via a programmable coffeemaker each morning to consume before and during my commute, ensuring a consistent caffeine level. It&#39;s an integral component of my morning preparation, guaranteeing I&#39;m appropriately stimulated before commencing my workday. While I acknowledge Emma&#39;s enjoyment of lattes, I find my approach more economically sound and efficient for my daily needs.</li><li>I appreciate the consistent stimulation provided by coffee, facilitating heightened cognitive function. Additionally, I find the nuanced flavor profiles of various roasts to be quite compelling, though I am uncertain if a subscription service would adequately cater to my preferences without a preliminary tasting. The reliability of the caffeine is definitely a high priority.</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+<li>Well, I&#39;m not gonna pay extra for something I can get cheaper at the store. And I don&#39;t trust buying coffee online. It&#39;s probably not as fresh, and what if I don&#39;t like it?</li><li>I just mean that I like the idea of a surprise, but I also want some control. If the roaster of the month is something I&#39;m not into, I&#39;d like to be able to skip it. I&#39;m not a huge fan of dark roasts, so I&#39;d hate to get stuck with one.</li><li>I appreciate the consistent stimulation provided by coffee, facilitating heightened cognitive function. Additionally, I find the nuanced flavor profiles of various roasts to be quite compelling, though I am uncertain if a subscription service would adequately cater to my preferences without a preliminary tasting. The reliability of the caffeine is definitely a high priority.</li><li>I like that it lets me discover new roasters. If I get one I don&#39;t like, I can just skip the next month. It&#39;s not a huge risk, and it&#39;s worth it to find some good coffee.</li>          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        <li>This study used AI-generated personas grounded in US Census demographic data.</li>
+        <li>Personality profiles were based on the Five-Factor (OCEAN) model with age and gender-adjusted distributions.</li>
+        <li>Discussion was facilitated by an AI moderator using a five-phase qualitative research methodology.</li>
+        <li>Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.</li>
+        <li>Synthetic research is designed to complement, not replace, traditional research methods.</li>
+      </ul>
+      <p><strong>Participants:</strong> 8 Participants | <strong>Phases:</strong> 5 | <strong>Total Messages:</strong> 66</p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+          <div class="transcript-phase">Warmup</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Alright everyone, thanks again for being here. To get us started, let&#39;s just go around the table and tell me, what&#39;s your typical coffee routine like during the week? Ava, I want your take as well.</p>
+          <p class="transcript-line"><strong>Ava:</strong> I brew a pot every morning. Usually have a cup with breakfast and another mid-morning. Nothing fancy.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I typically utilize a programmable coffeemaker to prepare a pot before I leave for the office. I have a cup as I prepare for my commute, and then I bring a travel mug with me to consume on the way. I generally don&#39;t require any additional caffeine during the workday.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I usually grab a latte from a local coffee shop on my way to the office. Sometimes I&#39;ll make coffee at home with my french press if I&#39;m running late or want to save some money.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I usually have a cup in the morning. I buy whatever&#39;s on sale at the grocery store. Nothing special, just gets me going.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Amelia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, I mean, I just buy whatever brand of coffee is on sale at the supermarket. Whatever&#39;s cheapest that week. I don&#39;t really have a favorite or anything. It&#39;s just coffee.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, thanks everyone for sharing so far! To get us going a little more, let&#39;s go around and just tell me, in general, how important is coffee to your daily routine? Sophia, I want your take as well.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> It is a reliable part of my morning. I&#39;d say moderately important.</p>
+          <p class="transcript-line"><strong>David:</strong> Well, I&#39;m retired, so I don&#39;t really have a daily routine. If I&#39;m having it, coffee is usually just something to enjoy while reading the paper. Not essential, but certainly a pleasantry.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> For me, it&#39;s moderately important. It&#39;s nice to have a cup in the morning, gets me going before work. Though I&#39;m fine with tea as well.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I would concur with Sophia&#39;s assessment; it holds moderate importance for me as well. I typically consume a cup in the mornings to augment my focus before commencing work.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Isabella, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> Certainly. I find that consuming coffee in the morning provides a predictable, measured increase in alertness, which is beneficial for the demands of my role. While not strictly indispensable, its absence is certainly noticeable in my overall productivity.</p>
+          <div class="transcript-phase">Exploration</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s hear from some other folks. Ava and Emma, can you tell me a little bit about how coffee fits into your daily routine?</p>
+          <p class="transcript-line"><strong>Ava:</strong> Like I said, I have a cup with breakfast. Then one later in the morning. It&#39;s just part of how I start my day.</p>
+          <p class="transcript-line"><strong>Emma:</strong> It&#39;s pretty important. I like to treat myself to a latte from a local coffee shop most mornings, so it&#39;s a nice start to my day. It&#39;s a small thing, but I enjoy it.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> As I mentioned earlier, I brew a pot via a programmable coffeemaker each morning to consume before and during my commute, ensuring a consistent caffeine level. It&#39;s an integral component of my morning preparation, guaranteeing I&#39;m appropriately stimulated before commencing my workday. While I acknowledge Emma&#39;s enjoyment of lattes, I find my approach more economically sound and efficient for my daily needs.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I also have a cup in the morning. Gets me going. Like I said, I&#39;m not picky about brands, though.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Amelia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, like I said before, I just buy whatever&#39;s on sale. I&#39;m not looking for anything fancy, just a regular cup of coffee to wake me up. As long as it&#39;s hot and caffeinated, I&#39;m good.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, thanks for that context.
+
+Sophia and Joshua, we haven&#39;t heard from you both in a little while. To bring you into the conversation, what are some of your favorite things about drinking coffee?</p>
+          <p class="transcript-line"><strong>Sophia:</strong> The taste is reliable. And it is not tea.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> It&#39;s a familiar taste, something I&#39;ve had for years. I agree with Sophia, it&#39;s better than tea. And it gets me going in the morning before my shift.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I appreciate the consistent stimulation provided by coffee, facilitating heightened cognitive function. Additionally, I find the nuanced flavor profiles of various roasts to be quite compelling, though I am uncertain if a subscription service would adequately cater to my preferences without a preliminary tasting. The reliability of the caffeine is definitely a high priority.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I&#39;m like Joshua, it&#39;s the familiar taste for me, too. I&#39;ve been drinking coffee for years, so it&#39;s just part of my routine. It&#39;s a nice way to start the day, nothing fancy needed.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Amelia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, I&#39;m not sure about all these fancy roasts people are talking about. I just like the taste of regular coffee. It&#39;s what I&#39;m used to, and I don&#39;t need anything special to get me going in the morning.</p>
+          <div class="transcript-phase">Deep Dive</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting perspectives on the appeal of familiar coffee flavors. Amelia, you mentioned you&#39;re not sure about the &#34;fancy roasts.&#34; Could you tell me a little more about what concerns or questions you have about trying coffee from different small-batch roasters each month? David, I want your take as well.</p>
+          <p class="transcript-line"><strong>David:</strong> Well, I&#39;m not sure about these small-batch roasters. I find there&#39;s something to be said for sticking with what one knows. I&#39;ve had my share of novelties over the years, and they&#39;re not always improvements.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I don&#39;t know if I want something different every month. I like knowing what I&#39;m getting. These small-batch things might be too weak or too strong, who knows?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I&#39;m with Amelia and David on this one. I&#39;m not sure about these small-batch roasters either. I worry about the coffee being too different each month. I like having a coffee that I know is good.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I can see where they&#39;re coming from, but I&#39;m willing to try something new. I think the variety could be fun. As long as I can skip a month if I don&#39;t like the sound of one.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Emma, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I just mean that I like the idea of a surprise, but I also want some control. If the roaster of the month is something I&#39;m not into, I&#39;d like to be able to skip it. I&#39;m not a huge fan of dark roasts, so I&#39;d hate to get stuck with one.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Emma brought up a good point about wanting both surprise and control. Ava and Sophia, what are your thoughts on the balance between discovering new roasters and having some say in the types of coffee you receive?</p>
+          <p class="transcript-line"><strong>Ava:</strong> I&#39;m not sure I want new surprises all the time. It&#39;s nice to have some control. If I don&#39;t like one, I want to be able to skip it like Emma said.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I agree with Ava. I think it&#39;s cool to discover new roasters, but I also don&#39;t want to get stuck with coffee I don&#39;t like. So being able to skip is key for me.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I concur with the need for control. Novelty is insufficient justification without the option to revert to the familiar. Unwanted surprises are simply irritations.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I concur with the need for control. Novelty is insufficient justification without the option to revert to the familiar. Unwanted surprises are simply irritations.</p>
+          <div class="transcript-phase">Reaction</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great thoughts so far. David and Ava, I&#39;d love to hear from you both. What are your general experiences with buying coffee, whether it&#39;s at the grocery store, a coffee shop, or online?</p>
+          <p class="transcript-line"><strong>Ava:</strong> I usually get it at the store. Whatever&#39;s on sale, really. Don&#39;t buy it online.</p>
+          <p class="transcript-line"><strong>David:</strong> I typically purchase coffee from my local grocer. I&#39;m not especially adventurous in my selections. I buy what is well known and dependably available.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I purchase my usual brand at the grocery store. I am disinclined to change unless there is a compelling rationale. Online purchases introduce unacceptable uncertainty.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I just buy whatever&#39;s on sale at the supermarket. I don&#39;t need anything fancy. And I certainly wouldn&#39;t buy it online.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Amelia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, I&#39;m not gonna pay extra for something I can get cheaper at the store. And I don&#39;t trust buying coffee online. It&#39;s probably not as fresh, and what if I don&#39;t like it?</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s get some more reactions to this concept.
+
+Joshua and David, we haven&#39;t heard from you yet. Thinking about your coffee habits, what&#39;s the most important thing you look for when choosing a coffee to drink at home?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I agree with Amelia. I don&#39;t see what this offers that I can&#39;t get at the store. I need to know it will taste good.</p>
+          <p class="transcript-line"><strong>David:</strong> The sine qua non for me is reliability. I want a consistent flavor profile from a brand I trust. I&#39;m not convinced a subscription service focused on novelty can guarantee that.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I would echo David&#39;s emphasis on reliability. While the idea of discovering new roasters has some appeal, the paramount consideration for me is ensuring a consistently positive experience. I&#39;m not sure this subscription model can deliver that, given the inherent variability.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> For me, the origin and roast level are most important. If I can be reasonably sure I&#39;ll get a light or medium roast from a specific region, I&#39;d be more comfortable with the surprise element. Otherwise, it&#39;s too much of a gamble.</p>
+          <div class="transcript-phase">Synthesis</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great perspectives so far. Ava and Sophia, we&#39;d love to hear from you both. To start, what are some of your favorite ways to enjoy coffee at home?</p>
+          <p class="transcript-line"><strong>Ava:</strong> Just black, first thing in the morning. I use a regular coffee maker. Nothing fancy.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I concur with Ava. I prefer black coffee brewed in a standard drip machine. Novel preparation methods are an unnecessary complication.</p>
+          <p class="transcript-line"><strong>David:</strong> I appreciate Sophia&#39;s preference for traditional methods. Personally, I also favor a simple drip brew. My primary concern is the quality and consistency of the beans themselves, not the preparation method.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I like using my French press most of the time. I&#39;m always up for trying new brewing methods, though.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Emma, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I like that it lets me discover new roasters. If I get one I don&#39;t like, I can just skip the next month. It&#39;s not a huge risk, and it&#39;s worth it to find some good coffee.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;re in the synthesis phase now, trying to pull everything together. We&#39;ve heard some great perspectives on the coffee subscription concept.
+
+Joshua and Isabella, we haven&#39;t heard as much from you yet. To bring your voices in, could you each tell us, in a nutshell, what&#39;s the single biggest factor that would influence your decision to either sign up for this subscription or not?</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I would need a money-back guarantee if I don&#39;t like it. Otherwise, I&#39;m just throwing money away. At my age, I can&#39;t afford to be too risky.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> For me, it&#39;s about mitigating the risk of receiving something undesirable. If there were a way to specify roast preferences and regions, I&#39;d feel more confident that the surprise would be a pleasant one.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> The primary factor influencing my decision would be the ability to mitigate risk through informed choices. If I could view detailed profiles of past roasters, including customer reviews and tasting notes, that would provide the reassurance I need. Otherwise, the potential for dissatisfaction outweighs the novelty for me.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I concur with Isabella. Providing a means to express roast and origin preferences would ameliorate the risk.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Sophia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Sophia:</strong> The value proposition is unclear without the ability to state preferences. A coffee subscription absent that feature introduces excessive risk, and I generally avoid unnecessary gambles. Being able to express roast and origin preferences is an essential feature.</p>
+      </details>
+    </section>
+  </div>
+</body>
+</html>
