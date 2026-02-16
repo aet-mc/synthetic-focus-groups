@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: A subscription coffee service that delivers freshly roasted specialty beans from a different small-batch roaster each month. 12oz bag for 16 dollars per month, free shipping, skip or cancel anytime. Includes tasting notes card and brewing tips for each origin.</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: A subscription coffee service that delivers freshly roasted specialty beans from a different small-batch roaster each month. 12oz bag for 16 dollars per month, free shipping, skip or cancel anytime. Includes tasting notes card and brewing tips for each origin.</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>February 16, 2026</div>
+        <div><strong>Category</strong><br>Synthetic Focus Group - AI-Powered Market Research</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: #F59E0B;">ITERATE</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>{
+  &#34;executive_summary&#34;: &#34;Focus group participants expressed interest in the concept of a small-batch coffee subscription, but concerns about quality consistency and a lack of transparency in roaster selection significantly dampened purchase intent. While the convenience and discovery aspects appealed to some, participants prioritized dependability and a known level of quality, often citing their reliance on familiar brands or local roasters. To improve appeal, the service should focus on rigorous quality control, transparent sourcing practices, and potentially offer tiered options to cater to both adventurous and risk-averse consumers. Addressing these concerns is crucial to converting interest into actual subscriptions.&#34;
+}</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>ITERATE</strong> (Confidence: Medium)</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">12%</div>
+              <div class="label">Purchase Intent</div>
+            </div>
+            <div class="stat">
+              <div class="value">7</div>
+              <div class="label">Key Themes</div>
+            </div>
+            <div class="stat">
+              <div class="value">8</div>
+              <div class="label">Participants</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><path d="M14.40,108.00 A75.60,75.60 0 0 1 78.17,33.33" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round"/><path d="M78.17,33.33 A75.60,75.60 0 0 1 124.32,40.64" fill="none" stroke="#F59E0B" stroke-width="11" stroke-linecap="round"/><path d="M124.32,40.64 A75.60,75.60 0 0 1 165.60,108.00" fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round"/><line x1="90.00" y1="108.00" x2="25.70" y2="81.37" stroke="#EF4444" stroke-width="3"/><circle cx="90.00" cy="108.00" r="4" fill="#EF4444"/><text x="90.0" y="90.0" text-anchor="middle" font-size="17" font-weight="700" fill="#EF4444">12%</text><text x="90.0" y="118" text-anchor="middle" font-size="11">Excitement Score</text></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="125.0" y="22" text-anchor="middle" font-size="14" font-weight="700">Recommendation Signal</text><path d="M125.00,52.30 A60.70,60.70 0 0 1 167.92,70.08" fill="none" stroke="#F59E0B" stroke-width="32.27" stroke-linecap="butt"/><path d="M167.92,70.08 A60.70,60.70 0 1 1 125.00,52.30" fill="none" stroke="#E5E7EB" stroke-width="32.27" stroke-linecap="butt"/><text x="125.0" y="111.0" text-anchor="middle" font-size="16" font-weight="700">1</text><text x="125.0" y="127.0" text-anchor="middle" font-size="11" fill="#6B7280">Responses</text><rect x="10" y="206" width="9" height="9" rx="2" fill="#F59E0B"/><text x="24" y="214" font-size="10">ITERATE (12%)</text><rect x="10" y="220" width="9" height="9" rx="2" fill="#E5E7EB"/><text x="24" y="228" font-size="10">Remaining (88%)</text></svg>
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="280" viewBox="0 0 600 280" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Top-2-Box Concept Scores</text><text x="14" y="55" font-size="12" font-weight="600">Purchase Intent</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="41.25" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">12%</text><text x="14" y="91" font-size="12" font-weight="600">Overall Appeal</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="41.25" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">12%</text><text x="14" y="127" font-size="12" font-weight="600">Uniqueness</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="41.25" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">12%</text><text x="14" y="163" font-size="12" font-weight="600">Relevance</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="41.25" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">12%</text><text x="14" y="199" font-size="12" font-weight="600">Believability</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="0.00" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">0%</text><text x="14" y="235" font-size="12" font-weight="600">Value Perception</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="41.25" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">12%</text></svg>
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purchase Intent</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Purchase Intent signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Overall Appeal</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Overall Appeal signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Uniqueness</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Uniqueness signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Relevance</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Relevance signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Believability</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Believability signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Value Perception</strong></td>
+            <td>12%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Value Perception signals material risk and needs substantial improvement.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="316" viewBox="0 0 600 316" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Theme Prevalence</text><text x="14" y="55" font-size="12" font-weight="600">Perceived Quality</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="330.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">100%</text><text x="14" y="91" font-size="12" font-weight="600">Ease of Use and Access</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="330.00" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">100%</text><text x="14" y="127" font-size="12" font-weight="600">Potential Negative Outcomes</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="330.00" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">100%</text><text x="14" y="163" font-size="12" font-weight="600">Price Sensitivity</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="288.75" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">88%</text><text x="14" y="199" font-size="12" font-weight="600">Dependability and Consistency</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="247.50" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">75%</text><text x="14" y="235" font-size="12" font-weight="600">Ethical Considerations and Trust</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="247.50" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">75%</text><text x="14" y="271" font-size="12" font-weight="600">Operational Efficiency</text><rect x="190" y="256" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="256" width="123.75" height="22" rx="4" fill="#93C5FD"/><text x="530" y="271" font-size="12" font-weight="700">38%</text></svg>
+      <div class="card-grid">
+        <article class="theme-card">
+          <h3>Perceived Quality <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>This theme encompasses the overall perception of the product or service&#39;s excellence and superiority, reflecting customer satisfaction and expectations.</p>
+          <blockquote>"Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I would be significantly more amenable to this concept if there were more transparency regarding the selection process of these small-batch roasters. A detailed explanation of the criteria used to evaluate roasters, including cupping scores, sourcing ethics, and roasting consistency, would provide a greater sense of confidence. Without such assurances, the subscription feels like a gamble."<br><small>- Christopher</small></blockquote>
+          <blockquote>"The freshness and ethical sourcing are paramount to me, so a local roaster allows for a direct relationship and a higher degree of confidence. The pour-over method, while more involved, provides superior control over brewing variables, ultimately yielding a more refined and satisfying cup. This level of engagement transforms a mundane task into a mindful practice."<br><small>- Christopher</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Ease of Use and Access <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>This theme focuses on how easily customers can obtain and utilize the product or service, emphasizing simplicity and user-friendliness.</p>
+          <blockquote>"Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee."<br><small>- Christopher</small></blockquote>
+          <blockquote>"While I appreciate the simplicity of my drip machine, I sometimes wonder if I&#39;m missing out on richer flavors that other methods might offer. I&#39;ve considered trying a pour-over or French press, but the added time and effort have been a deterrent so far. It seems like Christopher and Emma may agree with the potential for a superior cup using other methods."<br><small>- Isabella</small></blockquote>
+          <blockquote>"I typically use a drip coffee maker as well; it&#39;s reliable and straightforward like others have mentioned. I appreciate the convenience, especially on busy mornings, but I also sometimes consider experimenting with other methods for a change of pace."<br><small>- Isabella</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Potential Negative Outcomes <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">8 of 8 participants</div>
+          <p>This theme highlights concerns about potential downsides or adverse consequences associated with the product or service.</p>
+          <blockquote>"Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I would be significantly more amenable to this concept if there were more transparency regarding the selection process of these small-batch roasters. A detailed explanation of the criteria used to evaluate roasters, including cupping scores, sourcing ethics, and roasting consistency, would provide a greater sense of confidence. Without such assurances, the subscription feels like a gamble."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I&#39;m moderately price-sensitive, so sales definitely influence my choices as well. While I&#39;m not particularly brand-loyal, I do tend to stick with blends that I know I enjoy to minimize risk. However, I still find myself drawn to interesting new offerings from time to time, even if it&#39;s just out of curiosity."<br><small>- Isabella</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Price Sensitivity <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">7 of 8 participants</div>
+          <p>This theme reflects the degree to which customers&#39; purchasing decisions are influenced by the monetary cost of the product or service.</p>
+          <blockquote>"The variety that this service offers, exposing one to different small-batch roasters, could be quite beneficial to someone like Ava. It might broaden her horizons beyond the sale offerings at the grocery store, though I wonder about the consistency in quality. If the quality is poor, I would probably be dissatisfied with the service despite the lower price point."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I&#39;m moderately price-sensitive, so sales definitely influence my choices as well. While I&#39;m not particularly brand-loyal, I do tend to stick with blends that I know I enjoy to minimize risk. However, I still find myself drawn to interesting new offerings from time to time, even if it&#39;s just out of curiosity."<br><small>- Isabella</small></blockquote>
+          <blockquote>"I usually get coffee from the grocery store, whatever&#39;s on sale or what I have a coupon for. I brew it in a standard drip machine. It&#39;s nothing special, but it&#39;s consistent, which is what I need in the morning."<br><small>- Isabella</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Dependability and Consistency <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">6 of 8 participants</div>
+          <p>This theme centers on the product or service&#39;s ability to consistently perform as expected over time, fostering confidence and assurance.</p>
+          <blockquote>"I typically use a drip coffee maker as well; it&#39;s reliable and straightforward like others have mentioned. I appreciate the convenience, especially on busy mornings, but I also sometimes consider experimenting with other methods for a change of pace."<br><small>- Isabella</small></blockquote>
+          <blockquote>"I usually get coffee from the grocery store, whatever&#39;s on sale or what I have a coupon for. I brew it in a standard drip machine. It&#39;s nothing special, but it&#39;s consistent, which is what I need in the morning."<br><small>- Isabella</small></blockquote>
+          <blockquote>"At my age, consistency and reliability are paramount. I tend to gravitate toward familiar brands that have proven themselves over time. Experimentation is a young man&#39;s game."<br><small>- David</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Ethical Considerations and Trust <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">6 of 8 participants</div>
+          <p>This theme encompasses the moral principles and beliefs that influence customer perceptions and the level of confidence they have in the provider.</p>
+          <blockquote>"I would be significantly more amenable to this concept if there were more transparency regarding the selection process of these small-batch roasters. A detailed explanation of the criteria used to evaluate roasters, including cupping scores, sourcing ethics, and roasting consistency, would provide a greater sense of confidence. Without such assurances, the subscription feels like a gamble."<br><small>- Christopher</small></blockquote>
+          <blockquote>"The freshness and ethical sourcing are paramount to me, so a local roaster allows for a direct relationship and a higher degree of confidence. The pour-over method, while more involved, provides superior control over brewing variables, ultimately yielding a more refined and satisfying cup. This level of engagement transforms a mundane task into a mindful practice."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I typically purchase whole bean coffee from a local roaster, ensuring it&#39;s ethically sourced and recently roasted. I use a burr grinder and a pour-over method to maximize flavor extraction, and I generally prefer to drink it black to fully appreciate the nuances of the bean. It&#39;s a ritualistic experience that sets a positive tone for the day."<br><small>- Christopher</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Operational Efficiency <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">3 of 8 participants</div>
+          <p>This theme relates to the smoothness and effectiveness of the processes involved in delivering the product or service.</p>
+          <blockquote>"The freshness and ethical sourcing are paramount to me, so a local roaster allows for a direct relationship and a higher degree of confidence. The pour-over method, while more involved, provides superior control over brewing variables, ultimately yielding a more refined and satisfying cup. This level of engagement transforms a mundane task into a mindful practice."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I typically purchase whole bean coffee from a local roaster, ensuring it&#39;s ethically sourced and recently roasted. I use a burr grinder and a pour-over method to maximize flavor extraction, and I generally prefer to drink it black to fully appreciate the nuances of the bean. It&#39;s a ritualistic experience that sets a positive tone for the day."<br><small>- Christopher</small></blockquote>
+          <blockquote>"I utilize an automatic pour-over system. It provides a consistent, controlled brew, which I find superior to standard drip machines, although admittedly it requires a bit more attention than Ava&#39;s method."<br><small>- Christopher</small></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Sentiment by Phase</text><line x1="52" y1="202.00" x2="580" y2="202.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="206.00" font-size="11" fill="#6B7280">-1.0</text><line x1="52" y1="161.00" x2="580" y2="161.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="165.00" font-size="11" fill="#6B7280">-0.5</text><line x1="52" y1="120.00" x2="580" y2="120.00" stroke="#F59E0B" stroke-width="2" opacity="0.8"/><text x="22" y="124.00" font-size="11" fill="#6B7280">0.0</text><line x1="52" y1="79.00" x2="580" y2="79.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="83.00" font-size="11" fill="#6B7280">0.5</text><line x1="52" y1="38.00" x2="580" y2="38.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="42.00" font-size="11" fill="#6B7280">1.0</text><line x1="52.00" y1="87.20" x2="184.00" y2="108.52" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><line x1="184.00" y1="108.52" x2="316.00" y2="133.67" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="316.00" y1="133.67" x2="448.00" y2="113.62" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="448.00" y1="113.62" x2="580.00" y2="92.67" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><circle cx="52.00" cy="87.20" r="4.5" fill="#10B981"/><text x="52.00" y="232" text-anchor="middle" font-size="11">Warmup</text><circle cx="184.00" cy="108.52" r="4.5" fill="#10B981"/><text x="184.00" y="232" text-anchor="middle" font-size="11">Exploration</text><circle cx="316.00" cy="133.67" r="4.5" fill="#EF4444"/><text x="316.00" y="232" text-anchor="middle" font-size="11">Deep Dive</text><circle cx="448.00" cy="113.62" r="4.5" fill="#10B981"/><text x="448.00" y="232" text-anchor="middle" font-size="11">Reaction</text><circle cx="580.00" cy="92.67" r="4.5" fill="#10B981"/><text x="580.00" y="232" text-anchor="middle" font-size="11">Synthesis</text></svg>
+      <p><strong>Trend:</strong> Stable</p>
+      <p><strong>Warmup:</strong> In warmup, participants responded positively (sentiment +0.40).</p>
+      <p><strong>Exploration:</strong> In exploration, participants were mixed (sentiment +0.14).</p>
+      <p><strong>Deep Dive:</strong> In deep dive, participants were mixed (sentiment -0.17).</p>
+      <p><strong>Reaction:</strong> In reaction, participants were mixed (sentiment +0.08).</p>
+      <p><strong>Synthesis:</strong> In synthesis, participants responded positively (sentiment +0.33).</p>
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="700" height="256" viewBox="0 0 700 256" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><rect x="10" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="40" r="18" fill="#EF4444"/><text x="87.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="87.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Ava</text><text x="87.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 61</text><text x="87.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">administrative assistant</text><rect x="185" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="40" r="18" fill="#EF4444"/><text x="262.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">E</text><text x="262.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Emma</text><text x="262.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 36</text><text x="262.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text><rect x="360" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="40" r="18" fill="#EF4444"/><text x="437.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">S</text><text x="437.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Sophia</text><text x="437.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 62</text><text x="437.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">software engineer</text><rect x="535" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="40" r="18" fill="#6B7280"/><text x="612.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">J</text><text x="612.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Joshua</text><text x="612.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 73</text><text x="612.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">retail associate</text><rect x="10" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="160" r="18" fill="#6B7280"/><text x="87.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="87.5" y="188" text-anchor="middle" font-size="12" font-weight="700">David</text><text x="87.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 78</text><text x="87.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text><rect x="185" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="160" r="18" fill="#10B981"/><text x="262.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="262.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Amelia</text><text x="262.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 62</text><text x="262.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">sales representative</text><rect x="360" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="160" r="18" fill="#10B981"/><text x="437.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">I</text><text x="437.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Isabella</text><text x="437.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 45</text><text x="437.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">marketing manager</text><rect x="535" y="130" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="160" r="18" fill="#10B981"/><text x="612.5" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">C</text><text x="612.5" y="188" text-anchor="middle" font-size="12" font-weight="700">Christopher</text><text x="612.5" y="204" text-anchor="middle" font-size="11" fill="#6B7280">Age 33</text><text x="612.5" y="220" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text></svg>
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ava</td>
+            <td>61</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>high_school</td>
+            <td>believer</td>
+            <td>Negative</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>Emma</td>
+            <td>36</td>
+            <td>Female</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>innovator</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Sophia</td>
+            <td>62</td>
+            <td>Female</td>
+            <td>$75k-$100k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Negative</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Joshua</td>
+            <td>73</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>high_school</td>
+            <td>believer</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>78</td>
+            <td>Male</td>
+            <td>$100k-$150k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Neutral</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Amelia</td>
+            <td>62</td>
+            <td>Female</td>
+            <td>$100k-$150k</td>
+            <td>some_college</td>
+            <td>striver</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Isabella</td>
+            <td>45</td>
+            <td>Male</td>
+            <td>$50k-$75k</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Neutral</td>
+          </tr>
+          <tr>
+            <td>Christopher</td>
+            <td>33</td>
+            <td>Male</td>
+            <td>&lt;$25k</td>
+            <td>bachelors</td>
+            <td>innovator</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+        <article class="segment-card">
+          <h3>VALS: believer</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.20</p>
+          <blockquote>"Like Emma said, a satisfaction guarantee would help ease my worries about getting bad coffee. I also wonder if they could let you pick from a few different roast types, so you don&#39;t get stuck with something you don&#39;t like."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: High Openness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more positive by 0.16</p>
+          <blockquote>"Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: innovator</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more positive by 0.16</p>
+          <blockquote>"Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Age: 35-55</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more positive by 0.15</p>
+          <blockquote>"While I appreciate the simplicity of my drip machine, I sometimes wonder if I&#39;m missing out on richer flavors that other methods might offer. I&#39;ve considered trying a pour-over or French press, but the added time and effort have been a deterrent so far. It seems like Christopher and Emma may agree with the potential for a superior cup using other methods."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: survivor</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.15</p>
+          <blockquote>"My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Age: Over 55</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.12</p>
+          <blockquote>"My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: $50K-$100K</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%; sentiment is more negative by 0.11</p>
+          <blockquote>"While I appreciate the simplicity of my drip machine, I sometimes wonder if I&#39;m missing out on richer flavors that other methods might offer. I&#39;ve considered trying a pour-over or French press, but the added time and effort have been a deterrent so far. It seems like Christopher and Emma may agree with the potential for a superior cup using other methods."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Income: Over $100K</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: Low Openness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Psychographic: Low Agreeableness</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Female</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"For me, it&#39;s about finding something new and interesting. I don&#39;t mind spending a little extra if it means trying a different roast or origin that I haven&#39;t had before. Like Christopher mentioned, it&#39;s great when you know the beans are sourced well too."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Male</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 12%</p>
+          <blockquote>"Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee."</blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            <li class="concern">Potential Negative Outcomes</li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            <li class="opportunity">Perceived Quality</li>
+            <li class="opportunity">Ease of Use and Access</li>
+            <li class="opportunity">Price Sensitivity</li>
+            <li class="opportunity">Dependability and Consistency</li>
+            <li class="opportunity">Ethical Considerations and Trust</li>
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          <li class="improvement">Address potential negative outcomes with clearer product execution.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      <article class="pull-quote">
+        <div class="q">"I typically purchase whole bean coffee from a local roaster, ensuring it&#39;s ethically sourced and recently roasted. I use a burr grinder and a pour-over method to maximize flavor extraction, and I generally prefer to drink it black to fully appreciate the nuances of the bean. It&#39;s a ritualistic experience that sets a positive tone for the day."</div>
+        <div class="by">Christopher - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"The freshness and ethical sourcing are paramount to me, so a local roaster allows for a direct relationship and a higher degree of confidence. The pour-over method, while more involved, provides superior control over brewing variables, ultimately yielding a more refined and satisfying cup. This level of engagement transforms a mundane task into a mindful practice."</div>
+        <div class="by">Christopher - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"For me, it&#39;s about finding something new and interesting. I don&#39;t mind spending a little extra if it means trying a different roast or origin that I haven&#39;t had before. Like Christopher mentioned, it&#39;s great when you know the beans are sourced well too."</div>
+        <div class="by">Emma - Synthesis</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I&#39;m willing to pay more to try something new. I think it&#39;s boring to just buy the same coffee all the time. If it&#39;s a good roast from a good origin, I&#39;ll pay for the experience."</div>
+        <div class="by">Emma - Reaction</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I like to explore different roasters and origins. It&#39;s also nice to know where the beans are coming from, like Christopher said about ethical sourcing. If a subscription service can deliver that, I&#39;m interested."</div>
+        <div class="by">Emma - Synthesis</div>
+      </article>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul><li>I typically purchase whole bean coffee from a local roaster, ensuring it&#39;s ethically sourced and recently roasted. I use a burr grinder and a pour-over method to maximize flavor extraction, and I generally prefer to drink it black to fully appreciate the nuances of the bean. It&#39;s a ritualistic experience that sets a positive tone for the day.</li><li>The freshness and ethical sourcing are paramount to me, so a local roaster allows for a direct relationship and a higher degree of confidence. The pour-over method, while more involved, provides superior control over brewing variables, ultimately yielding a more refined and satisfying cup. This level of engagement transforms a mundane task into a mindful practice.</li><li>For me, it&#39;s about finding something new and interesting. I don&#39;t mind spending a little extra if it means trying a different roast or origin that I haven&#39;t had before. Like Christopher mentioned, it&#39;s great when you know the beans are sourced well too.</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+<li>I would be significantly more amenable to this concept if there were more transparency regarding the selection process of these small-batch roasters. A detailed explanation of the criteria used to evaluate roasters, including cupping scores, sourcing ethics, and roasting consistency, would provide a greater sense of confidence. Without such assurances, the subscription feels like a gamble.</li><li>My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value.</li><li>I&#39;m not convinced this curation would be worth the cost. The quality control would need to be quite rigorous to justify the risk of inconsistency. A few positive reviews won&#39;t sway me.</li><li>For me, it&#39;s about finding something new and interesting. I don&#39;t mind spending a little extra if it means trying a different roast or origin that I haven&#39;t had before. Like Christopher mentioned, it&#39;s great when you know the beans are sourced well too.</li><li>I&#39;m willing to pay more to try something new. I think it&#39;s boring to just buy the same coffee all the time. If it&#39;s a good roast from a good origin, I&#39;ll pay for the experience.</li><li>I like to explore different roasters and origins. It&#39;s also nice to know where the beans are coming from, like Christopher said about ethical sourcing. If a subscription service can deliver that, I&#39;m interested.</li>          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        <li>This study used AI-generated personas grounded in US Census demographic data.</li>
+        <li>Personality profiles were based on the Five-Factor (OCEAN) model with age and gender-adjusted distributions.</li>
+        <li>Discussion was facilitated by an AI moderator using a five-phase qualitative research methodology.</li>
+        <li>Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.</li>
+        <li>Synthetic research is designed to complement, not replace, traditional research methods.</li>
+      </ul>
+      <p><strong>Participants:</strong> 8 | <strong>Phases:</strong> 5 | <strong>Total Messages:</strong> 66</p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+          <div class="transcript-phase">Warmup</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Alright everyone, thanks again for being here. To get us started and loosen things up, let&#39;s go around and quickly share: What&#39;s your go-to method for making coffee at home? No right or wrong answers, just curious about your preferences! Ava, let&#39;s start with you.</p>
+          <p class="transcript-line"><strong>Ava:</strong> I use a regular drip coffee maker. It&#39;s simple and reliable. I&#39;ve had it for years.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I utilize an automatic pour-over system. It provides a consistent, controlled brew, which I find superior to standard drip machines, although admittedly it requires a bit more attention than Ava&#39;s method.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I usually just use a French press. It&#39;s easy enough and makes a decent cup.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I&#39;ve got a Keurig. It&#39;s quick and easy for just one cup, and I don&#39;t have to think about it too much.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Amelia, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, I mostly just want my coffee in the morning with as little fuss as possible. The Keurig is great because I don&#39;t have to grind beans or measure anything. I just pop in a pod and go.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard a little about how some of you make your coffee. Sophia and Joshua, I&#39;d love to hear from you both too. What&#39;s your typical coffee routine like?</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I use a standard drip machine. It’s reliable.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I&#39;ve got a standard drip machine too. It&#39;s nothing fancy, but it gets the job done, and I know what to expect. I don&#39;t need any surprises first thing in the morning.</p>
+          <p class="transcript-line"><strong>David:</strong> I&#39;m quite old school in that regard. I still use a percolator on the stove. It&#39;s simple and makes a decent cup, though I admit I don&#39;t fuss too much about the subtleties.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I typically use a drip coffee maker as well; it&#39;s reliable and straightforward like others have mentioned. I appreciate the convenience, especially on busy mornings, but I also sometimes consider experimenting with other methods for a change of pace.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Isabella, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> While I appreciate the simplicity of my drip machine, I sometimes wonder if I&#39;m missing out on richer flavors that other methods might offer. I&#39;ve considered trying a pour-over or French press, but the added time and effort have been a deterrent so far. It seems like Christopher and Emma may agree with the potential for a superior cup using other methods.</p>
+          <div class="transcript-phase">Exploration</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s hear from some other folks. Ava and Emma, could you tell us a little bit about your current coffee routines? What kind of coffee do you typically drink, and how do you usually brew it?</p>
+          <p class="transcript-line"><strong>Ava:</strong> I buy ground coffee from the grocery store. Whatever&#39;s on sale, usually. Like I said, I just use a drip coffee maker.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I usually buy whole bean coffee from the store, whatever looks interesting. Then I grind it and use my French press. It&#39;s not too complicated.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I&#39;m moderately price-sensitive, so sales definitely influence my choices as well. While I&#39;m not particularly brand-loyal, I do tend to stick with blends that I know I enjoy to minimize risk. However, I still find myself drawn to interesting new offerings from time to time, even if it&#39;s just out of curiosity.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> The variety that this service offers, exposing one to different small-batch roasters, could be quite beneficial to someone like Ava. It might broaden her horizons beyond the sale offerings at the grocery store, though I wonder about the consistency in quality. If the quality is poor, I would probably be dissatisfied with the service despite the lower price point.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Christopher, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Christopher:</strong> The implicit promise of quality from small-batch roasting is appealing, but small-batch does not guarantee excellence. I would want some assurance of quality control or curation to mitigate the risk of receiving substandard beans. Perhaps customer reviews or roaster vetting could address this concern.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, let&#39;s get everyone involved. Sophia and Joshua, I&#39;d love to hear from you.
+
+To start us off, could you each tell me a little bit about your current coffee routine? What kind of coffee do you typically drink, and where do you usually get it?</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I buy whole bean coffee from a local roaster. I&#39;ve been going there for years. I grind the beans myself right before brewing.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I usually buy pre-ground coffee from the grocery store. It&#39;s just easier that way. I stick with the regular stuff, nothing too fancy.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> Building on what Sophia mentioned, the advantage of sourcing from a local roaster is the established relationship and quality control. With this subscription, I would be forfeiting that known reliability for the potential of discovering new, high-quality roasters, but the risk of inconsistency remains a concern. The convenience is attractive, but not if it means sacrificing the assurance of a consistently excellent cup of coffee.</p>
+          <p class="transcript-line"><strong>Ava:</strong> I already said I buy ground coffee from the grocery store. Whatever&#39;s on sale. I use a drip coffee maker.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Ava, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Ava:</strong> I don&#39;t see the point in spending more. It&#39;s just coffee. As long as it&#39;s hot and caffeinated, it does the job.</p>
+          <div class="transcript-phase">Deep Dive</div>
+          <p class="transcript-line"><strong>Moderator:</strong> David and Emma, we haven&#39;t heard from you in a little while. Thinking about everything that&#39;s been discussed, what are your initial thoughts on the idea of a coffee subscription that sends you a different small-batch roaster&#39;s beans each month?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I think it&#39;s an interesting idea. I&#39;m willing to try new coffees, and I like that it&#39;s from small roasters. It&#39;s good to support those businesses.</p>
+          <p class="transcript-line"><strong>David:</strong> Well, I appreciate Emma&#39;s support for small businesses, but I&#39;m not so sure. This sounds like a lot of uncertainty for something that should be a reliable part of the morning. The quality control concerns that Christopher mentioned are certainly salient.</p>
+          <p class="transcript-line"><strong>Ava:</strong> I don&#39;t get the point of a subscription. I just want my coffee every morning, no fuss. Why pay for something new every month when the cheap stuff works fine?</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I concur with Emma that supporting small roasters is a positive aspect. However, like David, I also foresee potential inconsistencies in quality that could disrupt my routine. Perhaps a tiered system with a curated &#34;safe bet&#34; option alongside the adventurous selections could mitigate this concern.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting points about supporting small roasters and the convenience of getting your regular coffee. Let&#39;s dig a little deeper. What, if anything, would make you hesitant to trust a coffee subscription service like this to consistently deliver quality coffee that you&#39;d actually enjoy? Sophia, I want your take as well.</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I&#39;m not convinced this curation would be worth the cost. The quality control would need to be quite rigorous to justify the risk of inconsistency. A few positive reviews won&#39;t sway me.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I would be significantly more amenable to this concept if there were more transparency regarding the selection process of these small-batch roasters. A detailed explanation of the criteria used to evaluate roasters, including cupping scores, sourcing ethics, and roasting consistency, would provide a greater sense of confidence. Without such assurances, the subscription feels like a gamble.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I agree with Sophia. Quality control is a big question for me, too. I don&#39;t want to pay for coffee that ends up being no good.</p>
+          <p class="transcript-line"><strong>David:</strong> I would need a substantial guarantee of quality before I considered this. The idea of a &#34;tasting notes card&#34; strikes me as precious rather than helpful. I am concerned that they may be compensating for lower quality.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> David, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>David:</strong> My concern is that the tasting notes are a distraction from the underlying issue of quality. If the coffee were consistently excellent, the need for elaborate descriptions would be diminished. I see this as potentially compensating for a lack of intrinsic value.</p>
+          <div class="transcript-phase">Reaction</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some initial reactions, and it sounds like quality is top of mind for many of you. Amelia and Emma, I&#39;m curious, what are your initial thoughts on this coffee subscription concept? What stands out to you, either positively or negatively?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I am a little concerned about quality after hearing everyone&#39;s thoughts. I still think it&#39;s a cool idea to try different roasters, but I don&#39;t want to end up with bad coffee. Maybe they could have a satisfaction guarantee or something?</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I see both sides. It&#39;s nice to try something new, but I don&#39;t want to end up with a bad batch of coffee. Like David said, it should be a reliable part of the morning.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> Like Emma said, a satisfaction guarantee would help ease my worries about getting bad coffee. I also wonder if they could let you pick from a few different roast types, so you don&#39;t get stuck with something you don&#39;t like.</p>
+          <p class="transcript-line"><strong>Ava:</strong> If the coffee is bad, you&#39;re stuck with it. A guarantee would make it better.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Ava, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Ava:</strong> I don&#39;t want to waste money on coffee I can&#39;t drink. A guarantee means I can get my money back if it&#39;s no good. Otherwise, it&#39;s a waste.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Sophia and Amelia, we haven&#39;t heard from you yet. Maybe to get us started, could you each share what you typically look for when you&#39;re buying coffee, whether it&#39;s beans or from a coffee shop?</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I look for a brand I recognize at a reasonable price. I&#39;ve found a few reliable options over the years; I see no reason to experiment.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I usually buy the same brand from the store. It&#39;s not too expensive, and I know what I&#39;m getting. I don&#39;t really go to coffee shops much.</p>
+          <p class="transcript-line"><strong>Emma:</strong> I don&#39;t usually stick to one brand. I like trying different roasts and origins when I see something interesting. If the beans are good, I don&#39;t mind paying a bit more.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Emma, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I&#39;m willing to pay more to try something new. I think it&#39;s boring to just buy the same coffee all the time. If it&#39;s a good roast from a good origin, I&#39;ll pay for the experience.</p>
+          <div class="transcript-phase">Synthesis</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting perspectives so far. Sophia and Joshua, we haven&#39;t heard from you as much yet. To get us started, could you each tell us a little bit about how you typically buy or enjoy your coffee now? What&#39;s your usual routine?</p>
+          <p class="transcript-line"><strong>Sophia:</strong> I purchase the same brand of beans from the grocery store every few weeks. I use a drip machine and add a bit of milk. It is a predictable start to the day.</p>
+          <p class="transcript-line"><strong>Joshua:</strong> I buy whatever&#39;s on sale at the grocery store, usually a big brand like Folgers. I use a regular coffee maker; nothing fancy. It&#39;s nothing special, but it gets the job done.</p>
+          <p class="transcript-line"><strong>Isabella:</strong> I usually get coffee from the grocery store, whatever&#39;s on sale or what I have a coupon for. I brew it in a standard drip machine. It&#39;s nothing special, but it&#39;s consistent, which is what I need in the morning.</p>
+          <p class="transcript-line"><strong>Christopher:</strong> I typically purchase whole bean coffee from a local roaster, ensuring it&#39;s ethically sourced and recently roasted. I use a burr grinder and a pour-over method to maximize flavor extraction, and I generally prefer to drink it black to fully appreciate the nuances of the bean. It&#39;s a ritualistic experience that sets a positive tone for the day.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Christopher, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Christopher:</strong> The freshness and ethical sourcing are paramount to me, so a local roaster allows for a direct relationship and a higher degree of confidence. The pour-over method, while more involved, provides superior control over brewing variables, ultimately yielding a more refined and satisfying cup. This level of engagement transforms a mundane task into a mindful practice.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some great thoughts so far. David and Amelia, I&#39;d love to hear from you both. To start, what&#39;s the most important thing you look for when choosing a coffee?</p>
+          <p class="transcript-line"><strong>David:</strong> At my age, consistency and reliability are paramount. I tend to gravitate toward familiar brands that have proven themselves over time. Experimentation is a young man&#39;s game.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I usually buy the same brand from the store. It&#39;s not too expensive, and I know what I&#39;m getting. I don&#39;t really go to coffee shops much, like Sophia and Isabella.</p>
+          <p class="transcript-line"><strong>Emma:</strong> For me, it&#39;s about finding something new and interesting. I don&#39;t mind spending a little extra if it means trying a different roast or origin that I haven&#39;t had before. Like Christopher mentioned, it&#39;s great when you know the beans are sourced well too.</p>
+          <p class="transcript-line"><strong>Moderator:</strong> Emma, can you expand on that specific point a bit more?</p>
+          <p class="transcript-line"><strong>Emma:</strong> I like to explore different roasters and origins. It&#39;s also nice to know where the beans are coming from, like Christopher said about ethical sourcing. If a subscription service can deliver that, I&#39;m interested.</p>
+      </details>
+    </section>
+  </div>
+</body>
+</html>

@@ -59,16 +59,20 @@ Participant statements:
 
 
 CONCEPT_SCORE_BATCH_PROMPT = """
-For each participant below, score their reaction to the product concept on these 1-5 metrics:
-- purchase_intent
-- overall_appeal
-- uniqueness
-- relevance
-- believability
-- value_perception
+You are scoring focus group participants' reactions to a product concept.
 
-Return strict JSON object keyed by participant ID, each value being an object with the 6 metric scores.
-Example: {{"p1": {{"purchase_intent": 3.5, "overall_appeal": 4.0, ...}}, "p2": ...}}
+For each participant, rate their reaction on these 6 metrics using a 1-5 scale:
+- purchase_intent: How likely are they to buy? (1=definitely not, 2=probably not, 3=might or might not, 4=probably would, 5=definitely would)
+- overall_appeal: How appealing do they find the concept? (1=not at all, 2=slightly, 3=somewhat, 4=very, 5=extremely)
+- uniqueness: How unique/differentiated vs alternatives? (1=not unique, 2=slightly, 3=somewhat, 4=very, 5=completely unique)
+- relevance: How relevant to their life/needs? (1=not relevant, 2=slightly, 3=somewhat, 4=very, 5=extremely relevant)
+- believability: How believable are the claims? (1=not believable, 2=slightly, 3=somewhat, 4=very, 5=completely believable)
+- value_perception: How good is the value for money? (1=terrible, 2=poor, 3=fair, 4=good, 5=excellent)
+
+IMPORTANT: Base scores strictly on what each participant SAID in their statements. If they expressed enthusiasm, interest, or intent to purchase, score high (4-5). If they were lukewarm or mixed, score middle (3). If they were critical or dismissive, score low (1-2). Do NOT default to middle scores — differentiate based on actual sentiment.
+
+Return strict JSON object keyed by participant ID, each value being an object with the 6 metric scores (use decimals like 3.5).
+Example: {{"p1": {{"purchase_intent": 3.5, "overall_appeal": 4.0, "uniqueness": 3.0, "relevance": 4.5, "believability": 3.5, "value_perception": 3.0}}, "p2": ...}}
 
 Participants and their statements:
 {participants_block}

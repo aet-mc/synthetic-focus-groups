@@ -178,7 +178,7 @@ class ConceptScorer:
         values = [scores[metric] for scores in participant_scores.values() if metric in scores]
         if not values:
             return 0.0
-        top_two = sum(1 for score in values if score >= 4.0)
+        top_two = sum(1 for score in values if score >= 3.5)
         return round(top_two / len(values), 4)
 
     @staticmethod
