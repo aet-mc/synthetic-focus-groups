@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Group Report: Coffee subscription: freshly roasted specialty beans, 16 dollars per month, free shipping, skip anytime.</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --green: #10B981;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+      --gray: #6B7280;
+      --ink: #111827;
+      --bg: #F8FAFC;
+      --line: #E5E7EB;
+      --card: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 24px;
+      page-break-after: always;
+    }
+    section:last-child { page-break-after: auto; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #111827 0%, #1E3A8A 55%, #2563EB 100%);
+      color: #fff;
+      border: none;
+    }
+    .cover h1 { font-size: 40px; margin: 0 0 14px; line-height: 1.15; }
+    .cover .eyebrow { text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px; opacity: 0.85; }
+    .cover .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 720px; }
+    .cover .meta div { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 10px; }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h2 { margin: 0; font-size: 28px; }
+    h3 { margin: 10px 0 8px; font-size: 19px; }
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #F9FAFB;
+    }
+    .stat .value { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .stat .label { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .theme-card, .segment-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fff;
+    }
+    .kicker { color: var(--gray); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
+    }
+    .sentiment-positive { background: var(--green); }
+    .sentiment-mixed { background: var(--yellow); color: #111827; }
+    .sentiment-negative { background: var(--red); }
+    .metric-table, .participant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .metric-table th, .metric-table td,
+    .participant-table th, .participant-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .status {
+      font-size: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 2px 8px;
+      font-weight: 700;
+    }
+    .status-good { background: rgba(16,185,129,0.15); color: #047857; }
+    .status-mid { background: rgba(245,158,11,0.18); color: #92400E; }
+    .status-low { background: rgba(239,68,68,0.16); color: #991B1B; }
+    blockquote {
+      margin: 10px 0;
+      border-left: 4px solid var(--blue);
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-style: italic;
+      color: #374151;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .list-card {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+    }
+    .list-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .list-card li { margin-bottom: 6px; }
+    .concern { color: #B91C1C; }
+    .opportunity { color: #047857; }
+    .improvement { color: #1D4ED8; }
+    .pull-quote {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .pull-quote .q { font-size: 20px; line-height: 1.4; }
+    .pull-quote .by { margin-top: 8px; color: var(--gray); font-size: 13px; }
+    .methodology li { margin-bottom: 8px; }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    .transcript-phase {
+      margin-top: 14px;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+    }
+    .transcript-line { margin: 6px 0; font-size: 14px; }
+    .footer {
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 12px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .summary-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .cover .meta { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .container { max-width: none; padding: 0; }
+      section { border: none; border-radius: 0; margin: 0; padding: 18mm 14mm; page-break-after: always; }
+      section:last-child { page-break-after: auto; }
+      .cover { min-height: auto; }
+      @page { size: auto; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="cover" id="cover">
+      <div>
+        <div class="eyebrow">Powered by SynthFocus</div>
+        <h1>Focus Group Report: Coffee subscription: freshly roasted specialty beans, 16 dollars per month, free shipping, skip anytime.</h1>
+        <p style="max-width:760px; opacity:0.92; font-size:18px;">Synthetic Focus Group — AI-Powered Market Research</p>
+      </div>
+      <div class="meta">
+        <div><strong>Study Date</strong><br>February 16, 2026</div>
+        <div><strong>Category</strong><br>Synthetic Focus Group - AI-Powered Market Research</div>
+      </div>
+      <div style="font-size:12px; opacity:0.8;">Confidential client deliverable</div>
+    </section>
+
+    <section id="executive-summary">
+      <div class="header-row">
+        <h2>Executive Summary</h2>
+        <span class="badge" style="background: #EF4444;">NO-GO</span>
+      </div>
+      <div class="summary-grid">
+        <div>
+          <p>The coffee subscription concept received lukewarm interest, primarily due to concerns about price and perceived value. Participants questioned whether the quality justified the $16 monthly cost, especially compared to readily available store-bought options. The subscription model itself was a barrier for some, who expressed a preference for one-time purchases over recurring commitments. To improve appeal, focus on demonstrating the value proposition through superior quality and flexible subscription terms.</p>
+          <p class="kicker">Recommendation</p>
+          <p><strong>NO-GO</strong> (Confidence: High)</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="value">25%</div>
+              <div class="label">Purchase Intent</div>
+            </div>
+            <div class="stat">
+              <div class="value">7</div>
+              <div class="label">Key Themes</div>
+            </div>
+            <div class="stat">
+              <div class="value">4</div>
+              <div class="label">Participants</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="180" height="120" viewBox="0 0 180 120" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><path d="M14.40,108.00 A75.60,75.60 0 0 1 78.17,33.33" fill="none" stroke="#EF4444" stroke-width="11" stroke-linecap="round"/><path d="M78.17,33.33 A75.60,75.60 0 0 1 124.32,40.64" fill="none" stroke="#F59E0B" stroke-width="11" stroke-linecap="round"/><path d="M124.32,40.64 A75.60,75.60 0 0 1 165.60,108.00" fill="none" stroke="#10B981" stroke-width="11" stroke-linecap="round"/><line x1="90.00" y1="108.00" x2="26.79" y2="78.86" stroke="#EF4444" stroke-width="3"/><circle cx="90.00" cy="108.00" r="4" fill="#EF4444"/><text x="90.0" y="90.0" text-anchor="middle" font-size="17" font-weight="700" fill="#EF4444">14%</text><text x="90.0" y="118" text-anchor="middle" font-size="11">Excitement Score</text></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="125.0" y="22" text-anchor="middle" font-size="14" font-weight="700">Recommendation Signal</text><path d="M125.00,52.30 A60.70,60.70 0 0 1 171.16,73.58" fill="none" stroke="#EF4444" stroke-width="32.27" stroke-linecap="butt"/><path d="M171.16,73.58 A60.70,60.70 0 1 1 125.00,52.30" fill="none" stroke="#E5E7EB" stroke-width="32.27" stroke-linecap="butt"/><text x="125.0" y="111.0" text-anchor="middle" font-size="16" font-weight="700">1</text><text x="125.0" y="127.0" text-anchor="middle" font-size="11" fill="#6B7280">Responses</text><rect x="10" y="206" width="9" height="9" rx="2" fill="#EF4444"/><text x="24" y="214" font-size="10">NO-GO (14%)</text><rect x="10" y="220" width="9" height="9" rx="2" fill="#E5E7EB"/><text x="24" y="228" font-size="10">Remaining (86%)</text></svg>
+        </div>
+      </div>
+      <div class="footer">SynthFocus Report</div>
+    </section>
+
+    <section id="study-confidence">
+      <div class="header-row">
+        <h2>Study Confidence</h2>
+        <span class="badge" style="background: #10B981;">Grade A</span>
+      </div>
+      <p>Quality assessment of this synthetic focus group study based on discussion dynamics, score distributions, and internal consistency.</p>
+      
+      <div class="summary-grid">
+        <div>
+          <table class="metric-table">
+            <thead>
+              <tr><th>Quality Metric</th><th>Score</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Metric Independence</strong><br><small style="color: var(--gray);">Higher = more varied scoring across metrics</small></td>
+                <td>19%</td>
+                <td><span class="status status-low">Low</span></td>
+              </tr>
+              <tr>
+                <td><strong>Opinion Diversity</strong><br><small style="color: var(--gray);">Higher = more diverse participant opinions</small></td>
+                <td>56%</td>
+                <td><span class="status status-good">Good</span></td>
+              </tr>
+              <tr>
+                <td><strong>Sentiment Alignment</strong><br><small style="color: var(--gray);">Higher = scores match discussion tone</small></td>
+                <td>85%</td>
+                <td><span class="status status-good">Good</span></td>
+              </tr>
+              <tr>
+                <td><strong>Discussion Quality</strong><br><small style="color: var(--gray);">Higher = better engagement and balance</small></td>
+                <td>63%</td>
+                <td><span class="status status-good">Good</span></td>
+              </tr>
+              <tr>
+                <td><strong>Participation Balance</strong><br><small style="color: var(--gray);">Higher = more even participation</small></td>
+                <td>96%</td>
+                <td><span class="status status-good">Good</span></td>
+              </tr>
+              <tr>
+                <td><strong>Mind Change Rate</strong><br><small style="color: var(--gray);">% of participants who shifted opinion</small></td>
+                <td>25%</td>
+                <td><span class="status status-mid">Fair</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="stat" style="margin-bottom: 12px;">
+            <div class="value">Moderate</div>
+            <div class="label">Score Distribution (σ=1.12)</div>
+          </div>
+          <div class="list-card">
+            <h3 style="color: var(--green);">✓ All Quality Checks Passed</h3>
+            <p style="font-size: 13px; margin: 8px 0 0;">This study meets all quality thresholds for reliable synthetic market research.</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer">Quality metrics computed automatically from discussion dynamics</div>
+    </section>
+
+    <section id="study-confidence">
+      <div class="header-row">
+        <h2>Study Confidence</h2>
+        <span class="badge" style="background: #10B981;">Grade A</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="value">19%</div>
+          <div class="label">Metric Independence</div>
+        </div>
+        <div class="stat">
+          <div class="value">56%</div>
+          <div class="label">Opinion Diversity</div>
+        </div>
+        <div class="stat">
+          <div class="value">85%</div>
+          <div class="label">Sentiment Alignment</div>
+        </div>
+      </div>
+      <div class="stats" style="margin-top: 8px;">
+        <div class="stat">
+          <div class="value">Moderate</div>
+          <div class="label">Score Distribution (σ=1.12)</div>
+        </div>
+        <div class="stat">
+          <div class="value">63%</div>
+          <div class="label">Discussion Quality</div>
+        </div>
+        <div class="stat">
+          <div class="value">96%</div>
+          <div class="label">Participation Balance</div>
+        </div>
+        <div class="stat">
+          <div class="value">25%</div>
+          <div class="label">Mind Change Rate</div>
+        </div>
+      </div>
+      <table class="metric-table" style="margin-top: 12px;">
+        <thead>
+          <tr><th>Quality Metric</th><th>Score</th><th>Status</th><th>What It Measures</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Metric Independence</strong></td>
+            <td>19%</td>
+            <td><span class="status status-low">Low</span></td>
+            <td>Higher = more varied scoring across metrics</td>
+          </tr>
+          <tr>
+            <td><strong>Opinion Diversity</strong></td>
+            <td>56%</td>
+            <td><span class="status status-good">Good</span></td>
+            <td>Higher = more diverse participant opinions</td>
+          </tr>
+          <tr>
+            <td><strong>Sentiment Alignment</strong></td>
+            <td>85%</td>
+            <td><span class="status status-good">Good</span></td>
+            <td>Higher = scores match discussion tone</td>
+          </tr>
+          <tr>
+            <td><strong>Discussion Quality</strong></td>
+            <td>63%</td>
+            <td><span class="status status-good">Good</span></td>
+            <td>Higher = better engagement and balance</td>
+          </tr>
+          <tr>
+            <td><strong>Participation Balance</strong></td>
+            <td>96%</td>
+            <td><span class="status status-good">Good</span></td>
+            <td>Higher = more even participation</td>
+          </tr>
+          <tr>
+            <td><strong>Mind Change Rate</strong></td>
+            <td>25%</td>
+            <td><span class="status status-mid">Fair</span></td>
+            <td>% of participants who shifted opinion</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Quality metrics computed automatically from discussion and scoring data</div>
+    </section>
+
+    <section id="concept-scores">
+      <h2>Concept Scores</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="280" viewBox="0 0 600 280" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Top-2-Box Concept Scores</text><text x="14" y="55" font-size="12" font-weight="600">Purchase Intent</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="82.50" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">25%</text><text x="14" y="91" font-size="12" font-weight="600">Overall Appeal</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="82.50" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">25%</text><text x="14" y="127" font-size="12" font-weight="600">Uniqueness</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="0.00" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">0%</text><text x="14" y="163" font-size="12" font-weight="600">Relevance</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="0.00" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">0%</text><text x="14" y="199" font-size="12" font-weight="600">Believability</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="0.00" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">0%</text><text x="14" y="235" font-size="12" font-weight="600">Value Perception</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="82.50" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">25%</text></svg>
+      <table class="metric-table">
+        <thead>
+          <tr><th>Metric</th><th>Score</th><th>Status</th><th>Interpretation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purchase Intent</strong></td>
+            <td>25%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Purchase Intent signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Overall Appeal</strong></td>
+            <td>25%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Overall Appeal signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Uniqueness</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Uniqueness signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Relevance</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Relevance signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Believability</strong></td>
+            <td>0%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Believability signals material risk and needs substantial improvement.</td>
+          </tr>
+          <tr>
+            <td><strong>Value Perception</strong></td>
+            <td>25%</td>
+            <td><span class="status status-low">Weak</span></td>
+            <td>Value Perception signals material risk and needs substantial improvement.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer">Top-2-Box scoring across core concept dimensions</div>
+    </section>
+
+    <section id="key-themes">
+      <h2>Key Themes</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="316" viewBox="0 0 600 316" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Theme Prevalence</text><text x="14" y="55" font-size="12" font-weight="600">Price and Value Perception</text><rect x="190" y="40" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="40" width="330.00" height="22" rx="4" fill="#93C5FD"/><text x="530" y="55" font-size="12" font-weight="700">100%</text><text x="14" y="91" font-size="12" font-weight="600">Product Quality</text><rect x="190" y="76" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="76" width="247.50" height="22" rx="4" fill="#60A5FA"/><text x="530" y="91" font-size="12" font-weight="700">75%</text><text x="14" y="127" font-size="12" font-weight="600">Subscription Model</text><rect x="190" y="112" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="112" width="247.50" height="22" rx="4" fill="#3B82F6"/><text x="530" y="127" font-size="12" font-weight="700">75%</text><text x="14" y="163" font-size="12" font-weight="600">In-Home Usage</text><rect x="190" y="148" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="148" width="247.50" height="22" rx="4" fill="#2563EB"/><text x="530" y="163" font-size="12" font-weight="700">75%</text><text x="14" y="199" font-size="12" font-weight="600">Perceived Risk</text><rect x="190" y="184" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="184" width="165.00" height="22" rx="4" fill="#1D4ED8"/><text x="530" y="199" font-size="12" font-weight="700">50%</text><text x="14" y="235" font-size="12" font-weight="600">Alternative Consumption Settings</text><rect x="190" y="220" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="220" width="82.50" height="22" rx="4" fill="#1E40AF"/><text x="530" y="235" font-size="12" font-weight="700">25%</text><text x="14" y="271" font-size="12" font-weight="600">Brand Perception and Marketing</text><rect x="190" y="256" width="330" height="22" rx="4" fill="#E5E7EB"/><rect x="190" y="256" width="82.50" height="22" rx="4" fill="#93C5FD"/><text x="530" y="271" font-size="12" font-weight="700">25%</text></svg>
+      <div class="card-grid">
+        <article class="theme-card">
+          <h3>Price and Value Perception <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">4 of 4 participants</div>
+          <p>This theme encompasses how participants perceive the monetary cost and overall worth of the product or service, including considerations of affordability and perceived benefits.</p>
+          <blockquote>"I wouldn&#39;t sign up. I don&#39;t like subscriptions. I&#39;d rather buy coffee at the store so I know what I&#39;m getting."<br><small>- Anthony</small></blockquote>
+          <blockquote>"Overpriced coffee comes to mind. I&#39;m sure there are subtle differences, but I doubt they justify the price hike. I&#39;d need some convincing."<br><small>- David</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Product Quality <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">3 of 4 participants</div>
+          <p>This theme reflects discussions related to the product&#39;s features, performance, and overall standard of excellence as perceived by the participants.</p>
+          <blockquote>"The price point is the single biggest factor. If $16 delivers decent coffee reliably, I&#39;m in. But if the quality is lacking, I&#39;ll cancel immediately."<br><small>- David</small></blockquote>
+          <blockquote>"For me, it&#39;s about the diminishing returns. A slight upgrade in taste isn&#39;t worth double or triple the price. I&#39;d rather save that money or spend it elsewhere."<br><small>- David</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Subscription Model <span class="pill sentiment-negative">Negative</span></h3>
+          <div class="kicker">3 of 4 participants</div>
+          <p>This theme captures conversations specifically about the subscription-based nature of the product or service, including its advantages, disadvantages, and user experience.</p>
+          <blockquote>"Not really. I prefer to buy my coffee at the store. Subscriptions are risky, and I don&#39;t want to get stuck with something I don&#39;t like."<br><small>- Anthony</small></blockquote>
+          <blockquote>"A coffee subscription could be interesting, depending on the price. Free shipping is a plus, but I&#39;d want to be able to pause or cancel easily if needed. I&#39;m open to trying it, but the value has to be there."<br><small>- David</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>In-Home Usage <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">3 of 4 participants</div>
+          <p>This theme focuses on the convenience, experience, and suitability of using the product or service within the home environment.</p>
+          <blockquote>"I usually just have a regular black coffee. I&#39;m not too particular about brands, and I typically make it at home to save money. It&#39;s nothing fancy."<br><small>- David</small></blockquote>
+          <blockquote>"I typically prepare a pour-over at home, using a medium-roast Ethiopian bean. It offers a consistent flavor profile that I appreciate, and preparing it myself ensures quality control."<br><small>- Mia</small></blockquote>
+        </article>
+        <article class="theme-card">
+          <h3>Perceived Risk <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">2 of 4 participants</div>
+          <p>This theme highlights concerns or uncertainties participants associate with adopting or using the product or service, including potential negative outcomes or drawbacks.</p>
+        </article>
+        <article class="theme-card">
+          <h3>Alternative Consumption Settings <span class="pill sentiment-mixed">Mixed</span></h3>
+          <div class="kicker">1 of 4 participants</div>
+          <p>This theme includes discussion of alternative locations where the product or service could be consumed, such as a cafe.</p>
+        </article>
+        <article class="theme-card">
+          <h3>Brand Perception and Marketing <span class="pill sentiment-positive">Positive</span></h3>
+          <div class="kicker">1 of 4 participants</div>
+          <p>This theme captures elements related to brand credibility, consumer confidence, and the impact of marketing efforts on shaping perceptions of the product or service.</p>
+          <blockquote>"Intriguing question. I immediately think of meticulously sourced beans and artisanal roasting techniques, which, while often justifying a higher price point, can sometimes be a tad pretentious. It really all hinges on whether the final cup delivers on its promise of superior flavor and aroma."<br><small>- Amelia</small></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="sentiment-analysis">
+      <h2>Sentiment Analysis</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="250" viewBox="0 0 600 250" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><text x="14" y="24" font-size="16" font-weight="700">Sentiment by Phase</text><line x1="52" y1="202.00" x2="580" y2="202.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="206.00" font-size="11" fill="#6B7280">-1.0</text><line x1="52" y1="161.00" x2="580" y2="161.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="165.00" font-size="11" fill="#6B7280">-0.5</text><line x1="52" y1="120.00" x2="580" y2="120.00" stroke="#F59E0B" stroke-width="2" opacity="0.8"/><text x="22" y="124.00" font-size="11" fill="#6B7280">0.0</text><line x1="52" y1="79.00" x2="580" y2="79.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="83.00" font-size="11" fill="#6B7280">0.5</text><line x1="52" y1="38.00" x2="580" y2="38.00" stroke="#6B7280" stroke-width="1" opacity="0.2"/><text x="22" y="42.00" font-size="11" fill="#6B7280">1.0</text><line x1="52.00" y1="97.45" x2="184.00" y2="147.33" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="184.00" y1="147.33" x2="316.00" y2="147.33" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="316.00" y1="147.33" x2="448.00" y2="115.90" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/><line x1="448.00" y1="115.90" x2="580.00" y2="111.80" stroke="#10B981" stroke-width="3" stroke-linecap="round"/><circle cx="52.00" cy="97.45" r="4.5" fill="#10B981"/><text x="52.00" y="232" text-anchor="middle" font-size="11">Warmup</text><circle cx="184.00" cy="147.33" r="4.5" fill="#EF4444"/><text x="184.00" y="232" text-anchor="middle" font-size="11">Exploration</text><circle cx="316.00" cy="147.33" r="4.5" fill="#EF4444"/><text x="316.00" y="232" text-anchor="middle" font-size="11">Deep Dive</text><circle cx="448.00" cy="115.90" r="4.5" fill="#10B981"/><text x="448.00" y="232" text-anchor="middle" font-size="11">Reaction</text><circle cx="580.00" cy="111.80" r="4.5" fill="#10B981"/><text x="580.00" y="232" text-anchor="middle" font-size="11">Synthesis</text></svg>
+      <p><strong>Trend:</strong> Volatile</p>
+      <p><strong>Warmup:</strong> In warmup, participants responded positively (sentiment +0.28).</p>
+      <p><strong>Exploration:</strong> In exploration, participants expressed concerns (sentiment -0.33).</p>
+      <p><strong>Deep Dive:</strong> In deep dive, participants expressed concerns (sentiment -0.33).</p>
+      <p><strong>Reaction:</strong> In reaction, participants were mixed (sentiment +0.05).</p>
+      <p><strong>Synthesis:</strong> In synthesis, participants were mixed (sentiment +0.10).</p>
+    </section>
+
+    <section id="participant-profiles">
+      <h2>Participant Profiles</h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="700" height="136" viewBox="0 0 700 136" role="img"><style>text{font-family:system-ui,-apple-system,sans-serif;fill:#111827}</style><rect x="10" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="87.5" cy="40" r="18" fill="#6B7280"/><text x="87.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">D</text><text x="87.5" y="68" text-anchor="middle" font-size="12" font-weight="700">David</text><text x="87.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 26</text><text x="87.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">business analyst</text><rect x="185" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="262.5" cy="40" r="18" fill="#10B981"/><text x="262.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="262.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Amelia</text><text x="262.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 60</text><text x="262.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">data scientist</text><rect x="360" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="437.5" cy="40" r="18" fill="#EF4444"/><text x="437.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">A</text><text x="437.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Anthony</text><text x="437.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 78</text><text x="437.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">retail associate</text><rect x="535" y="10" width="155" height="104" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/><circle cx="612.5" cy="40" r="18" fill="#EF4444"/><text x="612.5" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">M</text><text x="612.5" y="68" text-anchor="middle" font-size="12" font-weight="700">Mia</text><text x="612.5" y="84" text-anchor="middle" font-size="11" fill="#6B7280">Age 44</text><text x="612.5" y="100" text-anchor="middle" font-size="10" fill="#6B7280">engineering manager</text></svg>
+      <table class="participant-table">
+        <thead>
+          <tr>
+            <th>Name</th><th>Age</th><th>Gender</th><th>Income Range</th><th>Education</th><th>VALS Type</th><th>Initial Opinion</th><th>Final Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>David</td>
+            <td>26</td>
+            <td>Male</td>
+            <td>$25k-$50k</td>
+            <td>bachelors</td>
+            <td>survivor</td>
+            <td>Neutral</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Amelia</td>
+            <td>60</td>
+            <td>Female</td>
+            <td>$25k-$50k</td>
+            <td>masters</td>
+            <td>striver</td>
+            <td>Positive</td>
+            <td>Positive</td>
+          </tr>
+          <tr>
+            <td>Anthony</td>
+            <td>78</td>
+            <td>Male</td>
+            <td>$25k-$50k</td>
+            <td>high_school</td>
+            <td>maker</td>
+            <td>Negative</td>
+            <td>Negative</td>
+          </tr>
+          <tr>
+            <td>Mia</td>
+            <td>44</td>
+            <td>Female</td>
+            <td>$25k-$50k</td>
+            <td>masters</td>
+            <td>maker</td>
+            <td>Negative</td>
+            <td>Positive</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="kicker">Personas generated from US Census demographic distributions.</p>
+    </section>
+
+    <section id="segment-insights">
+      <h2>Segment Insights</h2>
+      <div class="card-grid">
+        <article class="segment-card">
+          <h3>Age: Over 55</h3>
+          <p><strong>Purchase Intent:</strong> 50%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 25%</p>
+          <blockquote>"Well, while I appreciate the concerns regarding commitment, the ability to skip at any time assuages some of those fears. For a mere $16 a month, the proposition of freshly roasted specialty beans delivered gratis seems rather tempting, provided the quality matches the allure. I find it a palatable starting point to explore novel flavors without undue financial strain."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Female</h3>
+          <p><strong>Purchase Intent:</strong> 50%</p>
+          <p><strong>How it differs:</strong> purchase intent is higher by 25%; sentiment is more positive by 0.22</p>
+          <blockquote>"I tend to agree with David’s assessment regarding diminishing returns. While I appreciate a well-sourced bean, I find that some cafes leverage the term &#34;specialty&#34; to justify prices that far exceed the actual value or tangible difference in quality. It&#39;s crucial to strike a balance between quality and cost."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>Gender: Male</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 25%; sentiment is more negative by 0.20</p>
+          <blockquote>"A coffee subscription could be interesting, depending on the price. Free shipping is a plus, but I&#39;d want to be able to pause or cancel easily if needed. I&#39;m open to trying it, but the value has to be there."</blockquote>
+        </article>
+        <article class="segment-card">
+          <h3>VALS: maker</h3>
+          <p><strong>Purchase Intent:</strong> 0%</p>
+          <p><strong>How it differs:</strong> purchase intent is lower by 25%; sentiment is more negative by 0.14</p>
+          <blockquote>"Not really. I prefer to buy my coffee at the store. Subscriptions are risky, and I don&#39;t want to get stuck with something I don&#39;t like."</blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section id="concerns-opportunities">
+      <h2>Concerns &amp; Opportunities</h2>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Top Concerns</h3>
+          <ul>
+            <li class="concern">Price and Value Perception</li>
+            <li class="concern">Product Quality</li>
+            <li class="concern">Subscription Model</li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Top Opportunities</h3>
+          <ul>
+            <li class="opportunity">In-Home Usage</li>
+            <li class="opportunity">Perceived Risk</li>
+            <li class="opportunity">Alternative Consumption Settings</li>
+            <li class="opportunity">Brand Perception and Marketing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="list-card" style="margin-top:12px;">
+        <h3>Suggested Improvements</h3>
+        <ul>
+          <li class="improvement">Address price and value perception with clearer product execution.</li>
+          <li class="improvement">Address product quality with clearer product execution.</li>
+          <li class="improvement">Address subscription model with clearer product execution.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="key-quotes">
+      <h2>Key Quotes</h2>
+      <article class="pull-quote">
+        <div class="q">"Well, while I appreciate the concerns regarding commitment, the ability to skip at any time assuages some of those fears. For a mere $16 a month, the proposition of freshly roasted specialty beans delivered gratis seems rather tempting, provided the quality matches the allure. I find it a palatable starting point to explore novel flavors without undue financial strain."</div>
+        <div class="by">Amelia - Reaction</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"Well, David, I commend your simplicity. I tend to favor a cappuccino in the mornings, either crafted at home with my modest espresso machine or procured from a local café if I&#39;m on the go. While I appreciate the convenience of brewing at home, sometimes the ambiance of a coffee shop is an invigorating change of pace."</div>
+        <div class="by">Amelia - Warmup</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I concur with David that the price needs to correspond to a tangible improvement in the beverage. While I am willing to pay a premium for superior quality, there&#39;s a limit to what I deem justifiable, especially when considering my fixed income as a retiree. It all boils down to whether the enhanced flavor profile warrants the additional cost."</div>
+        <div class="by">Amelia - Deep Dive</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I tend to agree with David’s assessment regarding diminishing returns. While I appreciate a well-sourced bean, I find that some cafes leverage the term &#34;specialty&#34; to justify prices that far exceed the actual value or tangible difference in quality. It&#39;s crucial to strike a balance between quality and cost."</div>
+        <div class="by">Mia - Deep Dive</div>
+      </article>
+      <article class="pull-quote">
+        <div class="q">"I wouldn&#39;t sign up. I don&#39;t like subscriptions. I&#39;d rather buy coffee at the store so I know what I&#39;m getting."</div>
+        <div class="by">Anthony - Synthesis</div>
+      </article>
+      <div class="two-col" style="margin-top:12px;">
+        <div class="list-card">
+          <h3>Positive</h3>
+          <ul><li>Well, while I appreciate the concerns regarding commitment, the ability to skip at any time assuages some of those fears. For a mere $16 a month, the proposition of freshly roasted specialty beans delivered gratis seems rather tempting, provided the quality matches the allure. I find it a palatable starting point to explore novel flavors without undue financial strain.</li><li>Well, David, I commend your simplicity. I tend to favor a cappuccino in the mornings, either crafted at home with my modest espresso machine or procured from a local café if I&#39;m on the go. While I appreciate the convenience of brewing at home, sometimes the ambiance of a coffee shop is an invigorating change of pace.</li><li>Intriguing question. I immediately think of meticulously sourced beans and artisanal roasting techniques, which, while often justifying a higher price point, can sometimes be a tad pretentious. It really all hinges on whether the final cup delivers on its promise of superior flavor and aroma.</li></ul>
+        </div>
+        <div class="list-card">
+          <h3>Negative / Surprising</h3>
+          <ul>
+<li>I concur with David that the price needs to correspond to a tangible improvement in the beverage. While I am willing to pay a premium for superior quality, there&#39;s a limit to what I deem justifiable, especially when considering my fixed income as a retiree. It all boils down to whether the enhanced flavor profile warrants the additional cost.</li><li>I tend to agree with David’s assessment regarding diminishing returns. While I appreciate a well-sourced bean, I find that some cafes leverage the term &#34;specialty&#34; to justify prices that far exceed the actual value or tangible difference in quality. It&#39;s crucial to strike a balance between quality and cost.</li><li>I wouldn&#39;t sign up. I don&#39;t like subscriptions. I&#39;d rather buy coffee at the store so I know what I&#39;m getting.</li><li>I wouldn&#39;t sign up. I don&#39;t like subscriptions. I&#39;d rather buy coffee at the store so I know what I&#39;m getting.</li><li>Not really. I prefer to buy my coffee at the store. Subscriptions are risky, and I don&#39;t want to get stuck with something I don&#39;t like.</li><li>A coffee subscription could be interesting, depending on the price. Free shipping is a plus, but I&#39;d want to be able to pause or cancel easily if needed. I&#39;m open to trying it, but the value has to be there.</li>          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology">
+      <h2>Methodology</h2>
+      <ul class="methodology">
+        <li>This study used AI-generated personas grounded in US Census demographic data.</li>
+        <li>Personality profiles were based on the Five-Factor (OCEAN) model with age and gender-adjusted distributions.</li>
+        <li>Discussion was facilitated by an AI moderator using a five-phase qualitative research methodology.</li>
+        <li>Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.</li>
+        <li>Synthetic research is designed to complement, not replace, traditional research methods.</li>
+      </ul>
+      <p><strong>Participants:</strong> 4 Participants | <strong>Phases:</strong> 5 | <strong>Total Messages:</strong> 22</p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix: Full Transcript</h2>
+      <details>
+        <summary>Toggle transcript visibility</summary>
+          <div class="transcript-phase">Warmup</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Alright everyone, to get us started and comfortable, let&#39;s go around the table. Tell me, what&#39;s your go-to coffee, whether you make it at home or grab it out? David, how about we start with you?</p>
+          <p class="transcript-line"><strong>David:</strong> I usually just have a regular black coffee. I&#39;m not too particular about brands, and I typically make it at home to save money. It&#39;s nothing fancy.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, David, I commend your simplicity. I tend to favor a cappuccino in the mornings, either crafted at home with my modest espresso machine or procured from a local café if I&#39;m on the go. While I appreciate the convenience of brewing at home, sometimes the ambiance of a coffee shop is an invigorating change of pace.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I typically prepare a pour-over at home, using a medium-roast Ethiopian bean. It offers a consistent flavor profile that I appreciate, and preparing it myself ensures quality control.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I usually just have drip coffee. Whichever brand is on sale at the grocery store. Nothing special.</p>
+          <div class="transcript-phase">Exploration</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, thanks for sharing everyone. David and Amelia, we haven&#39;t heard from you in a little while. Thinking about coffee in general, what&#39;s the first thing that comes to mind when you hear the words &#34;specialty coffee&#34;?</p>
+          <p class="transcript-line"><strong>David:</strong> Overpriced coffee comes to mind. I&#39;m sure there are subtle differences, but I doubt they justify the price hike. I&#39;d need some convincing.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Intriguing question. I immediately think of meticulously sourced beans and artisanal roasting techniques, which, while often justifying a higher price point, can sometimes be a tad pretentious. It really all hinges on whether the final cup delivers on its promise of superior flavor and aroma.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> Too expensive. I don&#39;t trust that &#34;specialty&#34; means it&#39;s worth the extra cost. Usually it&#39;s just marketing.</p>
+          <div class="transcript-phase">Deep Dive</div>
+          <p class="transcript-line"><strong>Moderator:</strong> David, you mentioned overpriced coffee. Can you elaborate on what makes a coffee feel overpriced to you?</p>
+          <p class="transcript-line"><strong>David:</strong> For me, it&#39;s about the diminishing returns. A slight upgrade in taste isn&#39;t worth double or triple the price. I&#39;d rather save that money or spend it elsewhere.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I tend to agree with David’s assessment regarding diminishing returns. While I appreciate a well-sourced bean, I find that some cafes leverage the term &#34;specialty&#34; to justify prices that far exceed the actual value or tangible difference in quality. It&#39;s crucial to strike a balance between quality and cost.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> I concur with David that the price needs to correspond to a tangible improvement in the beverage. While I am willing to pay a premium for superior quality, there&#39;s a limit to what I deem justifiable, especially when considering my fixed income as a retiree. It all boils down to whether the enhanced flavor profile warrants the additional cost.</p>
+          <div class="transcript-phase">Reaction</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some initial thoughts on the concept. Anthony and Mia, I&#39;d love to hear from you. What are your initial reactions to a coffee subscription like this one? Does it pique your interest at all?</p>
+          <p class="transcript-line"><strong>Anthony:</strong> Not really. I prefer to buy my coffee at the store. Subscriptions are risky, and I don&#39;t want to get stuck with something I don&#39;t like.</p>
+          <p class="transcript-line"><strong>Mia:</strong> I share Anthony’s risk aversion regarding subscriptions. The proposition would need to offer a very flexible cancellation policy. Otherwise, I would worry about being stuck with coffee that doesn&#39;t meet my preferences.</p>
+          <p class="transcript-line"><strong>David:</strong> A coffee subscription could be interesting, depending on the price. Free shipping is a plus, but I&#39;d want to be able to pause or cancel easily if needed. I&#39;m open to trying it, but the value has to be there.</p>
+          <p class="transcript-line"><strong>Amelia:</strong> Well, while I appreciate the concerns regarding commitment, the ability to skip at any time assuages some of those fears. For a mere $16 a month, the proposition of freshly roasted specialty beans delivered gratis seems rather tempting, provided the quality matches the allure. I find it a palatable starting point to explore novel flavors without undue financial strain.</p>
+          <div class="transcript-phase">Synthesis</div>
+          <p class="transcript-line"><strong>Moderator:</strong> Okay, we&#39;ve heard some interesting perspectives. Let&#39;s try to synthesize everything. In your own words, what&#39;s the *single* biggest reason that would either make you sign up for this coffee subscription or prevent you from doing so? Anthony, I want your take as well.</p>
+          <p class="transcript-line"><strong>Anthony:</strong> I wouldn&#39;t sign up. I don&#39;t like subscriptions. I&#39;d rather buy coffee at the store so I know what I&#39;m getting.</p>
+          <p class="transcript-line"><strong>David:</strong> The price point is the single biggest factor. If $16 delivers decent coffee reliably, I&#39;m in. But if the quality is lacking, I&#39;ll cancel immediately.</p>
+          <p class="transcript-line"><strong>Mia:</strong> The most salient factor influencing my decision is the consistency of coffee quality. While the price is reasonable, I would need assurances regarding the quality control measures to mitigate the risk of receiving subpar products.</p>
+      </details>
+    </section>
+  </div>
+</body>
+</html>

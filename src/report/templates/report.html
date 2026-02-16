@@ -303,36 +303,43 @@
     <section id="study-confidence">
       <div class="header-row">
         <h2>Study Confidence</h2>
-        <span class="badge" style="background: {% if scorecard.overall_grade == 'A' %}var(--green){% elif scorecard.overall_grade == 'B' %}var(--blue){% elif scorecard.overall_grade == 'C' %}var(--yellow){% else %}var(--red){% endif %};">Grade {{ scorecard.overall_grade }}</span>
+        <span class="badge" style="background: {{ scorecard.grade_color }};">Grade {{ scorecard.overall_grade }}</span>
       </div>
       <div class="stats">
+        {% for metric in scorecard.metrics[:3] %}
         <div class="stat">
-          <div class="value">{{ "%.0f"|format(scorecard.metric_independence * 100) }}%</div>
-          <div class="label">Metric Independence</div>
+          <div class="value">{{ metric.formatted }}</div>
+          <div class="label">{{ metric.name }}</div>
         </div>
-        <div class="stat">
-          <div class="value">{{ "%.0f"|format(scorecard.opinion_diversity * 100) }}%</div>
-          <div class="label">Opinion Diversity</div>
-        </div>
-        <div class="stat">
-          <div class="value">{{ "%.2f"|format(scorecard.sentiment_score_alignment) }}</div>
-          <div class="label">Sentiment-Score Alignment</div>
-        </div>
+        {% endfor %}
       </div>
       <div class="stats" style="margin-top: 8px;">
         <div class="stat">
-          <div class="value">{{ scorecard.score_distribution_shape | title }}</div>
-          <div class="label">Score Distribution (σ={{ "%.2f"|format(scorecard.score_distribution_stdev) }})</div>
+          <div class="value">{{ scorecard.distribution_shape }}</div>
+          <div class="label">Score Distribution (σ={{ scorecard.distribution_stdev }})</div>
         </div>
+        {% for metric in scorecard.metrics[3:] %}
         <div class="stat">
-          <div class="value">{{ "%.0f"|format(scorecard.participation_balance * 100) }}%</div>
-          <div class="label">Participation Balance</div>
+          <div class="value">{{ metric.formatted }}</div>
+          <div class="label">{{ metric.name }}</div>
         </div>
-        <div class="stat">
-          <div class="value">{{ "%.0f"|format(scorecard.mind_change_rate * 100) }}%</div>
-          <div class="label">Mind Change Rate</div>
-        </div>
+        {% endfor %}
       </div>
+      <table class="metric-table" style="margin-top: 12px;">
+        <thead>
+          <tr><th>Quality Metric</th><th>Score</th><th>Status</th><th>What It Measures</th></tr>
+        </thead>
+        <tbody>
+          {% for metric in scorecard.metrics %}
+          <tr>
+            <td><strong>{{ metric.name }}</strong></td>
+            <td>{{ metric.formatted }}</td>
+            <td><span class="status {{ metric.status_class }}">{% if metric.value >= 0.5 %}Good{% elif metric.value >= 0.25 %}Fair{% else %}Low{% endif %}</span></td>
+            <td>{{ metric.description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
       {% if scorecard.issues %}
       <div style="margin-top: 12px;">
         <p class="kicker">Issues Detected</p>
