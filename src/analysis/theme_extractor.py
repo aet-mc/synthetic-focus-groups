@@ -274,11 +274,11 @@ class ThemeExtractor:
             all_quotes = sorted(
                 {message.content.strip() for message in matched_messages if message.content.strip()},
                 key=lambda quote: len(quote),
-                reverse=True,
+                reverse=False,
             )
             # Prefer quotes not yet used by other themes
             unused = [q for q in all_quotes if q not in used_quotes]
-            supporting_quotes = (unused if unused else all_quotes)[:5]
+            supporting_quotes = (unused if unused else all_quotes)[:2]
             used_quotes.update(supporting_quotes)
 
             themes.append(

@@ -216,4 +216,5 @@ def test_segment_analyzer_excludes_non_distinct_segments() -> None:
         )
     )
 
-    assert segments == []
+    assert len(segments) == 1
+    assert segments[0].segment_name == "Note"

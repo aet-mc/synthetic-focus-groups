@@ -115,13 +115,14 @@ class AnalysisEngine:
             max_tokens=220,
         )
         # Strip JSON wrapper if LLM returned one
-        if raw.strip().startswith("{"):
-            try:
-                parsed = json.loads(raw)
-                if isinstance(parsed, dict):
-                    return str(parsed.get("executive_summary", parsed.get("summary", raw)))
-            except json.JSONDecodeError:
-                pass
+        try:
+            parsed = json.loads(raw)
+            if isinstance(parsed, dict):
+                raw = str(parsed.get("executive_summary", parsed.get("summary", parsed.get("text", parsed.get("response", raw)))))
+            elif isinstance(parsed, str):
+                raw = parsed
+        except json.JSONDecodeError:
+            pass
         return raw
 
     async def _generate_recommendation(

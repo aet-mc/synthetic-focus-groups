@@ -15,6 +15,7 @@ class ConceptScorer:
 
     async def score_concept(self, transcript: DiscussionTranscript, personas: list) -> ConceptScores:
         participant_messages: dict[str, list[str]] = {}
+        self.transcript = transcript
         for message in transcript.messages:
             if message.role != MessageRole.PARTICIPANT:
                 continue
@@ -82,7 +83,7 @@ class ConceptScorer:
                 f"Participant {short_key} ({persona.name}, age {persona.demographics.age}, "
                 f"{persona.demographics.occupation}):\n{stmt_text}"
             )
-        prompt = CONCEPT_SCORE_BATCH_PROMPT.format(participants_block="\n\n".join(blocks))
+        prompt = CONCEPT_SCORE_BATCH_PROMPT.format(participants_block="\n\n".join(blocks), concept_description=self.transcript.config.product_concept)
         raw = await self.llm.complete_json(
             system_prompt="You are a concept testing analyst. Return JSON only.",
             user_prompt=prompt,
@@ -116,7 +117,7 @@ class ConceptScorer:
     async def _score_with_llm(self, persona, statements: list[str]) -> dict[str, float]:
         prompt = CONCEPT_SCORE_PROMPT.format(
             persona=persona.model_dump_json(indent=2),
-            statements="\n".join(f"- {line}" for line in statements) if statements else "- No statements",
+            statements="\n".join(f"- {line}" for line in statements) if statements else "- No statements", concept_description=self.transcript.config.product_concept
         )
         raw = await self.llm.complete_json(
             system_prompt="You are a concept testing analyst. Return JSON only.",

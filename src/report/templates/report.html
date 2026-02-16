@@ -396,7 +396,7 @@
         <li>{{ point }}</li>
         {% endfor %}
       </ul>
-      <p><strong>Participants:</strong> {{ participant_count }} | <strong>Phases:</strong> {{ phase_count }} | <strong>Total Messages:</strong> {{ message_count }}</p>
+      <p><strong>Participants:</strong> {{ participant_count }} Participant{{ 's' if participant_count != 1 else '' }} | <strong>Phases:</strong> {{ phase_count }} | <strong>Total Messages:</strong> {{ message_count }}</p>
     </section>
 
     {% if include_transcript %}

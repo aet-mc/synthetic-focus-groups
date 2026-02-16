@@ -104,6 +104,7 @@ class ReportGenerator:
         ]
 
         quote_speaker_lookup = self._quote_speaker_map(transcript)
+        used_quotes: set[str] = set()
         theme_rows = []
         for theme in report.themes:
             prevalence_count = len(theme.participant_ids)
@@ -112,8 +113,9 @@ class ReportGenerator:
                     "text": quote,
                     "speaker": quote_speaker_lookup.get(quote, "Participant"),
                 }
-                for quote in theme.supporting_quotes[:3]
+                for quote in theme.supporting_quotes[:2] if quote not in used_quotes
             ]
+            used_quotes.update([quote['text'] for quote in quotes])
             theme_rows.append(
                 {
                     "name": theme.name,

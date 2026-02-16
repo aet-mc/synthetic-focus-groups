@@ -53,6 +53,8 @@ Return strict JSON object with those keys only.
 Persona summary:
 {persona}
 
+Product Concept: {concept_description}
+
 Participant statements:
 {statements}
 """.strip()
@@ -60,6 +62,8 @@ Participant statements:
 
 CONCEPT_SCORE_BATCH_PROMPT = """
 You are scoring focus group participants' reactions to a product concept.
+
+Product Concept: {concept_description}
 
 For each participant, rate their reaction on these 6 metrics using a 1-5 scale:
 - purchase_intent: How likely are they to buy? (1=definitely not, 2=probably not, 3=might or might not, 4=probably would, 5=definitely would)

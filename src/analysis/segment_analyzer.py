@@ -88,7 +88,19 @@ class SegmentAnalyzer:
             insights.append((magnitude, insight))
 
         insights.sort(key=lambda pair: pair[0], reverse=True)
-        return [insight for _, insight in insights]
+        insights_list = [insight for _, insight in insights]
+        if all(insight.purchase_intent == 0 for insight in insights_list):
+            insights_list.append(SegmentInsight(
+                segment_name="Note",
+                segment_type="overall",
+                participant_ids=[],
+                avg_sentiment=0.0,
+                purchase_intent=0.0,
+                key_themes=[],
+                distinguishing_quote="All segments show 0% Purchase Intent.",
+                differs_from_overall=None,
+            ))
+        return insights_list
 
     def _build_segments(self, personas: list[Persona]) -> list[tuple[str, str, list[str]]]:
         segments: list[tuple[str, str, list[str]]] = []
