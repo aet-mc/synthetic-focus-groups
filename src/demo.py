@@ -31,7 +31,7 @@ def print_scorecard_summary(scorecard, title: str = "Quality Scorecard") -> None
     print(f"  Participation Balance: {scorecard.participation_balance:.2f}")
     print(f"  Mind Change Rate: {scorecard.mind_change_rate:.2f}")
     if scorecard.issues:
-        print(f"  Issues:")
+        print("  Issues:")
         for issue in scorecard.issues:
             print(f"    ⚠ {issue}")
 
@@ -46,7 +46,7 @@ def print_consistency_summary(consistency_report) -> None:
     print(f"  Theme Overlap: {consistency_report.theme_overlap:.0%}")
 
     if consistency_report.score_cv:
-        print(f"  Score CV:")
+        print("  Score CV:")
         for metric, cv in consistency_report.score_cv.items():
             stability = "✓" if cv < 0.15 else "~" if cv < 0.30 else "✗"
             print(f"    {stability} {metric}: {cv:.1%}")

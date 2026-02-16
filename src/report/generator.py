@@ -32,7 +32,7 @@ class ReportGenerator:
         transcript: DiscussionTranscript,
         personas: list,
         include_transcript: bool = True,
-        scorecard: "ScorecardResult | None" = None,
+        scorecard: ScorecardResult | None = None,
     ) -> str:
         context = self._prepare_context(report=report, transcript=transcript, personas=personas, scorecard=scorecard)
         context["include_transcript"] = include_transcript
@@ -46,7 +46,7 @@ class ReportGenerator:
         personas: list,
         output_path: str,
         include_transcript: bool = True,
-        scorecard: "ScorecardResult | None" = None,
+        scorecard: ScorecardResult | None = None,
     ) -> str:
         html = self.generate_html(
             report=report,
@@ -65,7 +65,7 @@ class ReportGenerator:
         report: AnalysisReport,
         transcript: DiscussionTranscript,
         personas: list,
-        scorecard: "ScorecardResult | None" = None,
+        scorecard: ScorecardResult | None = None,
     ) -> dict:
         participant_count = len(personas)
         phase_count = len(transcript.config.phases)
@@ -254,7 +254,7 @@ class ReportGenerator:
             "scorecard": self._prepare_scorecard_context(scorecard) if scorecard else None,
         }
 
-    def _prepare_scorecard_context(self, scorecard: "ScorecardResult") -> dict:
+    def _prepare_scorecard_context(self, scorecard: ScorecardResult) -> dict:
         """Prepare scorecard data for template rendering."""
         grade_colors = {
             "A": PALETTE["green"],

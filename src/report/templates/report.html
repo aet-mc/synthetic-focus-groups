@@ -299,6 +299,54 @@
     </section>
     {% endif %}
 
+    {% if scorecard %}
+    <section id="study-confidence">
+      <div class="header-row">
+        <h2>Study Confidence</h2>
+        <span class="badge" style="background: {% if scorecard.overall_grade == 'A' %}var(--green){% elif scorecard.overall_grade == 'B' %}var(--blue){% elif scorecard.overall_grade == 'C' %}var(--yellow){% else %}var(--red){% endif %};">Grade {{ scorecard.overall_grade }}</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="value">{{ "%.0f"|format(scorecard.metric_independence * 100) }}%</div>
+          <div class="label">Metric Independence</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ "%.0f"|format(scorecard.opinion_diversity * 100) }}%</div>
+          <div class="label">Opinion Diversity</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ "%.2f"|format(scorecard.sentiment_score_alignment) }}</div>
+          <div class="label">Sentiment-Score Alignment</div>
+        </div>
+      </div>
+      <div class="stats" style="margin-top: 8px;">
+        <div class="stat">
+          <div class="value">{{ scorecard.score_distribution_shape | title }}</div>
+          <div class="label">Score Distribution (σ={{ "%.2f"|format(scorecard.score_distribution_stdev) }})</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ "%.0f"|format(scorecard.participation_balance * 100) }}%</div>
+          <div class="label">Participation Balance</div>
+        </div>
+        <div class="stat">
+          <div class="value">{{ "%.0f"|format(scorecard.mind_change_rate * 100) }}%</div>
+          <div class="label">Mind Change Rate</div>
+        </div>
+      </div>
+      {% if scorecard.issues %}
+      <div style="margin-top: 12px;">
+        <p class="kicker">Issues Detected</p>
+        <ul>
+          {% for issue in scorecard.issues %}
+          <li style="color: var(--red);">{{ issue }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      <div class="footer">Quality metrics computed automatically from discussion and scoring data</div>
+    </section>
+    {% endif %}
+
     <section id="concept-scores">
       <h2>Concept Scores</h2>
       {{ concept_chart | safe }}
