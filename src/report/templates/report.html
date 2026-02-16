@@ -248,6 +248,57 @@
       <div class="footer">SynthFocus Report</div>
     </section>
 
+    {% if scorecard %}
+    <section id="study-confidence">
+      <div class="header-row">
+        <h2>Study Confidence</h2>
+        <span class="badge" style="background: {{ scorecard.grade_color }};">Grade {{ scorecard.overall_grade }}</span>
+      </div>
+      <p>Quality assessment of this synthetic focus group study based on discussion dynamics, score distributions, and internal consistency.</p>
+      
+      <div class="summary-grid">
+        <div>
+          <table class="metric-table">
+            <thead>
+              <tr><th>Quality Metric</th><th>Score</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              {% for metric in scorecard.metrics %}
+              <tr>
+                <td><strong>{{ metric.name }}</strong><br><small style="color: var(--gray);">{{ metric.description }}</small></td>
+                <td>{{ metric.formatted }}</td>
+                <td><span class="status {{ metric.status_class }}">{% if metric.value >= 0.5 %}Good{% elif metric.value >= 0.25 %}Fair{% else %}Low{% endif %}</span></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="stat" style="margin-bottom: 12px;">
+            <div class="value">{{ scorecard.distribution_shape }}</div>
+            <div class="label">Score Distribution (σ={{ scorecard.distribution_stdev }})</div>
+          </div>
+          {% if scorecard.issues %}
+          <div class="list-card">
+            <h3>Quality Warnings</h3>
+            <ul>
+              {% for issue in scorecard.issues %}
+              <li class="concern" style="font-size: 13px;">{{ issue }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% else %}
+          <div class="list-card">
+            <h3 style="color: var(--green);">✓ All Quality Checks Passed</h3>
+            <p style="font-size: 13px; margin: 8px 0 0;">This study meets all quality thresholds for reliable synthetic market research.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="footer">Quality metrics computed automatically from discussion dynamics</div>
+    </section>
+    {% endif %}
+
     <section id="concept-scores">
       <h2>Concept Scores</h2>
       {{ concept_chart | safe }}

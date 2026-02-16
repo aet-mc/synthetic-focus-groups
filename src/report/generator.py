@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -9,6 +10,9 @@ from analysis.models import AnalysisReport
 from discussion.models import DiscussionTranscript, MessageRole
 
 from .charts import PALETTE, ChartGenerator
+
+if TYPE_CHECKING:
+    from consistency.models import ScorecardResult
 
 
 class ReportGenerator:
@@ -28,8 +32,9 @@ class ReportGenerator:
         transcript: DiscussionTranscript,
         personas: list,
         include_transcript: bool = True,
+        scorecard: "ScorecardResult | None" = None,
     ) -> str:
-        context = self._prepare_context(report=report, transcript=transcript, personas=personas)
+        context = self._prepare_context(report=report, transcript=transcript, personas=personas, scorecard=scorecard)
         context["include_transcript"] = include_transcript
         template = self.env.get_template("report.html")
         return template.render(**context)
@@ -41,12 +46,14 @@ class ReportGenerator:
         personas: list,
         output_path: str,
         include_transcript: bool = True,
+        scorecard: "ScorecardResult | None" = None,
     ) -> str:
         html = self.generate_html(
             report=report,
             transcript=transcript,
             personas=personas,
             include_transcript=include_transcript,
+            scorecard=scorecard,
         )
         target = Path(output_path)
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -58,6 +65,7 @@ class ReportGenerator:
         report: AnalysisReport,
         transcript: DiscussionTranscript,
         personas: list,
+        scorecard: "ScorecardResult | None" = None,
     ) -> dict:
         participant_count = len(personas)
         phase_count = len(transcript.config.phases)
@@ -242,6 +250,44 @@ class ReportGenerator:
                 "Analysis included thematic coding (Braun and Clarke framework), concept scoring, and segment analysis.",
                 "Synthetic research is designed to complement, not replace, traditional research methods.",
             ],
+            # Study confidence / quality scorecard
+            "scorecard": self._prepare_scorecard_context(scorecard) if scorecard else None,
+        }
+
+    def _prepare_scorecard_context(self, scorecard: "ScorecardResult") -> dict:
+        """Prepare scorecard data for template rendering."""
+        grade_colors = {
+            "A": PALETTE["green"],
+            "B": "#22C55E",  # lighter green
+            "C": PALETTE["yellow"],
+            "D": PALETTE["red"],
+        }
+
+        metrics = [
+            ("Metric Independence", scorecard.metric_independence, "Higher = more varied scoring across metrics"),
+            ("Opinion Diversity", scorecard.opinion_diversity, "Higher = more diverse participant opinions"),
+            ("Sentiment Alignment", scorecard.sentiment_score_alignment, "Higher = scores match discussion tone"),
+            ("Discussion Quality", scorecard.discussion_quality, "Higher = better engagement and balance"),
+            ("Participation Balance", scorecard.participation_balance, "Higher = more even participation"),
+            ("Mind Change Rate", scorecard.mind_change_rate, "% of participants who shifted opinion"),
+        ]
+
+        return {
+            "overall_grade": scorecard.overall_grade,
+            "grade_color": grade_colors.get(scorecard.overall_grade, PALETTE["gray"]),
+            "distribution_shape": scorecard.score_distribution_shape.title(),
+            "distribution_stdev": f"{scorecard.score_distribution_stdev:.2f}",
+            "metrics": [
+                {
+                    "name": name,
+                    "value": value,
+                    "formatted": f"{value:.0%}" if abs(value) <= 1 else f"{value:.2f}",
+                    "description": desc,
+                    "status_class": "status-good" if value >= 0.5 else "status-mid" if value >= 0.25 else "status-low",
+                }
+                for name, value, desc in metrics
+            ],
+            "issues": scorecard.issues,
         }
 
     @staticmethod
