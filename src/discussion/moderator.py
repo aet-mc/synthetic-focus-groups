@@ -15,6 +15,8 @@ class Moderator:
         self.llm_client = llm_client
         self.discussion_guide: list[str] = []
         self._rng = random.Random(13)
+        self._cumulative_speak_counts: dict[str, int] = {}
+        self._recent_question_speakers: list[set[str]] = []  # last N questions' speaker sets
 
     async def generate_discussion_guide(self) -> list[str]:
         guide: list[str] = []
@@ -81,8 +83,18 @@ class Moderator:
         phase: DiscussionPhase,
         turn: int,
     ) -> list[Participant]:
-        max_pick = min(6, self.config.max_responses_per_question)
+        max_pick = min(self.config.max_responses_per_question, len(participants))
         target = min(max_pick, max(3, int(round((3 + max_pick) / 2))))
+
+        # Initialize cumulative counts for new participants
+        for p in participants:
+            if p.persona.id not in self._cumulative_speak_counts:
+                self._cumulative_speak_counts[p.persona.id] = 0
+
+        # Build recent-speaker set (last 3 questions)
+        recent_speakers: set[str] = set()
+        for s in self._recent_question_speakers[-3:]:
+            recent_speakers.update(s)
 
         chosen: list[Participant] = []
         chosen_ids: set[str] = set()
@@ -93,6 +105,37 @@ class Moderator:
                 chosen.append(participant)
                 chosen_ids.add(participant.persona.id)
 
+        # For large pools (>12): reserve slots for quiet personas first
+        use_pools = len(participants) > 12
+        quiet_pool: set[str] = set()
+        if use_pools:
+            sorted_by_ext = sorted(
+                participants, key=lambda p: p.persona.psychographics.ocean.extraversion
+            )
+            quiet_cutoff = int(len(sorted_by_ext) * 0.4)
+            quiet_pool = set(p.persona.id for p in sorted_by_ext[:quiet_cutoff])
+            min_quiet = max(1, int(target * 0.3))
+
+            quiet_chosen = sum(1 for p in chosen if p.persona.id in quiet_pool)
+            quiet_remaining = [
+                p for p in participants
+                if p.persona.id in quiet_pool and p.persona.id not in chosen_ids
+            ]
+            quiet_remaining.sort(
+                key=lambda p: (
+                    0 if p.persona.id not in recent_speakers else 1,
+                    self._cumulative_speak_counts.get(p.persona.id, 0),
+                )
+            )
+            for participant in quiet_remaining:
+                if quiet_chosen >= min_quiet:
+                    break
+                if len(chosen) >= max_pick:
+                    break
+                chosen.append(participant)
+                chosen_ids.add(participant.persona.id)
+                quiet_chosen += 1
+
         # Ensure participants who have not spoken yet get opportunities.
         unspeaking = [p for p in participants if p.times_spoken == 0 and p.persona.id not in chosen_ids]
         unspeaking.sort(key=lambda p: p.persona.psychographics.ocean.extraversion, reverse=True)
@@ -102,8 +145,19 @@ class Moderator:
             chosen.append(participant)
             chosen_ids.add(participant.persona.id)
 
+        # Fill remaining with diversity bonus scoring
         remaining = [p for p in participants if p.persona.id not in chosen_ids]
-        self._rng.shuffle(remaining)
+
+        def _selection_score(p: Participant) -> float:
+            score = self._rng.random()
+            # Diversity bonus: not spoken in last 3 questions
+            if p.persona.id not in recent_speakers:
+                score += 2.0
+            # Penalize frequent speakers
+            score -= self._cumulative_speak_counts.get(p.persona.id, 0) * 0.3
+            return score
+
+        remaining.sort(key=_selection_score, reverse=True)
         for participant in remaining:
             if len(chosen) >= target:
                 break
@@ -120,7 +174,18 @@ class Moderator:
                 if len(chosen) >= 3:
                     break
 
-        return chosen[:max_pick]
+        result = chosen[:max_pick]
+
+        # Track cumulative counts
+        this_question_speakers: set[str] = set()
+        for p in result:
+            self._cumulative_speak_counts[p.persona.id] = (
+                self._cumulative_speak_counts.get(p.persona.id, 0) + 1
+            )
+            this_question_speakers.add(p.persona.id)
+        self._recent_question_speakers.append(this_question_speakers)
+
+        return result
 
     @staticmethod
     def _summarize_recent(messages: list[DiscussionMessage]) -> str:

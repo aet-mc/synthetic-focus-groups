@@ -529,6 +529,8 @@ class MockLLMClient(LLMClient):
             return self._mock_question(user_prompt, idx)
         if "Determine whether this participant shifted their opinion" in user_prompt:
             return self._mock_shift(user_prompt)
+        if "classify opinion shifts" in system_prompt.lower():
+            return self._mock_shift(user_prompt)
         return self._mock_response(system_prompt, user_prompt, idx)
 
     async def complete_json(
@@ -607,10 +609,10 @@ class MockLLMClient(LLMClient):
     def _mock_shift(self, prompt: str) -> str:
         lowered = prompt.lower()
         if any(token in lowered for token in ["now i would buy", "changed my mind", "more positive now"]):
-            return '{"changed_mind": true, "new_valence": 0.4}'
+            return '{"reasoning": "Participant shifted positively", "changed_mind": true, "shift_magnitude": "moderate", "new_valence": 0.4}'
         if any(token in lowered for token in ["now i would avoid", "less interested now", "more negative now"]):
-            return '{"changed_mind": true, "new_valence": -0.4}'
-        return '{"changed_mind": false, "new_valence": null}'
+            return '{"reasoning": "Participant shifted negatively", "changed_mind": true, "shift_magnitude": "moderate", "new_valence": -0.4}'
+        return '{"reasoning": "No shift detected", "changed_mind": false, "shift_magnitude": "none", "new_valence": 0.0}'
 
     async def aclose(self) -> None:
         # Mock never allocates network resources.

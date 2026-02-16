@@ -81,16 +81,24 @@ Return only the participant response text.
 
 
 OPINION_SHIFT_DETECTION_PROMPT = """
-Determine whether this participant shifted their opinion.
+Determine whether this participant shifted their opinion compared to their initial stance.
 
 Initial opinion summary:
 {initial_opinion}
-Initial valence: {initial_valence}
+Initial valence (scale -1 to 1): {initial_valence}
 
-New response:
+Recent discussion context (last few messages):
+{discussion_context}
+
+This participant's latest response:
 {response}
 
-Return JSON with keys:
-- changed_mind: boolean
-- new_valence: number in [-1, 1] or null if unchanged
+Instructions:
+1. First reason about whether the participant's stance has shifted from their initial opinion.
+2. Consider: are they using language that contradicts their initial valence? Are they moving toward or away from the product/concept?
+3. Assess magnitude: none, slight, moderate, or significant.
+4. Provide a new_valence float between -1.0 and 1.0 reflecting their CURRENT stance.
+
+Return ONLY valid JSON:
+{{"reasoning": "brief chain-of-thought explanation", "changed_mind": true/false, "shift_magnitude": "none|slight|moderate|significant", "new_valence": float}}
 """.strip()

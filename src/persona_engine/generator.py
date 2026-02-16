@@ -68,4 +68,57 @@ class PersonaGenerator:
         if (product_concept and category) and any(p.opinion_valence is None for p in personas):
             personas = self.opinion_seeder.seed_opinions(personas, product_concept, category)
 
+        # Enforce demographic diversity for large pools
+        self._enforce_large_pool_diversity(personas)
+
         return personas
+
+    def _enforce_large_pool_diversity(self, personas: list[Persona]) -> None:
+        """Ensure age bracket and geographic diversity for large pools."""
+        n = len(personas)
+        if n <= 12:
+            return
+
+        # For n > 12: ensure at least 3 distinct age brackets
+        age_brackets = {self._age_bracket(p.demographics.age) for p in personas}
+        if len(age_brackets) < 3 and n > 12:
+            all_brackets = ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"]
+            missing = [b for b in all_brackets if b not in age_brackets]
+            bracket_ages = {
+                "18-24": 21, "25-34": 30, "35-44": 40,
+                "45-54": 50, "55-64": 60, "65+": 70,
+            }
+            for i, bracket in enumerate(missing):
+                if len(age_brackets) >= 3:
+                    break
+                if i < len(personas):
+                    personas[-(i + 1)].demographics.age = bracket_ages[bracket]
+                    age_brackets.add(bracket)
+
+        # For n > 16: ensure at least 4 distinct geographic regions
+        if n > 16:
+            from .demographics import STATE_REGION
+            regions = {STATE_REGION.get(p.demographics.location.state, "unknown") for p in personas}
+            all_regions = ["west", "south", "northeast", "midwest"]
+            region_states = {"west": "CA", "south": "TX", "northeast": "NY", "midwest": "IL"}
+            missing_regions = [r for r in all_regions if r not in regions]
+            for i, region in enumerate(missing_regions):
+                if len(regions) >= 4:
+                    break
+                if i < len(personas):
+                    personas[-(i + 1)].demographics.location.state = region_states[region]
+                    regions.add(region)
+
+    @staticmethod
+    def _age_bracket(age: int) -> str:
+        if age < 25:
+            return "18-24"
+        if age < 35:
+            return "25-34"
+        if age < 45:
+            return "35-44"
+        if age < 55:
+            return "45-54"
+        if age < 65:
+            return "55-64"
+        return "65+"

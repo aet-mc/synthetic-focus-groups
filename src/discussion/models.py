@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class DiscussionPhase(StrEnum):
@@ -36,6 +36,14 @@ class DiscussionConfig(BaseModel):
     category: str
     stimulus_material: str | None = None
     num_personas: int = 8
+
+    @field_validator("num_personas")
+    @classmethod
+    def _validate_num_personas(cls, v: int) -> int:
+        if v < 4 or v > 48:
+            raise ValueError(f"num_personas must be between 4 and 48, got {v}")
+        return v
+
     phases: list[DiscussionPhase] = Field(
         default_factory=lambda: [
             DiscussionPhase.WARMUP,

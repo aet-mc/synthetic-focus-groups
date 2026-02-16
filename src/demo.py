@@ -24,6 +24,7 @@ async def main() -> None:
     parser.add_argument("--category", default="general", help="Product category")
     parser.add_argument("--output", default="report.html", help="Output HTML file")
     parser.add_argument("--participants", type=int, default=8, help="Number of personas")
+    parser.add_argument("--personas", type=int, default=None, help="Number of personas (alias for --participants)")
     parser.add_argument(
         "--no-transcript",
         action="store_true",
@@ -52,6 +53,10 @@ async def main() -> None:
         help="Random seed for persona generation (for reproducibility)",
     )
     args = parser.parse_args()
+
+    # --personas overrides --participants
+    if args.personas is not None:
+        args.participants = args.personas
 
     # Build LLM client
     if args.mock:

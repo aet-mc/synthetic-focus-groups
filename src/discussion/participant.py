@@ -86,7 +86,17 @@ class Participant:
         )
 
         sentiment = self._sentiment_from_text(response_text)
-        changed_mind = self._heuristic_shift(response_text)
+
+        # Only detect opinion shifts in later phases to save LLM calls
+        shift_phases = {DiscussionPhase.DEEP_DIVE, DiscussionPhase.REACTION, DiscussionPhase.SYNTHESIS}
+        if phase in shift_phases:
+            changed_mind, new_valence = await self._detect_opinion_shift(
+                response_text, discussion_context
+            )
+            if changed_mind and new_valence is not None:
+                self.persona.opinion_valence = new_valence
+        else:
+            changed_mind = False
 
         self.times_spoken += 1
 
@@ -116,23 +126,39 @@ class Participant:
 
         return random.random() < threshold
 
-    async def _detect_opinion_shift(self, response_text: str) -> bool:
+    async def _detect_opinion_shift(
+        self, response_text: str, discussion_context: list[DiscussionMessage]
+    ) -> tuple[bool, float | None]:
+        """Detect opinion shift using LLM with heuristic fallback.
+
+        Returns (changed_mind, new_valence).
+        """
+        recent_messages = discussion_context[-4:]
+        context_text = self._format_context(recent_messages)
+
         prompt = OPINION_SHIFT_DETECTION_PROMPT.format(
             initial_opinion=self.persona.initial_opinion or "No initial opinion",
             initial_valence=self.persona.opinion_valence,
+            discussion_context=context_text,
             response=response_text,
         )
         raw = await self.llm_client.complete(
-            system_prompt="You classify opinion shifts.",
+            system_prompt="You classify opinion shifts. Return only valid JSON.",
             user_prompt=prompt,
             temperature=0.0,
-            max_tokens=60,
+            max_tokens=200,
         )
         try:
             parsed = json.loads(raw)
-            return bool(parsed.get("changed_mind", False))
-        except json.JSONDecodeError:
-            return self._heuristic_shift(response_text)
+            changed = bool(parsed.get("changed_mind", False))
+            new_valence = parsed.get("new_valence")
+            if new_valence is not None:
+                new_valence = max(-1.0, min(1.0, float(new_valence)))
+            return changed, new_valence if changed else None
+        except (json.JSONDecodeError, TypeError, ValueError):
+            # Fallback to heuristic
+            changed = self._heuristic_shift(response_text)
+            return changed, None
 
     def _heuristic_shift(self, response_text: str) -> bool:
         if self.persona.opinion_valence is None:

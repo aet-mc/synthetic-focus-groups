@@ -19,7 +19,23 @@ class DiscussionSimulator:
         self.config = config
         self.llm_client = llm_client or MockLLMClient(model=config.model)
 
+    def _auto_scale_config(self) -> None:
+        """Scale max_responses_per_question and questions_per_phase based on pool size."""
+        n = self.config.num_personas
+        if n <= 8:
+            self.config.max_responses_per_question = 5
+        elif n <= 16:
+            self.config.max_responses_per_question = 7
+        elif n <= 24:
+            self.config.max_responses_per_question = 8
+        else:
+            self.config.max_responses_per_question = 10
+
+        if n >= 16:
+            self.config.questions_per_phase = 3
+
     async def run(self) -> DiscussionTranscript:
+        self._auto_scale_config()
         generator = PersonaGenerator(seed=self.config.seed)
         personas = generator.generate(
             n=self.config.num_personas,
