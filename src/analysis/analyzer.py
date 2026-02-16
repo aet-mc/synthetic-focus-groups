@@ -108,12 +108,21 @@ class AnalysisEngine:
             sentiment=sentiment.model_dump_json(indent=2),
             config=config.model_dump_json(indent=2),
         )
-        return await self.llm.complete_json(
-            system_prompt="You are an expert market research analyst.",
+        raw = await self.llm.complete(
+            system_prompt="You are an expert market research analyst. Write plain text, not JSON.",
             user_prompt=prompt,
             temperature=0.3,
             max_tokens=220,
         )
+        # Strip JSON wrapper if LLM returned one
+        if raw.strip().startswith("{"):
+            try:
+                parsed = json.loads(raw)
+                if isinstance(parsed, dict):
+                    return str(parsed.get("executive_summary", parsed.get("summary", raw)))
+            except json.JSONDecodeError:
+                pass
+        return raw
 
     async def _generate_recommendation(
         self,

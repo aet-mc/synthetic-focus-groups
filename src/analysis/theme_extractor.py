@@ -238,6 +238,7 @@ class ThemeExtractor:
             codes = [str(code) for code in record.get("codes", [])]
             code_map[message_index] = codes
 
+        used_quotes: set[str] = set()
         themes: list[Theme] = []
         for cluster in clustered:
             cluster_codes = {str(code) for code in cluster.get("codes", [])}
@@ -270,12 +271,15 @@ class ThemeExtractor:
                 key = message.phase.value
                 phase_distribution[key] = phase_distribution.get(key, 0) + 1
 
-            quote_candidates = sorted(
+            all_quotes = sorted(
                 {message.content.strip() for message in matched_messages if message.content.strip()},
                 key=lambda quote: len(quote),
                 reverse=True,
             )
-            supporting_quotes = quote_candidates[:5] if quote_candidates else []
+            # Prefer quotes not yet used by other themes
+            unused = [q for q in all_quotes if q not in used_quotes]
+            supporting_quotes = (unused if unused else all_quotes)[:5]
+            used_quotes.update(supporting_quotes)
 
             themes.append(
                 Theme(

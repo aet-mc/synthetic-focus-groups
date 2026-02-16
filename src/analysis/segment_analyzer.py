@@ -44,6 +44,7 @@ class SegmentAnalyzer:
 
         candidate_segments = self._build_segments(personas)
 
+        used_quotes: set[str] = set()
         insights: list[tuple[float, SegmentInsight]] = []
         for segment_name, segment_type, participant_ids in candidate_segments:
             if len(participant_ids) < 2:
@@ -70,7 +71,7 @@ class SegmentAnalyzer:
                 continue
 
             key_themes = self._segment_themes(participant_ids, themes)
-            quote = self._representative_quote(participant_ids, quote_by_participant)
+            quote = self._representative_quote(participant_ids, quote_by_participant, used_quotes)
             difference = self._difference_text(sentiment_delta=sentiment_delta, purchase_delta=purchase_delta)
 
             insight = SegmentInsight(
@@ -175,7 +176,7 @@ class SegmentAnalyzer:
         ]
         if not values:
             return 0.0
-        top_two = sum(1 for value in values if value >= 4.0)
+        top_two = sum(1 for value in values if value >= 3.5)
         return top_two / len(values)
 
     @staticmethod
@@ -190,11 +191,25 @@ class SegmentAnalyzer:
         return [name for _, name in ranked[:3]]
 
     @staticmethod
-    def _representative_quote(participant_ids: list[str], quote_by_participant: dict[str, str]) -> str:
+    def _representative_quote(
+        participant_ids: list[str],
+        quote_by_participant: dict[str, str],
+        used_quotes: set[str] | None = None,
+    ) -> str:
         candidates = [quote_by_participant[pid] for pid in participant_ids if pid in quote_by_participant]
         if not candidates:
             return "No representative quote available."
-        return max(candidates, key=len)
+        # Prefer quotes not yet used by other segments
+        if used_quotes:
+            unused = [q for q in candidates if q not in used_quotes]
+            if unused:
+                chosen = max(unused, key=len)
+                used_quotes.add(chosen)
+                return chosen
+        chosen = max(candidates, key=len)
+        if used_quotes is not None:
+            used_quotes.add(chosen)
+        return chosen
 
     @staticmethod
     def _difference_text(sentiment_delta: float, purchase_delta: float) -> str | None:

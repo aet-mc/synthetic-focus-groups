@@ -51,6 +51,7 @@ ignore = ["E501"]
 
 [tool.ruff.lint.per-file-ignores]
 "src/demo.py" = ["E402"]
+"src/debug_scores.py" = ["E402", "F541", "I001"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
