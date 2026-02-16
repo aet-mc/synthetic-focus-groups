@@ -78,7 +78,7 @@ class LLMClient:
         model: str | None = None,
         api_key: str | None = None,
         http_client=None,
-        requests_per_second: int = 4,
+        requests_per_second: int = 2,
         rate_limit_period: float = 1.0,
         circuit_failure_threshold: int = 5,
         circuit_recovery_seconds: float = 30.0,
@@ -408,7 +408,7 @@ class LLMClient:
         return self._shared_client
 
     @staticmethod
-    def _compute_backoff(attempt: int, cap: float = 60.0) -> float:
+    def _compute_backoff(attempt: int, cap: float = 15.0) -> float:
         base = min(2 ** attempt * 1.5, cap)
         # deterministic jitter by attempt index to avoid lockstep retries
         jitter = 0.2 * (attempt + 1)
