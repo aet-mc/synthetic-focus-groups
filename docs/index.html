@@ -510,7 +510,9 @@
     <h2>Get early access to QuorumEdge</h2>
     <p>We're onboarding pilot customers now. Drop your email and we'll reach out when your spot opens.</p>
     <form class="wl-form" id="waitlistForm" onsubmit="return handleWaitlist(event)">
-      <input type="email" name="email" placeholder="you@company.com" required>
+      <input type="email" name="email" placeholder="Work email" required>
+      <input type="text" name="name" placeholder="Full name">
+      <input type="text" name="company" placeholder="Company (optional)">
       <button type="submit" class="btn-primary">Join Waitlist</button>
     </form>
     <div id="wl-success">✓ You're on the list. We'll be in touch.</div>
@@ -531,22 +533,20 @@ async function handleWaitlist(e) {
   e.preventDefault();
   const form = e.target;
   const email = form.querySelector('input[name="email"]').value;
-  const data = { email, source: 'landing_page', submitted_at: new Date().toISOString() };
+  const name = form.querySelector('input[name="name"]');
+  const company = form.querySelector('input[name="company"]');
 
-  // Submit to Google Forms
   try {
-    const formUrl = 'https://docs.google.com/forms/d/e/WAITLIST_FORM_ID/formResponse';
+    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSf1FAht680vOzGdi6T-ayGtsxk4ihMrwRAKZNOCOo7yI0Yp9w/formResponse';
     const fd = new FormData();
-    fd.append('entry.WAITLIST_ENTRY_ID', JSON.stringify(data));
+    fd.append('entry.2011484134', email);
+    fd.append('entry.13674712', name ? name.value : '');
+    fd.append('entry.1227378981', company ? company.value : '');
+    fd.append('entry.1784574538', '');
+    fd.append('entry.1296747860', 'Company Website/Blog');
     fetch(formUrl, { method: 'POST', body: fd, mode: 'no-cors' });
-  } catch(e) {}
+  } catch(err) {}
 
-  // Also store locally
-  const existing = JSON.parse(localStorage.getItem('qe_waitlist') || '[]');
-  existing.push(data);
-  localStorage.setItem('qe_waitlist', JSON.stringify(existing));
-
-  // Show success
   form.style.display = 'none';
   document.getElementById('wl-success').style.display = 'block';
   return false;
